@@ -5,6 +5,12 @@ package com.example.clientprototype;
 //import com.dm.zbar.android.scanner.ZBarScannerActivity;
 //import net.sourceforge.zbar.Symbol;
 
+import com.example.clientprototype.R;
+import com.example.clientprototype.R.id;
+import com.example.clientprototype.R.layout;
+import com.example.clientprototype.R.menu;
+import com.example.clientprototype.menu.TempMenu;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -77,9 +83,8 @@ public class MenuActivity extends Activity implements OnClickListener {
    
 
     private void showMenu() {
-        Intent launchGame = new Intent(this, TempMenu.class);
- 
-        startActivityForResult(launchGame,0);
+        Intent launchMenu = new Intent(this, TempMenu.class);
+        startActivity(launchMenu);
     }
 		
 }

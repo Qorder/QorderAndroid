@@ -1,21 +1,27 @@
 package com.example.clientalphaprototype;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class Categories extends Activity {
 	ListView categories_listView;
 	String[] categories;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_categories);
 
@@ -23,13 +29,28 @@ public class Categories extends Activity {
 
 		setCategories();
 
+		initializeActionBar();
 		initializeArrayAdapter();
 	}
 
+	void initializeActionBar()
+	{
+		  ActionBar actionBar = getActionBar();
+
+		    actionBar.setCustomView(R.layout.actionbar_view);
+		    actionBar.setDisplayShowCustomEnabled(true);
+		    actionBar.getCustomView().setOnClickListener(new OnClickListener() {
+		        @Override
+		        public void onClick(View view) {
+					Intent i = new Intent(getApplicationContext(), Basket.class);
+					startActivity(i);
+		        }
+		    });
+		    actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+	}
+	
 	void initializeArrayAdapter() {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				categories);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1,categories);
 
 		// Assign adapter to ListView
 		categories_listView.setAdapter(adapter);

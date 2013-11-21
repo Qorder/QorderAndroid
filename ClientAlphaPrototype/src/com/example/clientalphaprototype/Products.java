@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -35,8 +37,24 @@ public class Products extends Activity {
 		}
 
 		setProducts(category);
-
+		initializeActionBar();
 		initializeArrayAdapter();
+	}
+	
+	void initializeActionBar()
+	{
+		  ActionBar actionBar = getActionBar();
+
+		    actionBar.setCustomView(R.layout.actionbar_view);
+		    actionBar.setDisplayShowCustomEnabled(true);
+		    actionBar.getCustomView().setOnClickListener(new OnClickListener() {
+		        @Override
+		        public void onClick(View view) {
+					Intent i = new Intent(getApplicationContext(), Basket.class);
+					startActivity(i);
+		        }
+		    });
+		    actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
 	}
 
 	void initializeArrayAdapter() {
@@ -45,10 +63,8 @@ public class Products extends Activity {
 				android.R.layout.simple_list_item_1, android.R.id.text1,
 				products);
 
-		// Assign adapter to ListView
 		products_listview.setAdapter(adapter);
 
-		// ListView Item Click Listener
 		products_listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,

@@ -34,6 +34,10 @@
             android:name="com.example.clientalphaprototype.Details"
             android:label="details" >
         </activity>
+        <activity
+            android:name="com.example.clientalphaprototype.Basket"
+            android:label="@string/title_activity_basket" >
+        </activity>
     </application>
 
 </manifest>

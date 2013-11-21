@@ -52,10 +52,8 @@ public class Categories extends Activity {
 	void initializeArrayAdapter() {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1,categories);
 
-		// Assign adapter to ListView
 		categories_listView.setAdapter(adapter);
 
-		// ListView Item Click Listener
 		categories_listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

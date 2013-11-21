@@ -1,22 +1,26 @@
 package com.example.clientalphaprototype;
 
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class Details extends Activity {
 
+	OrderHolder orderHolder = new OrderHolder();
+	String title;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-		
-		String title = "title";
+
+		title = "title";
 
 		Bundle extras = getIntent().getExtras();
 
@@ -26,6 +30,14 @@ public class Details extends Activity {
 		initializeActionBar();
 		ParseJson(title);		
 		
+		Button button_addToBasket = (Button)findViewById(R.id.button_addToBasket);
+
+		button_addToBasket.setOnClickListener(new OnClickListener() {
+		    public void onClick(View v)
+		    {
+		        orderHolder.add(title);
+		    } 
+		});
 	}
 	
 	void initializeActionBar()

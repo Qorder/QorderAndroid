@@ -9,6 +9,13 @@
         android:targetSdkVersion="18" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    
+    <instrumentation android:targetPackage="com.example.clientalphaprototype" android:name="android.test.InstrumentationTestRunner"></instrumentation>
+
+    
 
     <application
         android:allowBackup="true"
@@ -44,6 +51,7 @@
             android:screenOrientation="landscape"
         	android:label="@string/app_name" >
         </activity>
+        <uses-library android:name="android.test.runner" />
     </application>
 
 </manifest>

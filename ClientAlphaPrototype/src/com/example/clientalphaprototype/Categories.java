@@ -1,5 +1,11 @@
 package com.example.clientalphaprototype;
 
+import java.util.Iterator;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -71,6 +77,7 @@ public class Categories extends Activity {
 	// Parse Json to set the categories
 	void setCategories() {
 		categories = new String[] { "Food", "Drinks" };
+		
 	}
 
 	@Override

@@ -1,13 +1,9 @@
 package com.example.clientalphaprototype.activitytests;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.example.clientalphaprototype.ScanActivity;
-import com.example.clientalphaprototype.model.Business;
 
 import android.test.ActivityInstrumentationTestCase2;
-import junit.framework.TestCase;
+
 
 public class ScanActivityTest extends ActivityInstrumentationTestCase2<ScanActivity> {
 	
@@ -27,14 +23,6 @@ public class ScanActivityTest extends ActivityInstrumentationTestCase2<ScanActiv
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
-	}
-
-	public void testJsonParser() throws MalformedURLException {
-		String url = ("http://83.212.118.113/mockBussinessJson.json");
-        boolean event ;
-	    event = mScanActivity.JsonParser(url);
-	    assertTrue(event);
-	    
 	}
 	
 	public void testisCameraAvailable() {	

@@ -1,10 +1,14 @@
 package com.example.clientalphaprototype;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -14,26 +18,36 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.clientalphaprototype.swipe.SwipeDismissListViewTouchListener;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.example.clientalphaprototype.customviews.BasketCustomList;
+import com.example.clientalphaprototype.model.BasketProduct;
+import com.example.clientalphaprototype.model.OrderHolder;
 
-public class Basket extends Activity {
+public class BasketActivity extends Activity {
 
 	ListView listView;
-	List<String> products;
 	OrderHolder orderHolder = new OrderHolder();
-	ArrayAdapter<String> adapter;
+	List<BasketProduct> order;
+	BasketCustomList adapter;
+	final String currencySign = "€";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basket);
+		
+		order = orderHolder.getOrder();
 
-		listView = (ListView) findViewById(android.R.id.list);
-		products = new ArrayList<String>();
-		setProducts();
+		listView = (ListView) findViewById(R.layout.basket_listview);
 
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				products);
+		initializeArrayAdapter();
+
+	}
+
+	void initializeArrayAdapter() {
+
+		adapter = new BasketCustomList(this, getProductNames(),getProductNotes(), getProductPrices());
 
 		listView.setAdapter(adapter);
 
@@ -42,9 +56,9 @@ public class Basket extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				String product = (String) listView
-						.getItemAtPosition(position);
-				Intent i = new Intent(getApplicationContext(), Details.class);
+				String product = (String) listView.getItemAtPosition(position);
+				Intent i = new Intent(getApplicationContext(),
+						DetailsActivity.class);
 				i.putExtra("product", product);
 				startActivity(i);
 			}
@@ -69,13 +83,36 @@ public class Basket extends Activity {
 				});
 		listView.setOnTouchListener(touchListener);
 		listView.setOnScrollListener(touchListener.makeScrollListener());
-
 	}
 
-	// TODO: review this function
-	/*
-	 * @Override public void onBackPressed() { orderHolder.replace(products); }
-	 */
+	List<String> getProductNames() {
+
+		List<String> productNames = new ArrayList<String>();
+		for (BasketProduct product : order) {
+			productNames.add(product.getName());
+		}
+
+		return productNames;
+	}
+
+	List<String> getProductNotes() {
+
+		List<String> productNotes = new ArrayList<String>();
+		for (BasketProduct product : order) {
+			productNotes.add(product.getNotes());
+		}
+
+		return productNotes;
+	}
+
+	List<String> getProductPrices() {
+		List<String> productValues = new ArrayList<String>();
+		for (BasketProduct product : order) {
+			productValues.add(product.getPrice().toString() + currencySign);
+		}
+
+		return productValues;
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,8 +121,5 @@ public class Basket extends Activity {
 		return true;
 	}
 
-	void setProducts() {
-		products = orderHolder.getOrder();
-	}
 
 }

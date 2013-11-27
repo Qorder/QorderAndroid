@@ -32,19 +32,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.Categories"
+            android:name="com.example.clientalphaprototype.CategoriesActivity"
             android:label="categories" >
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.Products"
+            android:name="com.example.clientalphaprototype.ProductsActivity"
             android:label="products" >
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.Details"
+            android:name="com.example.clientalphaprototype.DetailsActivity"
             android:label="details" >
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.Basket"
+            android:name="com.example.clientalphaprototype.BasketActivity"
             android:label="@string/title_activity_basket" >
         </activity>
         <activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"

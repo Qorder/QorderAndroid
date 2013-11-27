@@ -31,10 +31,10 @@ public class ScanActivityTest extends ActivityInstrumentationTestCase2<ScanActiv
         assertTrue(event);
 	}
 	
-	public void testisNetworkAvailable() {
+	/*public void testisNetworkAvailable() {
         boolean event ;
         event = mScanActivity.isNetworkAvailable();
         assertTrue(event);
-	}
+	}*/
 
 }

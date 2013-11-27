@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -36,18 +38,45 @@ public class BasketActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basket);
-		
+
+		initializeBasket();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		initializeBasket();
+	}
+
+	void initializeBasket() {
 		order = orderHolder.getOrder();
 
-		listView = (ListView) findViewById(R.layout.basket_listview);
+		listView = (ListView) findViewById(R.id.basket_list);
 
+		initializeActionBar();
 		initializeArrayAdapter();
+	}
 
+	void initializeActionBar() {
+		ActionBar actionBar = getActionBar();
+
+		actionBar.setCustomView(R.layout.actionbar_submit_view);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.getCustomView().setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				;
+				// TODO: send json
+			}
+		});
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
+				| ActionBar.DISPLAY_SHOW_HOME);
 	}
 
 	void initializeArrayAdapter() {
 
-		adapter = new BasketCustomList(this, getProductNames(),getProductNotes(), getProductPrices());
+		adapter = new BasketCustomList(this, getProductNames(),
+				getProductNotes(), getProductPrices());
 
 		listView.setAdapter(adapter);
 
@@ -56,10 +85,10 @@ public class BasketActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				String product = (String) listView.getItemAtPosition(position);
 				Intent i = new Intent(getApplicationContext(),
 						DetailsActivity.class);
-				i.putExtra("product", product);
+				i.putExtra("product", order.get(position).getId());
+				i.putExtra("notes", order.get(position).getNotes());
 				startActivity(i);
 			}
 		});
@@ -77,6 +106,8 @@ public class BasketActivity extends Activity {
 							int[] reverseSortedPositions) {
 						for (int position : reverseSortedPositions) {
 							adapter.remove(adapter.getItem(position));
+							order.remove(position);
+							adapter.setItems(getProductNames(), getProductNotes(), getProductPrices());
 						}
 						adapter.notifyDataSetChanged();
 					}
@@ -120,6 +151,5 @@ public class BasketActivity extends Activity {
 		getMenuInflater().inflate(R.menu.basket, menu);
 		return true;
 	}
-
 
 }

@@ -14,13 +14,17 @@ import android.widget.TextView;
 public class BasketCustomList extends ArrayAdapter<String> {
 
 	private final Activity context;
-	private final List<String> title;
-	private final List<String> notes;
-	private final List<String> price;
+	private List<String> title;
+	private List<String> notes;
+	private List<String> price;
 
 	public BasketCustomList(Activity context, List<String> title,List<String> notes, List<String> price) {
 		super(context, R.layout.basket_listview, title);
 		this.context = context;
+		setItems(title,notes,price);
+	}
+	
+	public void setItems(List<String> title,List<String> notes, List<String> price) {
 		this.notes = notes;
 		this.title = title;
 		this.price = price;

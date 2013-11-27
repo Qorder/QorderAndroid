@@ -10,8 +10,9 @@
         android:layout_alignLeft="@+id/large_txt"
         android:layout_below="@+id/large_txt"
         android:ellipsize="marquee"
+        android:gravity="left"
         android:singleLine="true"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/large_txt"
@@ -21,12 +22,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:gravity="center_vertical"
-        android:textSize="17sp" />
-    
-        <TextView
+        android:textSize="20sp" />
+
+    <TextView
         android:id="@+id/price_txt"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp" />
+        android:layout_height="26dip"
+        android:layout_alignLeft="@+id/small_txt"
+        android:layout_below="@+id/large_txt"
+        android:gravity="right"
+        android:textSize="14sp" />
 
 </RelativeLayout>

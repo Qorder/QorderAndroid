@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.clientalphaprototype.model.Category;
+import com.example.clientalphaprototype.model.OrderHolder;
 import com.example.clientalphaprototype.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -22,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,6 +52,12 @@ public class CategoriesActivity extends Activity {
 		initializeArrayAdapter();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setBasketTitle();
+	}
+	
 	void parseJson(String url)
 	{
 		if (isNetworkAvailable()) {
@@ -77,8 +85,8 @@ public class CategoriesActivity extends Activity {
 	//TODO: remove after debugging
 	void createMockCategories()
 	{
-		categories.add(new Category(1,"Food"));
-		categories.add(new Category(2,"Drinks"));
+		categories.add(new Category(1,"Food","example uri"));
+		categories.add(new Category(2,"Drinks","example uri"));
 	}
 	
 	void initializeActionBar()
@@ -87,6 +95,9 @@ public class CategoriesActivity extends Activity {
 
 		    actionBar.setCustomView(R.layout.actionbar_view);
 		    actionBar.setDisplayShowCustomEnabled(true);
+		    
+		    setBasketTitle();
+		    
 		    actionBar.getCustomView().setOnClickListener(new OnClickListener() {
 		        @Override
 		        public void onClick(View view) {
@@ -95,6 +106,16 @@ public class CategoriesActivity extends Activity {
 		        }
 		    });
 		    actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+	}
+	
+	void setBasketTitle()
+	{
+	    Button testButton = (Button) findViewById(R.id.basket_button);
+	    int basketSum = OrderHolder.count();
+	    if(basketSum != 0)
+	    {
+	    	testButton.setText("Basket x"+ basketSum );
+	    }
 	}
 	
 	void initializeArrayAdapter() {
@@ -108,7 +129,7 @@ public class CategoriesActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent i = new Intent(getApplicationContext(), ProductsActivity.class);
-				i.putExtra("category",categories.get(position).getId());
+				i.putExtra("category",categories.get(position).getUri());
 				startActivity(i);
 			}
 		});

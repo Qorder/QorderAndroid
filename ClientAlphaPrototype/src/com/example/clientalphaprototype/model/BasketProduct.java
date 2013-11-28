@@ -8,8 +8,8 @@ public class BasketProduct extends Product {
 	
 	@JsonProperty("notes") private String notes;
 
-	public BasketProduct(long id, String name, BigDecimal price, String notes) {
-		super(id, name, price);
+	public BasketProduct(long id, String name, BigDecimal price, String notes,String uri) {
+		super(id, name, price,uri);
 		this.notes = notes;
 	}
 

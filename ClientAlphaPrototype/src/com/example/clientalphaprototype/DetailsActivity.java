@@ -33,7 +33,6 @@ public class DetailsActivity extends Activity {
 
 	OrderHolder orderHolder = new OrderHolder();
 	DetailedProduct product;
-	final String wsURL = "ws/menus/category?id=";
 	final String currencySign = "€";
 	String notes;
 
@@ -46,9 +45,8 @@ public class DetailsActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-			long id = extras.getLong("product");
 			notes = extras.getString("notes");
-			parseJson(wsURL + id);
+			parseJson(extras.getString("product"));
 		} else
 			parseJson("mockURL");
 
@@ -64,7 +62,8 @@ public class DetailsActivity extends Activity {
 				EditText mEdit = (EditText) findViewById(R.id.editText_notes);
 				orderHolder.add(new BasketProduct(product.getId(), product
 						.getName(), product.getPrice(), mEdit.getText()
-						.toString()));
+						.toString(),product.getUri()));
+				setBasketTitle();
 			}
 		});
 	}
@@ -93,11 +92,28 @@ public class DetailsActivity extends Activity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setBasketTitle();
+	}
+	
+	void setBasketTitle()
+	{
+	    Button testButton = (Button) findViewById(R.id.basket_button);
+	    int basketSum = OrderHolder.count();
+	    if(basketSum != 0)
+	    {
+	    	testButton.setText("Basket x"+ basketSum );
+	    }
+	}
+	
 	void initializeActionBar() {
 		ActionBar actionBar = getActionBar();
 
 		actionBar.setCustomView(R.layout.actionbar_view);
 		actionBar.setDisplayShowCustomEnabled(true);
+		setBasketTitle();
 		actionBar.getCustomView().setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -150,7 +166,7 @@ public class DetailsActivity extends Activity {
 		List<String> attributes = new ArrayList<String>();
 		attributes.add("Some attribute");
 		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
-				"your notes here", attributes);
+				"your notes here", attributes,"example uri");
 	}
 
 	@Override

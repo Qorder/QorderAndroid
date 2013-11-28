@@ -1,5 +1,6 @@
 package com.example.clientalphaprototype;
 
+import com.example.clientalphaprototype.model.OrderHolder;
 import com.example.clientalphaprototype.model.Product;
 import com.example.clientalphaprototype.util.JsonUtil;
 
@@ -24,13 +25,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ProductsActivity extends Activity {
 
-	final String wsURL = "ws/menus/category?id=";
 	final String currencySign = "€";
 	ListView products_listview;
 	List<Product> products;
@@ -46,8 +47,7 @@ public class ProductsActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-			long id = extras.getLong("category");
-			parseJson(wsURL + id);
+			parseJson(extras.getString("category"));
 		} else
 			parseJson("mockURL");
 
@@ -55,11 +55,28 @@ public class ProductsActivity extends Activity {
 		initializeArrayAdapter();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setBasketTitle();
+	}
+	
+	void setBasketTitle()
+	{
+	    Button testButton = (Button) findViewById(R.id.basket_button);
+	    int basketSum = OrderHolder.count();
+	    if(basketSum != 0)
+	    {
+	    	testButton.setText("Basket x"+ basketSum );
+	    }
+	}
+	
 	void initializeActionBar() {
 		ActionBar actionBar = getActionBar();
 
 		actionBar.setCustomView(R.layout.actionbar_view);
 		actionBar.setDisplayShowCustomEnabled(true);
+		setBasketTitle();
 		actionBar.getCustomView().setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -85,7 +102,7 @@ public class ProductsActivity extends Activity {
 					int position, long id) {
 				Intent i = new Intent(getApplicationContext(),
 						DetailsActivity.class);
-				i.putExtra("product", products.get(position).getId());
+				i.putExtra("product", products.get(position).getUri());
 				startActivity(i);
 			}
 		});
@@ -148,9 +165,9 @@ public class ProductsActivity extends Activity {
 	// TODO: remove after debugging
 	void createMockProducts() {
 		
-		products.add(new Product(1, "Food1", BigDecimal.valueOf(1.99)));
-		products.add(new Product(2, "Food2", BigDecimal.valueOf(2.99)));
-		products.add(new Product(3, "Food3", BigDecimal.valueOf(5.99)));
+		products.add(new Product(1, "Food1", BigDecimal.valueOf(1.99),"example uri"));
+		products.add(new Product(2, "Food2", BigDecimal.valueOf(2.99),"example uri"));
+		products.add(new Product(3, "Food3", BigDecimal.valueOf(5.99),"example uri"));
 	}
 
 	@Override

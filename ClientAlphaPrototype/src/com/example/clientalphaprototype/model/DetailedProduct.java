@@ -9,8 +9,8 @@ public class DetailedProduct extends BasketProduct {
 	@JsonProperty("attributes") private List<String> attributes;
 
 	public DetailedProduct(long id, String name, BigDecimal price,
-			String notes, List<String> attributes) {
-		super(id, name, price, notes);
+			String notes, List<String> attributes,String uri) {
+		super(id, name, price, notes,uri);
 		this.attributes = attributes;
 	}
 

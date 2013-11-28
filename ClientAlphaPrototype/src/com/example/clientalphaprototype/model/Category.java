@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Category {
 	
 	@JsonProperty("id") private long id;
-	@JsonProperty("tableNumber") private String name;
+	@JsonProperty("name") private String name;
+	@JsonProperty("uri") private String uri;
 	
-	public Category(long id, String name) {
+	public Category(long id, String name,String uri) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.uri = uri;
 	}
 	
 	public long getId() {
@@ -24,5 +26,13 @@ public class Category {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 }

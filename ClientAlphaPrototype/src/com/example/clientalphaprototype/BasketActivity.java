@@ -87,7 +87,7 @@ public class BasketActivity extends Activity {
 					int position, long id) {
 				Intent i = new Intent(getApplicationContext(),
 						DetailsActivity.class);
-				i.putExtra("product", order.get(position).getId());
+				i.putExtra("product", order.get(position).getUri());
 				i.putExtra("notes", order.get(position).getNotes());
 				startActivity(i);
 			}

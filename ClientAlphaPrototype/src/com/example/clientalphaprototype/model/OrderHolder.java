@@ -20,5 +20,10 @@ public class OrderHolder {
         public List<BasketProduct> getOrder() {
                 return order;
         }
+        
+        static public int count()
+        {
+        	return order.size();
+        }
 
 }

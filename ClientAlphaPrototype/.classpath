@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="libs/armeabi"/>
 	<classpathentry kind="src" path="libs/armeabi-v7a"/>
 	<classpathentry kind="src" path="libs/x86"/>
+	<classpathentry kind="src" path="ui_tests"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>

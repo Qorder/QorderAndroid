@@ -1,6 +1,7 @@
 package com.example.clientalphaprototype;
 
 import java.io.IOException;
+import java.util.List;
 
 import net.sourceforge.zbar.Symbol;
 import android.app.Activity;
@@ -20,12 +21,15 @@ import android.widget.Toast;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
+import com.example.clientalphaprototype.model.Category;
 import com.example.clientalphaprototype.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class ScanActivity extends Activity {
 	private static final int ZBAR_SCANNER_REQUEST = 0;
+	List<Category> categories;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

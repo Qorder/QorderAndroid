@@ -30,11 +30,5 @@ public class ScanActivityTest extends ActivityInstrumentationTestCase2<ScanActiv
         event = mScanActivity.isCameraAvailable();
         assertTrue(event);
 	}
-	
-	/*public void testisNetworkAvailable() {
-        boolean event ;
-        event = mScanActivity.isNetworkAvailable();
-        assertTrue(event);
-	}*/
 
 }

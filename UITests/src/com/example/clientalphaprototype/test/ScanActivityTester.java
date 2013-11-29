@@ -2,7 +2,6 @@ package com.example.clientalphaprototype.test;
 
 import android.content.Intent;
 import android.widget.Button;
-
 import com.example.clientalphaprototype.*;
 
 public class ScanActivityTester extends
@@ -46,4 +45,5 @@ public class ScanActivityTester extends
 		assertEquals("Incorrect data passed via the intent",
 				"webServiceCategoriesURI", data);
 	}
+
 }

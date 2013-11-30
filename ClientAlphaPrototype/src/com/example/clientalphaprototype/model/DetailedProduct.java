@@ -17,6 +17,11 @@ public class DetailedProduct extends BasketProduct {
 		this.attributes = attributes;
 	}
 
+	public DetailedProduct() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public DetailedProduct(long id, String name, BigDecimal price,
 			String notes, String uri) {
 		super(id, name, price, notes, uri);
@@ -35,4 +40,6 @@ public class DetailedProduct extends BasketProduct {
 	public void setAttributes(List<String> attributes) {
 		this.attributes = attributes;
 	}
+
+
 }

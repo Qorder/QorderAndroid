@@ -1,6 +1,7 @@
 package com.example.clientalphaprototype.util;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 public class JsonUtil {
 
@@ -17,6 +20,11 @@ public class JsonUtil {
 
 	public static <T> T JsonToPojoParser(String url, Class<?> target) throws JsonParseException, JsonMappingException, IOException, ClassNotFoundException {
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		
+		/*SimpleModule module = new SimpleModule();
+		module.addSerializer(BigInteger.class, new ToStringSerializer());
+		mapper.registerModule(module);*/
+		
 		URL jsonurl = new URL(url);
 		return mapper.readValue(jsonurl, mapper.getTypeFactory().constructCollectionType(List.class, Class.forName(target.getName())));
 	}

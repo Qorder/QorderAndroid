@@ -43,8 +43,8 @@ public class Product {
 		return name;
 	}
 
-	public void setName(String uri) {
-		this.uri = uri;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getUri() {

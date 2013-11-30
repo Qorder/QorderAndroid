@@ -15,6 +15,11 @@ public class BasketProduct extends Product {
 		this.notes = notes;
 	}
 
+	public BasketProduct() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public BasketProduct(long id, String name, BigDecimal price, String uri) {
 		super(id, name, price, uri);
 		// TODO Auto-generated constructor stub
@@ -27,5 +32,7 @@ public class BasketProduct extends Product {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+
+
 	
 }

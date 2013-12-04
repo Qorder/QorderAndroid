@@ -20,21 +20,14 @@ public class JsonUtil {
 
 	public static <T> T JsonToPojoParser(String url, Class<?> target) throws JsonParseException, JsonMappingException, IOException, ClassNotFoundException {
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		
-		/*SimpleModule module = new SimpleModule();
-		module.addSerializer(BigInteger.class, new ToStringSerializer());
-		mapper.registerModule(module);*/
-		
 		URL jsonurl = new URL(url);
+		
 		return mapper.readValue(jsonurl, mapper.getTypeFactory().constructCollectionType(List.class, Class.forName(target.getName())));
 	}
 
-
 	public static String PojoToJsonParser(List<?> target) throws JsonProcessingException{
-
 		JsonString = mapper.writeValueAsString(target); 
+		
 		return JsonString;
-
-		//return mapper.writeValue(json,mapper.getTypeFactory().constructCollectionType(List.class,Class.forName(target.getName())));
 	}
 }

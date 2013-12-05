@@ -23,31 +23,35 @@ public final class R {
     public static final class drawable {
         public static final int basket=0x7f020000;
         public static final int ic_launcher=0x7f020001;
+        public static final int image1=0x7f020002;
+        public static final int image2=0x7f020003;
+        public static final int image3=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
+        public static final int action_settings=0x7f080010;
         public static final int basket_button=0x7f080001;
         public static final int basket_list=0x7f080002;
         public static final int button1=0x7f080000;
-        public static final int button_addToBasket=0x7f080008;
-        public static final int button_scan=0x7f08000c;
+        public static final int button_addToBasket=0x7f080007;
+        public static final int button_scan=0x7f08000d;
         public static final int categories_listview=0x7f080003;
-        public static final int editText_notes=0x7f080009;
-        public static final int large_txt=0x7f08000e;
+        public static final int editText_notes=0x7f080006;
+        public static final int large_txt=0x7f08000f;
         public static final int pager=0x7f080004;
-        public static final int price_txt=0x7f08000a;
-        public static final int product_Img=0x7f080005;
-        public static final int products_listview=0x7f08000b;
-        public static final int small_txt=0x7f08000d;
-        public static final int textView_description=0x7f080007;
-        public static final int textView_title=0x7f080006;
+        public static final int price_txt=0x7f08000b;
+        public static final int products_gallery=0x7f080005;
+        public static final int products_imageview=0x7f080008;
+        public static final int products_listview=0x7f08000c;
+        public static final int small_txt=0x7f08000e;
+        public static final int textView_description=0x7f08000a;
+        public static final int textView_title=0x7f080009;
     }
     public static final class layout {
         public static final int actionbar_submit_view=0x7f030000;
         public static final int actionbar_view=0x7f030001;
         public static final int activity_basket=0x7f030002;
         public static final int activity_categories=0x7f030003;
-        public static final int activity_details=0x7f030004;
+        public static final int activity_productdetails=0x7f030004;
         public static final int activity_products=0x7f030005;
         public static final int activity_scan=0x7f030006;
         public static final int basket_listview=0x7f030007;

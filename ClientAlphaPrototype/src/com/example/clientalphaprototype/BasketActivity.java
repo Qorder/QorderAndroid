@@ -22,7 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.example.clientalphaprototype.swipe.SwipeDismissListViewTouchListener;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.example.clientalphaprototype.customviews.BasketCustomList;
+import com.example.clientalphaprototype.adapters.BasketCustomList;
 import com.example.clientalphaprototype.model.BasketProduct;
 import com.example.clientalphaprototype.model.OrderHolder;
 

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.clientalphaprototype.adapters.DetailsImageAdapter;
 import com.example.clientalphaprototype.model.BasketProduct;
 import com.example.clientalphaprototype.model.DetailedProduct;
 import com.example.clientalphaprototype.model.OrderHolder;
@@ -23,8 +24,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +38,19 @@ public class DetailsActivity extends Activity {
 	OrderHolder orderHolder = new OrderHolder();
 	DetailedProduct product;
 	final String currencySign = "€";
+	ImageView currentImage;  
 	String notes;
 
+	private Integer[] imgIds = {
+               R.drawable.image1,
+               R.drawable.image2,
+               R.drawable.image3,
+       };
+	   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_details);
+		setContentView(R.layout.activity_productdetails);
 
 		notes = null;
 		Bundle extras = getIntent().getExtras();
@@ -68,6 +79,7 @@ public class DetailsActivity extends Activity {
 		});
 	}
 
+	@SuppressWarnings("deprecation")
 	void initializeView() {
 		EditText mEdit = (EditText) findViewById(R.id.editText_notes);
 		
@@ -86,8 +98,18 @@ public class DetailsActivity extends Activity {
 		// TODO: review
 		description.setText(product.getAttributes().get(0));
 
+		Gallery gallery = (Gallery) findViewById(R.id.products_gallery);
+        gallery.setSpacing(1);
+        gallery.setAdapter(new DetailsImageAdapter(this));
+        currentImage=(ImageView)findViewById(R.id.products_imageview);
+        gallery.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                currentImage.setImageResource(imgIds[position]);
+            }
+         });
+     
 		// TODO: review
-		ImageView img = (ImageView) findViewById(R.id.product_Img);
+		//ImageView img = (ImageView) findViewById(R.id.product_Img);
 		// img.setImageResource("uri");
 
 	}
@@ -164,7 +186,8 @@ public class DetailsActivity extends Activity {
 
 	void createMockProduct() {
 		List<String> attributes = new ArrayList<String>();
-		attributes.add("Some attribute");
+		attributes.add("Some attribute...");
+
 		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
 				"your notes here", attributes,"example uri");
 	}
@@ -177,3 +200,4 @@ public class DetailsActivity extends Activity {
 	}
 
 }
+

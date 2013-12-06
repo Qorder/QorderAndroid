@@ -22,6 +22,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -38,15 +39,10 @@ public class DetailsActivity extends Activity {
 	OrderHolder orderHolder = new OrderHolder();
 	DetailedProduct product;
 	final String currencySign = "€";
-	ImageView currentImage;  
+	ImageView currentImage;
 	String notes;
+	List<Integer> imgIds;
 
-	private Integer[] imgIds = {
-               R.drawable.image1,
-               R.drawable.image2,
-               R.drawable.image3,
-       };
-	   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,6 +50,8 @@ public class DetailsActivity extends Activity {
 
 		notes = null;
 		Bundle extras = getIntent().getExtras();
+
+		imgIds = new ArrayList<Integer>();
 
 		if (extras != null) {
 			notes = extras.getString("notes");
@@ -73,15 +71,27 @@ public class DetailsActivity extends Activity {
 				EditText mEdit = (EditText) findViewById(R.id.editText_notes);
 				orderHolder.add(new BasketProduct(product.getId(), product
 						.getName(), product.getPrice(), mEdit.getText()
-						.toString(),product.getUri()));
+						.toString(), product.getUri()));
 				setBasketTitle();
 			}
 		});
 	}
 
+	//TODO: encapsulate this in an image parsing class and share it with the gallery widget
+	void initializeImages() {
+    	for(int i=0;i<3;i++)
+    	{
+    		imgIds.add(R.drawable.image1);
+			imgIds.add(R.drawable.image2);
+			imgIds.add(R.drawable.image3);
+    	}
+	}
+
 	@SuppressWarnings("deprecation")
 	void initializeView() {
 		EditText mEdit = (EditText) findViewById(R.id.editText_notes);
+
+		initializeImages();
 		
 		if (notes != null)
 			mEdit.setText(notes);
@@ -97,19 +107,20 @@ public class DetailsActivity extends Activity {
 		TextView description = (TextView) findViewById(R.id.textView_description);
 		// TODO: review
 		description.setText(product.getAttributes().get(0));
-
+		
 		Gallery gallery = (Gallery) findViewById(R.id.products_gallery);
-        gallery.setSpacing(1);
-        gallery.setAdapter(new DetailsImageAdapter(this));
-        currentImage=(ImageView)findViewById(R.id.products_imageview);
-        gallery.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                currentImage.setImageResource(imgIds[position]);
-            }
-         });
-     
+		gallery.setSpacing(1);
+		gallery.setAdapter(new DetailsImageAdapter(this));
+		currentImage = (ImageView) findViewById(R.id.products_imageview);
+		gallery.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				currentImage.setImageResource(imgIds.get(position));
+			}
+		});
+
 		// TODO: review
-		//ImageView img = (ImageView) findViewById(R.id.product_Img);
+		// ImageView img = (ImageView) findViewById(R.id.product_Img);
 		// img.setImageResource("uri");
 
 	}
@@ -119,17 +130,15 @@ public class DetailsActivity extends Activity {
 		super.onResume();
 		setBasketTitle();
 	}
-	
-	void setBasketTitle()
-	{
-	    Button testButton = (Button) findViewById(R.id.basket_button);
-	    int basketSum = OrderHolder.count();
-	    if(basketSum != 0)
-	    {
-	    	testButton.setText("Basket x"+ basketSum );
-	    }
+
+	void setBasketTitle() {
+		Button testButton = (Button) findViewById(R.id.basket_button);
+		int basketSum = OrderHolder.count();
+		if (basketSum != 0) {
+			testButton.setText("Basket x" + basketSum);
+		}
 	}
-	
+
 	void initializeActionBar() {
 		ActionBar actionBar = getActionBar();
 
@@ -186,10 +195,10 @@ public class DetailsActivity extends Activity {
 
 	void createMockProduct() {
 		List<String> attributes = new ArrayList<String>();
-		attributes.add("Some attribute...");
+		attributes.add("A product's description goes here \n now \n testing \n if \n scrollView \n works \n..\n..\n..\n..\n..\n..\n ..\n..\nif you are reading this then it works!\n");
 
 		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
-				"your notes here", attributes,"example uri");
+				"your notes here", attributes, "example uri");
 	}
 
 	@Override
@@ -198,6 +207,24 @@ public class DetailsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.details, menu);
 		return true;
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+	    switch(item.getItemId()) {
+	    case R.id.Menu:
+	        Intent menuIntent = new Intent(this, CategoriesActivity.class);
+	        this.startActivity(menuIntent);
+	        break;
+	    case R.id.ScanAgain:
+	        Intent scanIntent = new Intent(this, ScanActivity.class);
+	        this.startActivity(scanIntent);
+	        break;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+
+	    return true;
+	}
 
 }
-

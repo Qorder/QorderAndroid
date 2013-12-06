@@ -11,7 +11,7 @@
         android:layout_below="@+id/large_txt"
         android:ellipsize="marquee"
         android:singleLine="true"
-        android:textSize="12sp" />
+        android:textSize="12sp"/> 
 
     <TextView
         android:id="@+id/large_txt"

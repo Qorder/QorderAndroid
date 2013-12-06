@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
+import com.example.clientalphaprototype.adapters.ExpandableTextView;
 import com.example.clientalphaprototype.model.Category;
 import com.example.clientalphaprototype.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class ScanActivity extends Activity {
 	private static final int ZBAR_SCANNER_REQUEST = 0;
+	final String text = " press the scan button and place your phone's camera on top of the bar code to proceed to the catalogue";
 	List<Category> categories;
 
 	@Override
@@ -42,6 +44,9 @@ public class ScanActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_scan);
 
+	     ExpandableTextView expandableTextView = (ExpandableTextView) findViewById(R.id.expandable_scaninfo);
+	     expandableTextView.setText(text);
+	        
 		initializeScanButton();
 	}
 
@@ -69,12 +74,6 @@ public class ScanActivity extends Activity {
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.scan, menu);
-		return true;
-	}
 
 	public boolean isCameraAvailable() {
 		PackageManager pm = getPackageManager();

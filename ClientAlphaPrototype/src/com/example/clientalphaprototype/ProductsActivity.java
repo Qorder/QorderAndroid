@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -175,6 +176,25 @@ public class ProductsActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.products, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+	    switch(item.getItemId()) {
+	    case R.id.Menu:
+	        Intent menuIntent = new Intent(this, CategoriesActivity.class);
+	        this.startActivity(menuIntent);
+	        break;
+	    case R.id.ScanAgain:
+	        Intent scanIntent = new Intent(this, ScanActivity.class);
+	        this.startActivity(scanIntent);
+	        break;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+
+	    return true;
 	}
 
 }

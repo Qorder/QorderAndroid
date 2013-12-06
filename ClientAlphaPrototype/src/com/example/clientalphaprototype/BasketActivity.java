@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -151,5 +152,23 @@ public class BasketActivity extends Activity {
 		getMenuInflater().inflate(R.menu.basket, menu);
 		return true;
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+	    switch(item.getItemId()) {
+	    case R.id.Menu:
+	        Intent menuIntent = new Intent(this, CategoriesActivity.class);
+	        this.startActivity(menuIntent);
+	        break;
+	    case R.id.ScanAgain:
+	        Intent scanIntent = new Intent(this, ScanActivity.class);
+	        this.startActivity(scanIntent);
+	        break;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
 
+	    return true;
+	}
 }

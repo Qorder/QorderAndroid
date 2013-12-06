@@ -1,5 +1,8 @@
 package com.example.clientalphaprototype.adapters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.clientalphaprototype.R;
 
 import android.content.Context;
@@ -13,28 +16,27 @@ import android.widget.ImageView;
 public class DetailsImageAdapter extends BaseAdapter 
 {
     private Context mContext;
-
-    private Integer[] mImageIds = {
-            R.drawable.image1,
-            R.drawable.image2,
-            R.drawable.image3,
-    };
-
+	List<Integer> imgIds;
+	
     public DetailsImageAdapter(Context context) 
     {
+    	imgIds = new ArrayList<Integer>();
+    	setImages();
+    	
         mContext = context;
     }
-
+   
     public int getCount() {
-        return mImageIds.length;
+
+        return imgIds.size();
     }
 
     public Object getItem(int position) {
-        return position;
+        return null;
     }
 
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
     @Override
@@ -42,10 +44,19 @@ public class DetailsImageAdapter extends BaseAdapter
     {
         ImageView i = new ImageView(mContext);
 
-        i.setImageResource(mImageIds[index]);
+        i.setImageResource(imgIds.get(index));
         i.setLayoutParams(new Gallery.LayoutParams(100, 100));
         i.setScaleType(ImageView.ScaleType.FIT_XY);
-
+        
         return i;
+    }
+    
+    private void setImages(){
+    	for(int i=0;i<3;i++)
+    	{
+    		imgIds.add(R.drawable.image1);
+			imgIds.add(R.drawable.image2);
+			imgIds.add(R.drawable.image3);
+    	}
     }
 }

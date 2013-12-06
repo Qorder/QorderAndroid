@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -162,7 +163,23 @@ public class CategoriesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.categories, menu);
+		
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+	    switch(item.getItemId()) {
+	    case R.id.ScanAgain:
+	        Intent scanIntent = new Intent(this, ScanActivity.class);
+	        this.startActivity(scanIntent);
+	        break;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+
+	    return true;
 	}
 
 }

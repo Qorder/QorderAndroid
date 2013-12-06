@@ -15,29 +15,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" />
 
-    <EditText
-        android:id="@+id/editText_notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_addToBasket"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="Your notes here" >
-
-        <requestFocus />
-    </EditText>
-
-    <ImageView
-        android:id="@+id/products_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_alignRight="@+id/editText_notes"
-        android:layout_below="@+id/products_gallery"
-        android:contentDescription="d"
-        android:src="@drawable/image1" />
-
     <TextView
         android:id="@+id/textView_title"
         android:layout_width="wrap_content"
@@ -47,31 +24,66 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/textView_description"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView_title"
-        android:layout_below="@+id/textView_title"
-        android:layout_marginTop="32dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_below="@+id/price_txt" >
+
+        <LinearLayout
+            android:layout_width="275dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Medium Text"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="your notes here"
+                android:textSize="14sp" >
+
+               
+            </EditText>
+
+            <Button
+                android:id="@+id/button_addToBasket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/products_imageview"
+                android:layout_below="@+id/editText_notes"
+                android:layout_marginTop="18dp"
+                android:text="add to basket"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/products_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_below="@+id/products_gallery"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="d"
+        android:src="@drawable/image1" />
 
     <TextView
         android:id="@+id/price_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button_addToBasket"
+        android:layout_alignRight="@+id/textView_title"
         android:layout_below="@+id/textView_title"
         android:text="Price Here"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Button
-        android:id="@+id/button_addToBasket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Add to Basket" />
 
 </RelativeLayout>

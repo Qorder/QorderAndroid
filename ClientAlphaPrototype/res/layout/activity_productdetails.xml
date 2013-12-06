@@ -86,5 +86,6 @@
         android:inputType="textMultiLine"
         android:text="your notes here"
         android:textSize="14sp" />
+     <requestFocus />
 
 </RelativeLayout>

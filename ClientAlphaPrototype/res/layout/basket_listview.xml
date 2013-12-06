@@ -6,12 +6,12 @@
     <TextView
         android:id="@+id/small_txt"
         android:layout_width="fill_parent"
-        android:layout_height="26dip"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/large_txt"
-        android:layout_below="@+id/large_txt"
+        android:layout_below="@+id/price_txt"
         android:ellipsize="marquee"
         android:gravity="left"
-        android:singleLine="true"
+        android:singleLine="false"
         android:textSize="12sp"/>
 
     <TextView
@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/price_txt"
         android:layout_width="fill_parent"
-        android:layout_height="26dip"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/small_txt"
         android:layout_below="@+id/large_txt"
         android:gravity="right"

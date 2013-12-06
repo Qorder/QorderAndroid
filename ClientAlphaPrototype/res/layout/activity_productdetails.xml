@@ -27,7 +27,8 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:layout_above="@+id/editText_notes"
         android:layout_below="@+id/price_txt" >
 
         <LinearLayout
@@ -37,37 +38,16 @@
 
             <TextView
                 android:id="@+id/textView_description"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
                 android:text="Medium Text"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/editText_notes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:text="your notes here"
-                android:textSize="14sp" >
 
-               
-            </EditText>
-
-            <Button
-                android:id="@+id/button_addToBasket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/products_imageview"
-                android:layout_below="@+id/editText_notes"
-                android:layout_marginTop="18dp"
-                android:text="add to basket"
-                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
-
+            
     <ImageView
         android:id="@+id/products_imageview"
         android:layout_width="wrap_content"
@@ -85,5 +65,26 @@
         android:layout_below="@+id/textView_title"
         android:text="Price Here"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/button_addToBasket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/price_txt"
+        android:text="add to basket"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/editText_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_addToBasket"
+        android:layout_alignLeft="@+id/scrollView1"
+        android:layout_alignRight="@+id/scrollView1"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="your notes here"
+        android:textSize="14sp" />
 
 </RelativeLayout>

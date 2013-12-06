@@ -45,17 +45,17 @@ containing a value of this type.
         public static final int button_addToBasket=0x7f08000c;
         public static final int button_scan=0x7f08000e;
         public static final int categories_listview=0x7f080003;
-        public static final int editText_notes=0x7f08000b;
+        public static final int editText_notes=0x7f080009;
         public static final int expandable_scaninfo=0x7f08000f;
         public static final int large_txt=0x7f080011;
         public static final int pager=0x7f080004;
-        public static final int price_txt=0x7f080009;
+        public static final int price_txt=0x7f08000a;
         public static final int products_gallery=0x7f080005;
         public static final int products_imageview=0x7f080007;
         public static final int products_listview=0x7f08000d;
         public static final int scrollView1=0x7f080008;
         public static final int small_txt=0x7f080010;
-        public static final int textView_description=0x7f08000a;
+        public static final int textView_description=0x7f08000b;
         public static final int textView_title=0x7f080006;
     }
     public static final class layout {

@@ -4,8 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.example.clientalphaprototype.jsonparsers.CategoryJsonParser;
+import com.example.clientalphaprototype.jsonparsers.IJsonParser;
 import com.example.clientalphaprototype.model.Category;
 import com.example.clientalphaprototype.model.OrderHolder;
+import com.example.clientalphaprototype.util.HttpRequest;
 import com.example.clientalphaprototype.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -43,10 +50,38 @@ public class CategoriesActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-		parseJson(extras.getString("categoriesUrl"));
+		try {
+			parseJson(extras.getString("categoriesUrl"));
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		}
 		else{
-			parseJson("mockURL");		
+			try {
+				parseJson("mockURL");
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
 		}
 			
 		initializeActionBar();
@@ -59,7 +94,7 @@ public class CategoriesActivity extends Activity {
 		setBasketTitle();
 	}
 	
-	void parseJson(String url)
+	void parseJson(String url) throws ClientProtocolException, IOException, ClassNotFoundException, JSONException
 	{
 		if (isNetworkAvailable()) {
 			try {
@@ -81,6 +116,9 @@ public class CategoriesActivity extends Activity {
 			createMockCategories();
 			Toast.makeText(this, "Network Connectivity failure", Toast.LENGTH_SHORT).show();
 		}
+		IJsonParser<Category> jsonParser = new CategoryJsonParser();
+		JSONObject json = HttpRequest.requestJsonObject(url);
+		categories = jsonParser.parse(json);
 	}
 	
 	//TODO: remove after debugging

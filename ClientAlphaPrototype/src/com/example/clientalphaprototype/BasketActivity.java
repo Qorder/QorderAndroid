@@ -72,6 +72,7 @@ public class BasketActivity extends Activity {
 		});
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
 				| ActionBar.DISPLAY_SHOW_HOME);
+
 	}
 
 	void initializeArrayAdapter() {

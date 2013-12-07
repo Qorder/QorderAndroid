@@ -3,6 +3,11 @@ package com.example.clientalphaprototype.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * 
+ * @author Intel
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown=true) 
 public class Category {
 	
@@ -10,6 +15,11 @@ public class Category {
 	@JsonProperty("name") private String name;
 	@JsonProperty("uri") private String uri;
 	
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", uri=" + uri + "]";
+	}
+
 	public Category(long id, String name,String uri) {
 		super();
 		this.id = id;

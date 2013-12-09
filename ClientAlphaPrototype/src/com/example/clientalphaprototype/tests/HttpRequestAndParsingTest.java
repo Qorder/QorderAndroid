@@ -18,10 +18,6 @@ import com.example.clientalphaprototype.util.HttpRequest;
 public class HttpRequestAndParsingTest extends AndroidTestCase {
 
 
-	public HttpRequestAndParsingTest() {
-		// TODO Auto-generated constructor stub
-	}
-
 	protected void setUp() throws Exception {
 		super.setUp();
 
@@ -31,6 +27,17 @@ public class HttpRequestAndParsingTest extends AndroidTestCase {
 		super.tearDown();
 	}
 	
+	
+	public void testRequestJsonBusinessID() throws ClientProtocolException, IOException, JSONException
+	{
+		String url = "http://10.0.2.2:8080/qorderws/businesses/menus/business?id=0";
+		JSONObject json;
+		json = HttpRequest.requestJsonObject(url);
+		String businessID = json.getString("businessName");
+		String expectedBusinessID = "Ta kala paidia";
+		
+		assertEquals(businessID, expectedBusinessID);
+	}
 	
 	public void testRequestAndJsonCategoryParser()throws ClientProtocolException,
 	IOException, ClassNotFoundException, JSONException 

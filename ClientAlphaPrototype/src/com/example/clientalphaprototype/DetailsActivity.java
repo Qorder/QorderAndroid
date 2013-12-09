@@ -77,14 +77,14 @@ public class DetailsActivity extends Activity {
 		});
 	}
 
-	//TODO: encapsulate this in an image parsing class and share it with the gallery widget
+	// TODO: encapsulate this in an image parsing class and share it with the
+	// gallery widget
 	void initializeImages() {
-    	for(int i=0;i<3;i++)
-    	{
-    		imgIds.add(R.drawable.image1);
+		for (int i = 0; i < 3; i++) {
+			imgIds.add(R.drawable.image1);
 			imgIds.add(R.drawable.image2);
 			imgIds.add(R.drawable.image3);
-    	}
+		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -92,7 +92,7 @@ public class DetailsActivity extends Activity {
 		EditText mEdit = (EditText) findViewById(R.id.editText_notes);
 
 		initializeImages();
-		
+
 		if (notes != null)
 			mEdit.setText(notes);
 		else
@@ -107,7 +107,7 @@ public class DetailsActivity extends Activity {
 		TextView description = (TextView) findViewById(R.id.textView_description);
 		// TODO: review
 		description.setText(product.getAttributes().get(0));
-		
+
 		Gallery gallery = (Gallery) findViewById(R.id.products_gallery);
 		gallery.setSpacing(1);
 		gallery.setAdapter(new DetailsImageAdapter(this));
@@ -129,6 +129,8 @@ public class DetailsActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		setBasketTitle();
+		OrderHolder order = new OrderHolder();
+		this.setTitle(order.getBusinessName());
 	}
 
 	void setBasketTitle() {
@@ -136,7 +138,11 @@ public class DetailsActivity extends Activity {
 		int basketSum = OrderHolder.count();
 		if (basketSum != 0) {
 			testButton.setText("Basket x" + basketSum);
+		} else {
+
+			testButton.setText("Basket");
 		}
+		
 	}
 
 	void initializeActionBar() {
@@ -195,7 +201,8 @@ public class DetailsActivity extends Activity {
 
 	void createMockProduct() {
 		List<String> attributes = new ArrayList<String>();
-		attributes.add("A product's description goes here \n now \n testing \n if \n scrollView \n works \n..\n..\n..\n..\n..\n..\n ..\n..\nif you are reading this then it works!\n");
+		attributes
+				.add("A product's description goes here \n now \n testing \n if \n scrollView \n works \n..\n..\n..\n..\n..\n..\n ..\n..\nif you are reading this then it works!\n");
 
 		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
 				"your notes here", attributes, "example uri");
@@ -207,24 +214,24 @@ public class DetailsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.details, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-	    switch(item.getItemId()) {
-	    case R.id.Menu:
-	        Intent menuIntent = new Intent(this, CategoriesActivity.class);
-	        this.startActivity(menuIntent);
-	        break;
-	    case R.id.ScanAgain:
-	        Intent scanIntent = new Intent(this, ScanActivity.class);
-	        this.startActivity(scanIntent);
-	        break;
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
 
-	    return true;
+		switch (item.getItemId()) {
+		case R.id.Menu:
+			Intent menuIntent = new Intent(this, CategoriesActivity.class);
+			this.startActivity(menuIntent);
+			break;
+		case R.id.ScanAgain:
+			Intent scanIntent = new Intent(this, ScanActivity.class);
+			this.startActivity(scanIntent);
+			break;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+
+		return true;
 	}
 
 }

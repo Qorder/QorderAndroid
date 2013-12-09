@@ -24,6 +24,7 @@ import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
 import com.example.clientalphaprototype.adapters.ExpandableTextView;
 import com.example.clientalphaprototype.model.Category;
+import com.example.clientalphaprototype.model.OrderHolder;
 import com.example.clientalphaprototype.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,6 +48,8 @@ public class ScanActivity extends Activity {
 	     ExpandableTextView expandableTextView = (ExpandableTextView) findViewById(R.id.expandable_scaninfo);
 	     expandableTextView.setText(text);
 	        
+	     OrderHolder orderHolder = new OrderHolder();
+	     orderHolder.reset();
 		initializeScanButton();
 	}
 

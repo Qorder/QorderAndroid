@@ -60,16 +60,19 @@ public class ProductsActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		setBasketTitle();
+		OrderHolder order = new OrderHolder();
+		this.setTitle(order.getBusinessName());
 	}
 	
-	void setBasketTitle()
-	{
-	    Button testButton = (Button) findViewById(R.id.basket_button);
-	    int basketSum = OrderHolder.count();
-	    if(basketSum != 0)
-	    {
-	    	testButton.setText("Basket x"+ basketSum );
-	    }
+	void setBasketTitle() {
+		Button testButton = (Button) findViewById(R.id.basket_button);
+		int basketSum = OrderHolder.count();
+		if (basketSum != 0) {
+			testButton.setText("Basket x" + basketSum);
+		} else {
+
+			testButton.setText("Basket");
+		}
 	}
 	
 	void initializeActionBar() {

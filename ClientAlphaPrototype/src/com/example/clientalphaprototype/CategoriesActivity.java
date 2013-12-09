@@ -33,6 +33,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CategoriesActivity extends Activity {
@@ -92,12 +93,14 @@ public class CategoriesActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		setBasketTitle();
+
 	}
 	
 	void parseJson(String url) throws ClientProtocolException, IOException, ClassNotFoundException, JSONException
 	{
 		if (isNetworkAvailable()) {
 			try {
+				//TODO: remove
 				categories= JsonUtil.<List<Category>>JsonToPojoParser(url,Category.class);
 
 			}/* catch (JsonParseException e) {e.printStackTrace();} 
@@ -118,7 +121,12 @@ public class CategoriesActivity extends Activity {
 		}
 		IJsonParser<Category> jsonParser = new CategoryJsonParser();
 		JSONObject json = HttpRequest.requestJsonObject(url);
+		
 		categories = jsonParser.parse(json);
+		
+		OrderHolder order = new OrderHolder();
+		order.setBusinessName(json.getString("businessName"));
+	
 	}
 	
 	//TODO: remove after debugging
@@ -147,14 +155,16 @@ public class CategoriesActivity extends Activity {
 		    actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
 	}
 	
-	void setBasketTitle()
-	{
-	    Button testButton = (Button) findViewById(R.id.basket_button);
-	    int basketSum = OrderHolder.count();
-	    if(basketSum != 0)
-	    {
-	    	testButton.setText("Basket x"+ basketSum );
-	    }
+	void setBasketTitle() {
+		Button testButton = (Button) findViewById(R.id.basket_button);
+		int basketSum = OrderHolder.count();
+		if (basketSum != 0) {
+			testButton.setText("Basket x" + basketSum);
+		} else {
+
+			testButton.setText("Basket");
+		}
+
 	}
 	
 	void initializeArrayAdapter() {

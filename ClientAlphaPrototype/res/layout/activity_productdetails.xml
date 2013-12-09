@@ -73,6 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/price_txt"
         android:text="add to basket"
+        style="?android:attr/borderlessButtonStyle" 
         android:textSize="12sp" />
 
     <EditText
@@ -85,6 +86,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:text="your notes here"
+        android:maxLength="90"
         android:textSize="14sp" />
      <requestFocus />
 

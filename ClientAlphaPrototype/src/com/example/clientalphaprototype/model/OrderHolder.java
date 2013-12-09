@@ -5,25 +5,37 @@ import java.util.List;
 
 public class OrderHolder {
 
-        static List<BasketProduct> order = new ArrayList<BasketProduct>();
+	String businessName;
+	final String wsPostUri = "http://10.0.2.2:8080/qorderws/orders/business?id=";
 
-        public void add(BasketProduct basketProduct)
-        {
-                order.add(basketProduct);
-        }
-        
-        public void replace(List<BasketProduct> order)
-        {
-                OrderHolder.order =order;
-        }
+	static List<BasketProduct> order = new ArrayList<BasketProduct>();
 
-        public List<BasketProduct> getOrder() {
-                return order;
-        }
-        
-        static public int count()
-        {
-        	return order.size();
-        }
+	public void add(BasketProduct basketProduct) {
+		order.add(basketProduct);
+	}
+
+	public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
+
+	public void replace(List<BasketProduct> order) {
+		OrderHolder.order = order;
+	}
+
+	public void reset() {
+		order.clear();
+	}
+
+	public List<BasketProduct> getOrder() {
+		return order;
+	}
+
+	static public int count() {
+		return order.size();
+	}
 
 }

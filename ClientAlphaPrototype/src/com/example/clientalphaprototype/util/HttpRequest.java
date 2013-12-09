@@ -26,10 +26,6 @@ import android.util.Log;
 
 public class HttpRequest {
 
-	public HttpRequest() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	 private static String readAll(Reader rd) throws IOException {
 		    StringBuilder sb = new StringBuilder();
@@ -67,6 +63,7 @@ public class HttpRequest {
 
 	}
 	
+	//TODO: review and delete if unnecessary
 	public static boolean requestJson(String url)
 			throws ClientProtocolException, IOException{
 		
@@ -88,7 +85,7 @@ public class HttpRequest {
 	}
 
 	// TODO: Not finished
-	public static boolean sendPost(String jsonString, String url)
+	public static boolean sendJson(String jsonString, String url)
 			throws ClientProtocolException, IOException {
 		try {
 

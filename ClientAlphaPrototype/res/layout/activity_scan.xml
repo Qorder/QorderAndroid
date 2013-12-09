@@ -12,9 +12,15 @@
         android:id="@+id/button_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp"
-        android:text="I am ready to order" />
+        android:layout_centerVertical="true"
+        android:text="scan" />
+
+    <com.example.clientalphaprototype.adapters.ExpandableTextView
+        android:id="@+id/expandable_scaninfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

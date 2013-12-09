@@ -1,6 +1,7 @@
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/button1"
+    android:id="@+id/basket_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:onClick="clickEvent"
-    android:text="Basket" />
+    android:text="Basket"
+    android:textSize="13sp" />

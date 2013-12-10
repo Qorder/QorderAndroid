@@ -62,7 +62,8 @@ public class ScanActivity extends Activity {
 			public void onClick(View v) {
 				//QrCode Parser
 				Intent categories = new Intent(ScanActivity.this, CategoriesActivity.class);
-				categories.putExtra("categoriesUrl","http://10.0.2.2:8080/qorderws/businesses/menus/business?id=0");
+				//categories.putExtra("categoriesUrl","http://10.0.2.2:8080/qorderws/businesses/menus/business?id=0");
+				categories.putExtra("categoriesUrl","http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0");
 				startActivity(categories);
 				//TODO: uncomment this
 				/*if (isCameraAvailable()) {

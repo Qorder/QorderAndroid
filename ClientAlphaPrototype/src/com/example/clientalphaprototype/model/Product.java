@@ -1,7 +1,6 @@
 package com.example.clientalphaprototype.model;
 
 import java.math.BigDecimal;
-import java.net.URI;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

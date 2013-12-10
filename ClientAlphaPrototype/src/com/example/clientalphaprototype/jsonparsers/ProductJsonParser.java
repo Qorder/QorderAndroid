@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.example.clientalphaprototype.model.Category;
+import com.example.clientalphaprototype.model.Product;
 import com.example.clientalphaprototype.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -20,35 +21,36 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CategoryJsonParser {
+public class ProductJsonParser {
 
-	final String jsonArrayName = "categoryInfoList";
+	final String jsonArrayName = "productInfoList";
 	
-	public List<Category> parse(JSONObject json) throws JSONException,
+	public List<Product> parse(JSONObject json) throws JSONException,
 			JsonParseException, JsonMappingException, ClassNotFoundException,
 			IOException {
 
-		JSONArray catArray = json.getJSONArray(jsonArrayName);
+		JSONArray prodArray = json.getJSONArray(jsonArrayName);
 		
-		List<Category> categories = new ArrayList<Category>();
+		List<Product> products = new ArrayList<Product>();
 		
 		try {
-			for(int i=0;i<catArray.length();i++)
+			for(int i=0;i<prodArray.length();i++)
 			{
-				JSONObject cat = catArray.getJSONObject(i);
-				Category parsingCat = new Category();
+				JSONObject cat = prodArray.getJSONObject(i);
+				Product parsingProd = new Product();
 				
-				parsingCat.setId(cat.getLong("id"));
-				parsingCat.setName(cat.getString("name"));
-				parsingCat.setUri(cat.getString("uri"));
+				//TODO: update this to respond to the ws json
+				parsingProd.setId(cat.getLong("id"));
+				parsingProd.setName(cat.getString("name"));
+				parsingProd.setUri(cat.getString("uri"));
 				
-				categories.add(parsingCat);
+				products.add(parsingProd);
 			}
 
-			return categories;
+			return products;
 
 		} catch (Exception e) {
-			Log.e("categories parsing failed",e.getMessage());
+			Log.e("products parsing failed",e.getMessage());
 			// handle exception
 		}
 

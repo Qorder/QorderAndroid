@@ -4,25 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.entity.BasicHttpEntity;
-import org.apache.http.impl.DefaultHttpResponseFactory;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mockito.Mockito;
-
-import com.example.clientalphaprototype.jsonparsers.CategoryJsonParser;
-import com.example.clientalphaprototype.jsonparsers.IJsonParser;
-import com.example.clientalphaprototype.model.Category;
-import com.example.clientalphaprototype.model.Product;
-import com.example.clientalphaprototype.util.HttpRequest;
-import com.example.clientalphaprototype.util.JsonUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import android.test.AndroidTestCase;
+
+import com.example.clientalphaprototype.model.Category;
+import com.example.clientalphaprototype.util.HttpRequest;
+import com.example.clientalphaprototype.util.JsonUtil;
 
 public class HttpRequestTest extends AndroidTestCase {
 

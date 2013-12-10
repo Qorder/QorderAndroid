@@ -3,11 +3,6 @@ package com.example.clientalphaprototype.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * 
- * @author Intel
- *
- */
 @JsonIgnoreProperties(ignoreUnknown=true) 
 public class Category {
 	
@@ -28,8 +23,9 @@ public class Category {
 	}
 	
 	public Category() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.id = 0;
+		this.name = null;
+		this.uri = null;
 	}
 
 	public long getId() {

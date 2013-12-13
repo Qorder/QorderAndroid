@@ -35,50 +35,62 @@ public class ScanActivity extends Activity {
 	final String text = " press the scan button and place your phone's camera on top of the bar code to proceed to the catalogue";
 	List<Category> categories;
 
+	//Set to true if you want to scan a qr code
+	final boolean scanQR = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//Disable Strick mode
-		StrictMode.ThreadPolicy policy = new StrictMode.
-				ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy); 
+		// Disable Strick mode
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_scan);
 
-	     ExpandableTextView expandableTextView = (ExpandableTextView) findViewById(R.id.expandable_scaninfo);
-	     expandableTextView.setText(text);
-	        
-	     OrderHolder orderHolder = new OrderHolder();
-	     orderHolder.reset();
+		ExpandableTextView expandableTextView = (ExpandableTextView) findViewById(R.id.expandable_scaninfo);
+		expandableTextView.setText(text);
+
+		OrderHolder orderHolder = new OrderHolder();
+		orderHolder.reset();
 		initializeScanButton();
 	}
 
-	//Initialize scan button
-	void initializeScanButton()
-	{
+	// Initialize scan button
+	void initializeScanButton() {
 		Button button = (Button) findViewById(R.id.button_scan);
 
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				//QrCode Parser
-				Intent categories = new Intent(ScanActivity.this, CategoriesActivity.class);
-				//Localhost ws
-				//categories.putExtra("categoriesUrl","http://10.0.2.2:8080/qorderws/businesses/menus/business?id=0");
-				categories.putExtra("categoriesUrl","http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=0");
-				startActivity(categories);
-				//TODO: uncomment this
-				/*if (isCameraAvailable()) {
-					Intent intent = new Intent(ScanActivity.this,ZBarScannerActivity.class);
-					intent.putExtra(ZBarConstants.SCAN_MODES, new int[]{Symbol.QRCODE});
 
-					startActivityForResult(intent, ZBAR_SCANNER_REQUEST);
+				if (scanQR) {
+					if (isCameraAvailable()) {
+						Intent intent = new Intent(ScanActivity.this,
+								ZBarScannerActivity.class);
+						intent.putExtra(ZBarConstants.SCAN_MODES,
+								new int[] { Symbol.QRCODE });
+
+						startActivityForResult(intent, ZBAR_SCANNER_REQUEST);
+					} else {
+						Toast.makeText(ScanActivity.this,
+								"Rear Facing Camera Unavailable",
+								Toast.LENGTH_SHORT).show();
+					}
 				} else {
-					Toast.makeText(ScanActivity.this, "Rear Facing Camera Unavailable", Toast.LENGTH_SHORT).show();
-				}	*/
+					// QrCode Parser
+					Intent categories = new Intent(ScanActivity.this,
+							CategoriesActivity.class);
+					// Localhost ws
+					// categories.putExtra("categoriesUrl","http://10.0.2.2:8080/qorderws/businesses/menus/business?id=0");
+					categories
+							.putExtra("categoriesUrl",
+									"http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=0");
+					startActivity(categories);
+				}
+
 			}
 		});
 	}
-
 
 	public boolean isCameraAvailable() {
 		PackageManager pm = getPackageManager();
@@ -90,25 +102,24 @@ public class ScanActivity extends Activity {
 		switch (requestCode) {
 		case ZBAR_SCANNER_REQUEST:
 			if (resultCode == RESULT_OK) {
-				
-				 String url =(data.getStringExtra(ZBarConstants.SCAN_RESULT));
 
-				
-				Toast.makeText(this,url, Toast.LENGTH_SHORT).show();
+				String url = (data.getStringExtra(ZBarConstants.SCAN_RESULT));
 
-				Intent categories = new Intent(ScanActivity.this, CategoriesActivity.class);
+				Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
+
+				Intent categories = new Intent(ScanActivity.this,
+						CategoriesActivity.class);
+				categories.putExtra("categoriesUrl", url);
 				startActivity(categories);
 
-			} else if(resultCode == RESULT_CANCELED && data != null) {
+			} else if (resultCode == RESULT_CANCELED && data != null) {
 				String error = data.getStringExtra(ZBarConstants.ERROR_INFO);
-				if(!TextUtils.isEmpty(error)) {
+				if (!TextUtils.isEmpty(error)) {
 					Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
 				}
 			}
 			break;
 		}
 	}
-
-
 
 }

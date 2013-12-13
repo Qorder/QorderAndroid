@@ -75,8 +75,7 @@ public class JsonUtilTest extends AndroidTestCase  {
 	public void testJsonToPojoDetailedProductParser() throws JsonParseException, JsonMappingException, ClassNotFoundException, IOException {
 		String url = ("http://83.212.118.113/mockJsons/mockDetailedProductJson.json");
 		List<DetailedProduct> event = JsonUtil.<List<DetailedProduct>>JsonToPojoParser(url, DetailedProduct.class);
-		List<String> expAttributes = null;
-		DetailedProduct detailedProduct = new DetailedProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote",expAttributes,"mockUri");
+		DetailedProduct detailedProduct = new DetailedProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote",null,"mockUri");
 		List<DetailedProduct> expectedEvent = new ArrayList<DetailedProduct>();
 		expectedEvent.add(detailedProduct);
 		

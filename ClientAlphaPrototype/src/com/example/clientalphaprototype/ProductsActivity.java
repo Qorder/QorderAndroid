@@ -1,13 +1,18 @@
 package com.example.clientalphaprototype;
 
+import com.example.clientalphaprototype.jsonparsers.ProductJsonParser;
 import com.example.clientalphaprototype.model.OrderHolder;
 import com.example.clientalphaprototype.model.Product;
-import com.example.clientalphaprototype.util.JsonUtil;
+import com.example.clientalphaprototype.util.HttpRequest;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.example.clientalphaprototype.adapters.*;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -48,9 +53,37 @@ public class ProductsActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-			parseJson(extras.getString("category"));
+			try {
+				parseJson(extras.getString("category"));
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else
-			parseJson("mockURL");
+			try {
+				parseJson("mockURL");
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		initializeActionBar();
 		initializeArrayAdapter();
@@ -63,7 +96,7 @@ public class ProductsActivity extends Activity {
 		OrderHolder order = new OrderHolder();
 		this.setTitle(order.getBusinessName());
 	}
-	
+
 	void setBasketTitle() {
 		Button testButton = (Button) findViewById(R.id.basket_button);
 		int basketSum = OrderHolder.count();
@@ -74,7 +107,7 @@ public class ProductsActivity extends Activity {
 			testButton.setText("Basket");
 		}
 	}
-	
+
 	void initializeActionBar() {
 		ActionBar actionBar = getActionBar();
 
@@ -143,24 +176,31 @@ public class ProductsActivity extends Activity {
 		return false;
 	}
 
-	void parseJson(String url) {
+	void parseJson(String url) throws ClientProtocolException, IOException,
+			ClassNotFoundException, JSONException {
 		if (isNetworkAvailable()) {
 			try {
-				products = JsonUtil.<List<Product>> JsonToPojoParser(url,
-						Product.class);
+				ProductJsonParser jsonParser = new ProductJsonParser();
+				JSONObject json = HttpRequest.requestJsonObject(url);
 
-			} /*
-			 * catch (JsonParseException e) { e.printStackTrace(); } catch
-			 * (JsonMappingException e) { e.printStackTrace(); } catch
-			 * (ClassNotFoundException e) { e.printStackTrace(); } catch
-			 * (IOException e) { e.printStackTrace(); }
-			 */
-			catch (Exception e) {
+				products = jsonParser.parse(json);
+
+			} catch (JsonParseException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				Toast.makeText(this,
+						"Failed to find products. Creating mock products",
+						Toast.LENGTH_SHORT).show();
 				createMockProducts();
 			}
 		} else {
-
-			createMockProducts();
+			// createMockProducts();
 			Toast.makeText(this, "Network Connectivity failure",
 					Toast.LENGTH_SHORT).show();
 		}
@@ -168,10 +208,13 @@ public class ProductsActivity extends Activity {
 
 	// TODO: remove after debugging
 	void createMockProducts() {
-		
-		products.add(new Product(1, "Food1", BigDecimal.valueOf(1.99),"example uri"));
-		products.add(new Product(2, "Food2", BigDecimal.valueOf(2.99),"example uri"));
-		products.add(new Product(3, "Food3", BigDecimal.valueOf(5.99),"example uri"));
+
+		products.add(new Product(1, "Food1", BigDecimal.valueOf(1.99),
+				"example uri"));
+		products.add(new Product(2, "Food2", BigDecimal.valueOf(2.99),
+				"example uri"));
+		products.add(new Product(3, "Food3", BigDecimal.valueOf(5.99),
+				"example uri"));
 	}
 
 	@Override
@@ -180,24 +223,24 @@ public class ProductsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.products, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-	    switch(item.getItemId()) {
-	    case R.id.Menu:
-	        Intent menuIntent = new Intent(this, CategoriesActivity.class);
-	        this.startActivity(menuIntent);
-	        break;
-	    case R.id.ScanAgain:
-	        Intent scanIntent = new Intent(this, ScanActivity.class);
-	        this.startActivity(scanIntent);
-	        break;
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
 
-	    return true;
+		switch (item.getItemId()) {
+		case R.id.Menu:
+			Intent menuIntent = new Intent(this, CategoriesActivity.class);
+			this.startActivity(menuIntent);
+			break;
+		case R.id.ScanAgain:
+			Intent scanIntent = new Intent(this, ScanActivity.class);
+			this.startActivity(scanIntent);
+			break;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+
+		return true;
 	}
 
 }

@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown=true) 
 public class DetailedProduct extends BasketProduct {
 
-	@JsonProperty("attributes") private List<String> attributes;
+	@JsonProperty("attributes") private String details;
 
 	public DetailedProduct(long id, String name, BigDecimal price,
-			String notes, List<String> attributes,String uri) {
+			String notes, String details,String uri) {
 		super(id, name, price, notes,uri);
-		this.attributes = attributes;
+		this.details = details;
 	}
 
 	public DetailedProduct() {
@@ -33,12 +33,12 @@ public class DetailedProduct extends BasketProduct {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<String> getAttributes() {
-		return attributes;
+	public String getDetails() {
+		return details;
 	}
 
-	public void setAttributes(List<String> attributes) {
-		this.attributes = attributes;
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
 

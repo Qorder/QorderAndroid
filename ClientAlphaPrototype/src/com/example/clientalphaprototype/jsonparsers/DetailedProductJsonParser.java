@@ -1,6 +1,7 @@
 package com.example.clientalphaprototype.jsonparsers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,34 +25,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DetailedProductJsonParser {
 
-	final String jsonArrayName = "detailedProductInfoList";
-	
-	public List<DetailedProduct> parse(JSONObject json) throws JSONException,
+	public DetailedProduct parse(JSONObject json) throws JSONException,
 			JsonParseException, JsonMappingException, ClassNotFoundException,
 			IOException {
+		DetailedProduct product = new DetailedProduct();
 
-		JSONArray prodArray = json.getJSONArray(jsonArrayName);
-		
-		List<DetailedProduct> products = new ArrayList<DetailedProduct>();
-		
 		try {
-			for(int i=0;i<prodArray.length();i++)
-			{
-				JSONObject cat = prodArray.getJSONObject(i);
-				DetailedProduct parsingProd = new DetailedProduct();
-				
-				//TODO: update this to respond to the ws json
-				parsingProd.setId(cat.getLong("id"));
-				parsingProd.setName(cat.getString("name"));
-				parsingProd.setUri(cat.getString("uri"));
-				
-				products.add(parsingProd);
-			}
+			product.setId(json.getLong("id"));
+			product.setName(json.getString("name"));
+			product.setPrice(BigDecimal.valueOf(json.getLong("price")));
+			product.setDetails(json.getString("details"));
 
-			return products;
+			return product;
 
 		} catch (Exception e) {
-			Log.e("detailedProducts parsing failed",e.getMessage());
+			Log.e("detailedProducts parsing failed", e.getMessage());
 			// handle exception
 		}
 

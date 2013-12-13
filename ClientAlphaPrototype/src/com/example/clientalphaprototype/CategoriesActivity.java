@@ -8,6 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.clientalphaprototype.adapters.CategoriesCustomList;
 import com.example.clientalphaprototype.jsonparsers.CategoryJsonParser;
 import com.example.clientalphaprototype.model.Category;
 import com.example.clientalphaprototype.model.OrderHolder;
@@ -166,9 +167,7 @@ public class CategoriesActivity extends Activity {
 	}
 
 	void initializeArrayAdapter() {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				getCategoryNames());
+		ArrayAdapter<String> adapter = new CategoriesCustomList(this,getCategoryNames());
 
 		categories_listView.setAdapter(adapter);
 

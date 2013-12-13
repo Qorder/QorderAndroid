@@ -5,11 +5,18 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.example.clientalphaprototype.adapters.DetailsImageAdapter;
+import com.example.clientalphaprototype.jsonparsers.CategoryJsonParser;
+import com.example.clientalphaprototype.jsonparsers.DetailedProductJsonParser;
 import com.example.clientalphaprototype.model.BasketProduct;
 import com.example.clientalphaprototype.model.DetailedProduct;
 import com.example.clientalphaprototype.model.OrderHolder;
 import com.example.clientalphaprototype.model.Product;
+import com.example.clientalphaprototype.util.HttpRequest;
 import com.example.clientalphaprototype.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -21,6 +28,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,20 +56,51 @@ public class DetailsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_productdetails);
 
+		product = new DetailedProduct();
 		notes = null;
 		Bundle extras = getIntent().getExtras();
 
 		imgIds = new ArrayList<Integer>();
 
 		if (extras != null) {
+			try {
 			notes = extras.getString("notes");
 			parseJson(extras.getString("product"));
-		} else
-			parseJson("mockURL");
+			product.setUri(extras.getString("product"));
+			
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} 
+		else
+			try {
+				parseJson("test");
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		initializeActionBar();
 
-		// TODO: uncomment when WS is ready
 		initializeView();
 
 		Button button_addToBasket = (Button) findViewById(R.id.button_addToBasket);
@@ -106,7 +145,7 @@ public class DetailsActivity extends Activity {
 
 		TextView description = (TextView) findViewById(R.id.textView_description);
 		// TODO: review
-		description.setText(product.getAttributes().get(0));
+		description.setText(product.getDetails());
 
 		Gallery gallery = (Gallery) findViewById(R.id.products_gallery);
 		gallery.setSpacing(1);
@@ -142,7 +181,7 @@ public class DetailsActivity extends Activity {
 
 			testButton.setText("Basket");
 		}
-		
+
 	}
 
 	void initializeActionBar() {
@@ -175,37 +214,40 @@ public class DetailsActivity extends Activity {
 		return false;
 	}
 
-	void parseJson(String url) {
+	void parseJson(String url) throws ClientProtocolException, IOException,
+			ClassNotFoundException, JSONException {
 		if (isNetworkAvailable()) {
 			try {
-				product = JsonUtil.<DetailedProduct> JsonToPojoParser(url,
-						DetailedProduct.class);
+				DetailedProductJsonParser jsonParser = new DetailedProductJsonParser();
+				JSONObject json = HttpRequest.requestJsonObject(url);
 
-			} /*
-			 * catch (JsonParseException e) { e.printStackTrace(); } catch
-			 * (JsonMappingException e) { e.printStackTrace(); } catch
-			 * (ClassNotFoundException e) { e.printStackTrace(); } catch
-			 * (IOException e) { e.printStackTrace(); }
-			 */
-			catch (Exception e) {
+				product = jsonParser.parse(json);
+
+			} catch (JsonParseException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				Toast.makeText(this,
+						"Failed to find menu. Creating mock categories",
+						Toast.LENGTH_SHORT).show();
 				createMockProduct();
 			}
 		} else {
-			// TODO: remove after debugging
-
-			createMockProduct();
+			// createMockProduct();
 			Toast.makeText(this, "Network Connectivity failure",
 					Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	void createMockProduct() {
-		List<String> attributes = new ArrayList<String>();
-		attributes
-				.add("A product's description goes here \n now \n testing \n if \n scrollView \n works \n..\n..\n..\n..\n..\n..\n ..\n..\nif you are reading this then it works!\n");
 
 		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
-				"your notes here", attributes, "example uri");
+				"your notes here", "test", "example uri");
 	}
 
 	@Override

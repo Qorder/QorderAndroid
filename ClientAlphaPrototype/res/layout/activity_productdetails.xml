@@ -22,7 +22,8 @@
         android:layout_below="@+id/products_imageview"
         android:layout_centerHorizontal="true"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -43,11 +44,9 @@
                 android:layout_marginTop="19dp"
                 android:text="Medium Text"
                 android:textSize="15sp" />
-
-
         </LinearLayout>
     </ScrollView>
-            
+
     <ImageView
         android:id="@+id/products_imageview"
         android:layout_width="wrap_content"
@@ -68,12 +67,12 @@
 
     <Button
         android:id="@+id/button_addToBasket"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/price_txt"
         android:text="add to basket"
-        style="?android:attr/borderlessButtonStyle" 
         android:textSize="12sp" />
 
     <EditText
@@ -85,9 +84,10 @@
         android:layout_alignRight="@+id/scrollView1"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="your notes here"
         android:maxLength="90"
+        android:text="your notes here"
         android:textSize="14sp" />
-     <requestFocus />
+
+    <requestFocus />
 
 </RelativeLayout>

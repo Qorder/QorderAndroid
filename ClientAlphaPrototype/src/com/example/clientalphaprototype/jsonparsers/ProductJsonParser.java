@@ -1,6 +1,7 @@
 package com.example.clientalphaprototype.jsonparsers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ProductJsonParser {
 
-	final String jsonArrayName = "productInfoList";
+	final String jsonArrayName = "productList";
 	
 	public List<Product> parse(JSONObject json) throws JSONException,
 			JsonParseException, JsonMappingException, ClassNotFoundException,
@@ -39,8 +40,8 @@ public class ProductJsonParser {
 				JSONObject cat = prodArray.getJSONObject(i);
 				Product parsingProd = new Product();
 				
-				//TODO: update this to respond to the ws json
 				parsingProd.setId(cat.getLong("id"));
+				parsingProd.setPrice(BigDecimal.valueOf(cat.getLong("price")));
 				parsingProd.setName(cat.getString("name"));
 				parsingProd.setUri(cat.getString("uri"));
 				

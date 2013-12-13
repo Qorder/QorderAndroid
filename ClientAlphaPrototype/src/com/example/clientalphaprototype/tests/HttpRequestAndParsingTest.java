@@ -32,7 +32,7 @@ public class HttpRequestAndParsingTest extends AndroidTestCase {
 		// String url = "http://10.0.2.2:8080/qorderws/businesses/menus/business?id=0";
 
 		// Ocean url
-		String url = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0";
+		String url = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=0";
 
 		JSONObject json;
 		json = HttpRequest.requestJsonObject(url);
@@ -49,7 +49,7 @@ public class HttpRequestAndParsingTest extends AndroidTestCase {
 		// String url = "http://10.0.2.2:8080/qorderws/businesses/menus/business?id=0";
 
 		// Ocean url
-		String url = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0";
+		String url = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=0";
 		JSONObject json;
 		List<Category> category = new ArrayList<Category>();
 		CategoryJsonParser jsonParser = new CategoryJsonParser();

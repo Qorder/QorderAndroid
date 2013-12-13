@@ -32,6 +32,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CategoriesActivity extends Activity {
@@ -46,9 +47,8 @@ public class CategoriesActivity extends Activity {
 
 		categories_listView = (ListView) findViewById(R.id.categories_listview);
 		categories = new ArrayList<Category>();
-
 		Bundle extras = getIntent().getExtras();
-
+		
 		if (extras != null) {
 			try {
 				this.categoriesUrl=extras.getString("categoriesUrl");
@@ -86,13 +86,14 @@ public class CategoriesActivity extends Activity {
 
 		initializeActionBar();
 		initializeArrayAdapter();
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		setBasketTitle();
-
+		setActionbarTitle();
 	}
 
 	void parseJson(String url) throws ClientProtocolException, IOException,
@@ -104,8 +105,7 @@ public class CategoriesActivity extends Activity {
 
 				categories = jsonParser.parse(json);
 
-				OrderHolder order = new OrderHolder();
-				order.setBusinessName(json.getString("businessName"));
+				OrderHolder.setBusinessName(json.getString("businessName"));
 
 			} catch (JsonParseException e) {
 				e.printStackTrace();
@@ -142,7 +142,9 @@ public class CategoriesActivity extends Activity {
 
 		setBasketTitle();
 
-		actionBar.getCustomView().setOnClickListener(new OnClickListener() {
+		Button testButton = (Button) findViewById(R.id.basket_button);
+
+		testButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent i = new Intent(getApplicationContext(),
@@ -150,12 +152,20 @@ public class CategoriesActivity extends Activity {
 				startActivity(i);
 			}
 		});
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
-				| ActionBar.DISPLAY_SHOW_HOME);
+
+		setActionbarTitle();
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 	}
 
+	void setActionbarTitle()
+	{
+		TextView activityTitle = (TextView)findViewById(R.id.title);
+		activityTitle.setText(OrderHolder.getBusinessName());
+	}
+	
 	void setBasketTitle() {
 		Button testButton = (Button) findViewById(R.id.basket_button);
+		
 		int basketSum = OrderHolder.count();
 		if (basketSum != 0) {
 			testButton.setText("Basket x" + basketSum);

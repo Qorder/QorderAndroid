@@ -33,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -49,7 +50,7 @@ public class ProductsActivity extends Activity {
 		products_listview = (ListView) findViewById(R.id.products_listview);
 
 		products = new ArrayList<Product>();
-
+		initializeActionBar();
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
@@ -85,7 +86,6 @@ public class ProductsActivity extends Activity {
 				e.printStackTrace();
 			}
 
-		initializeActionBar();
 		initializeArrayAdapter();
 	}
 
@@ -93,8 +93,7 @@ public class ProductsActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		setBasketTitle();
-		OrderHolder order = new OrderHolder();
-		this.setTitle(order.getBusinessName());
+		setActionbarTitle();
 	}
 
 	void setBasketTitle() {
@@ -107,6 +106,12 @@ public class ProductsActivity extends Activity {
 			testButton.setText("Basket");
 		}
 	}
+	
+	void setActionbarTitle()
+	{
+		TextView activityTitle = (TextView)findViewById(R.id.title);
+		activityTitle.setText(OrderHolder.getBusinessName());
+	}
 
 	void initializeActionBar() {
 		ActionBar actionBar = getActionBar();
@@ -114,7 +119,9 @@ public class ProductsActivity extends Activity {
 		actionBar.setCustomView(R.layout.actionbar_view);
 		actionBar.setDisplayShowCustomEnabled(true);
 		setBasketTitle();
-		actionBar.getCustomView().setOnClickListener(new OnClickListener() {
+		
+		Button testButton = (Button) findViewById(R.id.basket_button);
+		testButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent i = new Intent(getApplicationContext(),
@@ -122,8 +129,8 @@ public class ProductsActivity extends Activity {
 				startActivity(i);
 			}
 		});
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
-				| ActionBar.DISPLAY_SHOW_HOME);
+		setActionbarTitle();
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 	}
 
 	void initializeArrayAdapter() {

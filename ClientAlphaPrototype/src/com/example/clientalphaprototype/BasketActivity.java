@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -43,8 +45,13 @@ public class BasketActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		initializeBasket();
-		OrderHolder order = new OrderHolder();
-		this.setTitle(order.getBusinessName());
+		setActionbarTitle();
+	}
+	
+	void setActionbarTitle()
+	{
+		TextView activityTitle = (TextView)findViewById(R.id.title);
+		activityTitle.setText(OrderHolder.getBusinessName());
 	}
 
 	void initializeBasket() {
@@ -61,15 +68,18 @@ public class BasketActivity extends Activity {
 
 		actionBar.setCustomView(R.layout.actionbar_submit_view);
 		actionBar.setDisplayShowCustomEnabled(true);
-		actionBar.getCustomView().setOnClickListener(new OnClickListener() {
+		
+		Button testButton = (Button) findViewById(R.id.submit_button);
+		testButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (order.size() > 0)
 					showDialog();
 			}
-		});
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
-				| ActionBar.DISPLAY_SHOW_HOME);
+		});	
+		setActionbarTitle();
+		
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
 	}
 

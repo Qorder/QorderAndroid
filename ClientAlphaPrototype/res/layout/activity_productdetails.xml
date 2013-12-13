@@ -67,7 +67,6 @@
 
     <Button
         android:id="@+id/button_addToBasket"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -88,6 +87,6 @@
         android:text="your notes here"
         android:textSize="14sp" />
 
-    <requestFocus />
+  
 
 </RelativeLayout>

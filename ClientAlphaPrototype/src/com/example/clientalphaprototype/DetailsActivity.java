@@ -145,7 +145,7 @@ public class DetailsActivity extends Activity {
 
 		TextView description = (TextView) findViewById(R.id.textView_description);
 		// TODO: review
-		description.setText(product.getDetails());
+		description.setText(product.getDetails().replace("-", "\n"));
 
 		Gallery gallery = (Gallery) findViewById(R.id.products_gallery);
 		gallery.setSpacing(1);
@@ -168,17 +168,22 @@ public class DetailsActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		setBasketTitle();
-		OrderHolder order = new OrderHolder();
-		this.setTitle(order.getBusinessName());
+		setActionbarTitle();
 	}
 
+	
+	void setActionbarTitle()
+	{
+		TextView activityTitle = (TextView)findViewById(R.id.title);
+		activityTitle.setText(OrderHolder.getBusinessName());
+	}
+	
 	void setBasketTitle() {
 		Button testButton = (Button) findViewById(R.id.basket_button);
 		int basketSum = OrderHolder.count();
 		if (basketSum != 0) {
 			testButton.setText("Basket x" + basketSum);
 		} else {
-
 			testButton.setText("Basket");
 		}
 
@@ -190,7 +195,8 @@ public class DetailsActivity extends Activity {
 		actionBar.setCustomView(R.layout.actionbar_view);
 		actionBar.setDisplayShowCustomEnabled(true);
 		setBasketTitle();
-		actionBar.getCustomView().setOnClickListener(new OnClickListener() {
+		Button testButton = (Button) findViewById(R.id.basket_button);
+		testButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent i = new Intent(getApplicationContext(),
@@ -198,8 +204,9 @@ public class DetailsActivity extends Activity {
 				startActivity(i);
 			}
 		});
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
-				| ActionBar.DISPLAY_SHOW_HOME);
+		setActionbarTitle();
+		
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 	}
 
 	// Helper

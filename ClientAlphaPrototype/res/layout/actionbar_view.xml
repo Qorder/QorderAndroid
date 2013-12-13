@@ -1,7 +1,22 @@
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/basket_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:onClick="clickEvent"
-    android:text="Basket"
-    android:textSize="13sp" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
+    <Button
+        android:id="@+id/basket_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Basket"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

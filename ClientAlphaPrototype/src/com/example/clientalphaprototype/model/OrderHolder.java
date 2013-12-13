@@ -5,7 +5,7 @@ import java.util.List;
 
 public class OrderHolder {
 
-	String businessName;
+	static String businessName;
 	final String wsPostUri = "http://10.0.2.2:8080/qorderws/orders/business?id=";
 
 	static List<BasketProduct> order = new ArrayList<BasketProduct>();
@@ -14,12 +14,12 @@ public class OrderHolder {
 		order.add(basketProduct);
 	}
 
-	public String getBusinessName() {
+	public static String getBusinessName() {
 		return businessName;
 	}
 
-	public void setBusinessName(String businessName) {
-		this.businessName = businessName;
+	public static void setBusinessName(String businessname) {
+		businessName = businessname;
 	}
 
 	public void replace(List<BasketProduct> order) {

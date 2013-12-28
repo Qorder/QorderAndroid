@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.clientalphaprototype.ScanActivity"
+            android:name="qorder.clientprototype.activities.ScanActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,19 +32,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.CategoriesActivity"
+            android:name="qorder.clientprototype.activities.CategoriesActivity"
             android:label="categories" >
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.ProductsActivity"
+            android:name="qorder.clientprototype.activities.ProductsActivity"
             android:label="products" >
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.DetailsActivity"
+            android:name="qorder.clientprototype.activities.DetailsActivity"
             android:label="details" >
         </activity>
         <activity
-            android:name="com.example.clientalphaprototype.BasketActivity"
+            android:name="qorder.clientprototype.activities.BasketActivity"
             android:label="@string/title_activity_basket" >
         </activity>
         <activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"

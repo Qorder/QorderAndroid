@@ -16,7 +16,7 @@
         android:layout_centerVertical="true"
         android:text="scan" />
 
-    <com.example.clientalphaprototype.adapters.ExpandableTextView
+    <qorder.clientprototype.extensions.ExpandableTextView
         android:id="@+id/expandable_scaninfo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

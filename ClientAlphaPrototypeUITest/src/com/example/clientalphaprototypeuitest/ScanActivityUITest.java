@@ -74,7 +74,7 @@ public class ScanActivityUITest extends UiAutomatorTestCase {
 
 		//Press the 2nd Category in the list
 		UiObject categoryitemlist = categoryItem.getChild(new UiSelector()
-		.className("android.widget.TextView").index(1));
+		.className("android.widget.RelativeLayout").index(1));
 		categoryitemlist.click();
 
 		//Press back button

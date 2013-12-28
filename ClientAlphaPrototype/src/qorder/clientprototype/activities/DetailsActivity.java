@@ -179,9 +179,9 @@ public class DetailsActivity extends Activity {
 		Button testButton = (Button) findViewById(R.id.basket_button);
 		int basketSum = OrderHolder.count();
 		if (basketSum != 0) {
-			testButton.setText("Basket x" + basketSum);
+			testButton.setText(getResources().getString(R.string.text_basket_multiplier_productsactivity) + basketSum);
 		} else {
-			testButton.setText("Basket");
+			testButton.setText(getResources().getString(R.string.text_basket_productsactivity));
 		}
 
 	}
@@ -225,12 +225,12 @@ public class DetailsActivity extends Activity {
 				e.printStackTrace();
 			} catch (Exception e) {
 				Toast.makeText(this,
-						"Failed to find menu. Creating mock categories",
+						getResources().getString(R.string.text_error_fetch_menu_mock),
 						Toast.LENGTH_SHORT).show();
 				createMockProduct();
 			}
 		} else {
-			Toast.makeText(this, "Network Connectivity failure",
+			Toast.makeText(this, getResources().getString(R.string.text_error_network),
 					Toast.LENGTH_SHORT).show();
 		}
 	}

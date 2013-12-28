@@ -111,14 +111,14 @@ public class BasketActivity extends Activity {
 	void showDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-		builder.setMessage("i am ready").setTitle("submit");
+		builder.setMessage(getResources().getString(R.string.text_ready_basketactivity)).setTitle(getResources().getString(R.string.text_submit_basketactivity));
 
-		builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+		builder.setNegativeButton(getResources().getString(R.string.text_no_basketactivity), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				dialog.cancel();
 			}
 		});
-		builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(getResources().getString(R.string.text_yes_basketactivity), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				// send order async here
 				orderHolder.reset();

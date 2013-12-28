@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+ <resources>
 
     <string name="app_name">ClientAlphaPrototype</string>
     <string name="action_settings">Settings</string>
@@ -16,11 +16,21 @@
     <string name="button_actionbar">Basket</string>
     
     
-    <string name="button_activityproductdetails">add to basket</string>
-    
-    
+    <string name="button_activityproductdetails">add to basket</string>  
     <string name="title_price_activity_productdetails">Price Here</string>
     <string name="title_notes_activity_productdetails">your notes here</string>
     <string name="title_image_activity_productdetails">d</string>
+    <string name="text_error_camera">Rear Facing Camera Unavailable</string>
+    <string name="text_error_network">Network Connectivity failure</string>
+    <string name="text_error_fetch_mock_products">Failed to find products. Creating mock products</string>
+    <string name="text_error_fetch_menu_mock">Failed to find menu. Creating mock categories</string><string name="text_basket_multiplier_productsactivity">Basket x</string>
+    <string name="text_basket_productsactivity">Basket</string>
+    <string name="text_guide_expandableTextView"> how does this work?</string>
+    <string name="text_guide_scan_activity"> press the scan button and place your phone\s camera on top of the bar code to proceed to the catalogue</string>
+    <string name="text_ready_basketactivity">i am ready</string>
+    <string name="text_submit_basketactivity">submit</string>
+    <string name="text_yes_basketactivity">yes</string>
+    <string name="text_no_basketactivity">no</string>
+    
 
 </resources>

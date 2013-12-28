@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <resources>
+
+    <string name="app_name">ClientAlphaPrototype</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_categories">Κατηγορίες</string>
+    <string name="title_activity_products">Προϊόντα</string>
+    <string name="title_activity_details">Λεπτομέριες</string>
+    <string name="title_activity_menu">Μενού</string>
+    <string name="title_activity_tab_menu">TabMenu</string>
+    <string name="title_activity_basket">Καλάθι</string>
+    <string name="title_activity_main_menu">Κεντρικό Μενού</string>
+    <string name="title_actionbar_submit">Τίτλος</string><string name="title_actionbar">Τίτλος</string><string name="title_largetext_activity_productdetails">Μεγάλο Κείμενο</string><string name="title_mediumtext_activity_productdetails">Μεσαίο Κείμενο</string><string name="button_activity_scan">Σκανάρισμα</string>
+    <string name="button_actionbar_submit">Υποβολή</string>
+    <string name="button_actionbar">Καλάθι</string>
+    
+    
+    <string name="button_activityproductdetails">προσθήκη στο καλάθι</string>  
+    <string name="title_price_activity_productdetails">τιμή εδώ</string>
+    <string name="title_notes_activity_productdetails">σημειώστε εδώ</string>
+    <string name="title_image_activity_productdetails">d</string>
+    <string name="text_guide_scan_activity">πιέστε το κουμπί &quot;σκανάρισμα&quot; και τοποθετήστε το κινητό σας πάνω από το bar-code για να συνεχίσετε στον κατάλογο</string>
+    <string name="text_guide_expandableTextView">πώς λειτουργεί;</string><string name="text_error_camera">Μπροστινή Κάμερα μη-διαθέσιμη</string>
+    <string name="text_error_network">Αδυναμία σύνδεσης δικτύου</string>
+    <string name="text_error_fetch_mock_products">Αποτυχία εύρεσης Προϊόντων. Δημιουργία εικονικών προϊόντων</string>
+    <string name="text_error_fetch_menu_mock">Αδυναμία εύρεσης μενού. Δημιουργία εικονικών κατηγοριών</string><string name="text_basket_multiplier_productsactivity">Καλάθι x</string>
+    <string name="text_basket_productsactivity">Καλάθι</string>
+    
+    
+    <string name="text_ready_basketactivity">είμαι έτοιμος</string>
+    <string name="text_submit_basketactivity">Υποβολή</string>
+    <string name="text_yes_basketactivity">Ναι</string>
+    <string name="text_no_basketactivity">Όχι</string>
+
+</resources>

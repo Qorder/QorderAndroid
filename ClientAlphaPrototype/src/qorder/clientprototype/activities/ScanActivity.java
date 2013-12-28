@@ -24,7 +24,7 @@ import com.example.clientalphaprototype.R;
 public class ScanActivity extends Activity {
 
 	private static final int ZBAR_SCANNER_REQUEST = 0;
-	final String text = " press the scan button and place your phone's camera on top of the bar code to proceed to the catalogue";
+	//String text = "press the scan button and place your phones camera on top of the bar code to proceed to the catalogue";//getResources().getString(R.string.text_guide_scan_activity);
 	List<Category> categories;
 
 	// Set to true if you want to scan a qr code
@@ -41,7 +41,7 @@ public class ScanActivity extends Activity {
 		setContentView(R.layout.activity_scan);
 
 		ExpandableTextView expandableTextView = (ExpandableTextView) findViewById(R.id.expandable_scaninfo);
-		expandableTextView.setText(text);
+		expandableTextView.setText(getResources().getString(R.string.text_guide_scan_activity));
 
 		OrderHolder orderHolder = new OrderHolder();
 		orderHolder.reset();
@@ -65,7 +65,7 @@ public class ScanActivity extends Activity {
 						startActivityForResult(intent, ZBAR_SCANNER_REQUEST);
 					} else {
 						Toast.makeText(ScanActivity.this,
-								"Rear Facing Camera Unavailable",
+								getResources().getString(R.string.text_error_camera),
 								Toast.LENGTH_SHORT).show();
 					}
 				} else {

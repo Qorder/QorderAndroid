@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/products_imageview"
         android:layout_centerHorizontal="true"
-        android:text="Large Text"
+        android:text="@string/title_largetext_activity_productdetails"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
-                android:text="Medium Text"
+                android:text="@string/title_mediumtext_activity_productdetails"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
@@ -53,7 +53,7 @@
         android:layout_height="150dp"
         android:layout_below="@+id/products_gallery"
         android:layout_centerHorizontal="true"
-        android:contentDescription="d"
+        android:contentDescription="@string/title_image_activity_productdetails"
         android:src="@drawable/image1" />
 
     <TextView
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textView_title"
         android:layout_below="@+id/textView_title"
-        android:text="Price Here"
+        android:text="@string/title_price_activity_productdetails"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/price_txt"
-        android:text="add to basket"
+        android:text="@string/button_activityproductdetails"
         android:textSize="12sp" />
 
     <EditText
@@ -84,9 +84,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:maxLength="90"
-        android:text="your notes here"
+        android:text="@string/title_notes_activity_productdetails"
         android:textSize="14sp" />
-
-  
 
 </RelativeLayout>

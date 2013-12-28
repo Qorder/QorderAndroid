@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="scan" />
+        android:text="@string/button_activity_scan" />
 
     <qorder.clientprototype.extensions.ExpandableTextView
         android:id="@+id/expandable_scaninfo"

@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="Submit"
+        android:text="@string/button_actionbar_submit"
         android:textSize="13sp" />
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="Title"
+        android:text="@string/title_actionbar_submit"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

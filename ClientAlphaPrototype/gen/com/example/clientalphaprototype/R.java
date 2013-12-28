@@ -83,7 +83,13 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int button_actionbar=0x7f050010;
+        public static final int button_actionbar_submit=0x7f05000f;
+        public static final int button_activity_scan=0x7f05000e;
+        public static final int button_activityproductdetails=0x7f050011;
         public static final int hello_world=0x7f050002;
+        public static final int title_actionbar=0x7f05000b;
+        public static final int title_actionbar_submit=0x7f05000a;
         public static final int title_activity_basket=0x7f050008;
         public static final int title_activity_categories=0x7f050003;
         public static final int title_activity_details=0x7f050005;
@@ -91,6 +97,11 @@ containing a value of this type.
         public static final int title_activity_menu=0x7f050006;
         public static final int title_activity_products=0x7f050004;
         public static final int title_activity_tab_menu=0x7f050007;
+        public static final int title_image_activity_productdetails=0x7f050014;
+        public static final int title_largetext_activity_productdetails=0x7f05000c;
+        public static final int title_mediumtext_activity_productdetails=0x7f05000d;
+        public static final int title_notes_activity_productdetails=0x7f050013;
+        public static final int title_price_activity_productdetails=0x7f050012;
     }
     public static final class style {
         /** 

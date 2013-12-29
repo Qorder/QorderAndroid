@@ -1,7 +1,6 @@
 package qorder.clientprototype.extensions;
 
-import com.example.clientalphaprototype.R;
-
+import qorder.clientprototype.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.SpannableStringBuilder;

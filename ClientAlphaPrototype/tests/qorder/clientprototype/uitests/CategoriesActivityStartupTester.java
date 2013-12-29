@@ -32,7 +32,7 @@ public class CategoriesActivityStartupTester extends
 				CategoriesActivity.class.getName(), null, false);
 
 		Button view = (Button) activity
-				.findViewById(com.example.clientalphaprototype.R.id.button_scan);
+				.findViewById(qorder.clientprototype.R.id.button_scan);
 
 		TouchUtils.clickView(this, view);
 
@@ -41,7 +41,7 @@ public class CategoriesActivityStartupTester extends
 		assertNotNull(categoriesActivity);
 
 		ListView categories_listView = (ListView) categoriesActivity
-				.findViewById(com.example.clientalphaprototype.R.id.categories_listview);
+				.findViewById(qorder.clientprototype.R.id.categories_listview);
 
 		ViewAsserts.assertOnScreen(categoriesActivity.getWindow()
 				.getDecorView(), categories_listView);

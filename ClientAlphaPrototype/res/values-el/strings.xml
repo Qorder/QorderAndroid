@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
  <resources>
 
-    <string name="app_name">ClientAlphaPrototype</string>
+    <string name="app_name">ClientPrototype</string>
     <string name="action_settings">Ρυθμίσεις</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_categories">Κατηγορίες</string>
@@ -37,5 +37,7 @@
     <string name="title_basket_dialog">σημειώσεις</string>
     <string name="text_done_basketdialog">είμαι έτοιμος</string>
     <string name="text_view_basketdialog">πληροφορίες</string>
-
+    <string name="title_postdialog">περιμένετε</string>
+    <string name="text_postsuccess">η παραγγελία σας στάλθηκε επιτυχώς :)</string>
+    <string name="text_postfail">δεν μπορέσαμε να στείλουμε την παραγγελία σας :(</string>
 </resources>

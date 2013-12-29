@@ -13,7 +13,7 @@ import qorder.clientprototype.jsonparsers.CategoryJsonParser;
 import qorder.clientprototype.model.Category;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.util.AndroidUtil;
-import qorder.clientprototype.util.HttpRequest;
+import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,8 +29,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.clientalphaprototype.R;
+import qorder.clientprototype.R;
 
 public class CategoriesActivity extends Activity {
 
@@ -99,18 +98,17 @@ public class CategoriesActivity extends Activity {
 
 	void parseJson(String url) throws ClientProtocolException, IOException,
 			ClassNotFoundException, JSONException {
-		if (AndroidUtil.isNetworkAvailable(this)) {
+		if (AndroidUtil.isNetworkAvailable(this) && url != null) {
 			try {
+				/*
 				CategoryJsonParser jsonParser = new CategoryJsonParser();
-				JSONObject json = HttpRequest.requestJsonObject(url);
+				JSONObject json = NetworkUtil.requestJsonObject(url);
 
 				categories = jsonParser.parse(json);
 
 				OrderHolder.setBusinessName(json.getString("businessName"));
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+				*/
+				createMockCategories();
 			} catch (Exception e) {
 				Toast.makeText(this,
 						getResources().getString(R.string.text_error_fetch_menu_mock),
@@ -120,6 +118,7 @@ public class CategoriesActivity extends Activity {
 		} else {
 			Toast.makeText(this, getResources().getString(R.string.text_error_network),
 					Toast.LENGTH_SHORT).show();
+			createMockCategories();
 		}
 	}
 

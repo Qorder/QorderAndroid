@@ -7,6 +7,7 @@ import qorder.clientprototype.extensions.BasketCustomList;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.swipe.SwipeDismissListViewTouchListener;
+import qorder.clientprototype.util.AsyncPost;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,13 +20,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.clientalphaprototype.R;
+import qorder.clientprototype.R;
 
 public class BasketActivity extends Activity {
 
@@ -81,7 +82,7 @@ public class BasketActivity extends Activity {
 		activityTitle.setText(OrderHolder.getBusinessName());
 	}
 
-	void initializeBasket() {
+	public void initializeBasket() {
 		order = orderHolder.getOrder();
 
 		listView = (ListView) findViewById(R.id.basket_list);
@@ -176,9 +177,11 @@ public class BasketActivity extends Activity {
 				getResources().getString(R.string.text_yes_basketactivity),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						// send order async here
-						orderHolder.reset();
-						initializeBasket();
+						AsyncPost post = new AsyncPost(BasketActivity.this);
+						BasketProduct[] basketProducts = order.toArray(new BasketProduct[order.size()]);
+						post.execute(basketProducts);
+						//OrderHolder.reset();
+						//initializeBasket();
 					}
 				});
 

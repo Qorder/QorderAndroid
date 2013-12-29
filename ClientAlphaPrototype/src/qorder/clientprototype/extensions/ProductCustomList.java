@@ -2,8 +2,7 @@ package qorder.clientprototype.extensions;
 
 import java.util.List;
 
-import com.example.clientalphaprototype.R;
-
+import qorder.clientprototype.R;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;

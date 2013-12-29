@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
-import com.example.clientalphaprototype.R;
+import qorder.clientprototype.R;
 
 public class ScanActivity extends Activity {
 
@@ -43,8 +43,7 @@ public class ScanActivity extends Activity {
 		ExpandableTextView expandableTextView = (ExpandableTextView) findViewById(R.id.expandable_scaninfo);
 		expandableTextView.setText(getResources().getString(R.string.text_guide_scan_activity));
 
-		OrderHolder orderHolder = new OrderHolder();
-		orderHolder.reset();
+		OrderHolder.reset();
 		initializeScanButton();
 	}
 

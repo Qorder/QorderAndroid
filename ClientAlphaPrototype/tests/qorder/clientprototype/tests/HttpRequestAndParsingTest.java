@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import qorder.clientprototype.jsonparsers.CategoryJsonParser;
 import qorder.clientprototype.model.Category;
-import qorder.clientprototype.util.HttpRequest;
+import qorder.clientprototype.util.NetworkUtil;
 import android.test.AndroidTestCase;
 
 public class HttpRequestAndParsingTest extends AndroidTestCase {
@@ -33,7 +33,7 @@ public class HttpRequestAndParsingTest extends AndroidTestCase {
 		String url = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=0";
 
 		JSONObject json;
-		json = HttpRequest.requestJsonObject(url);
+		json = NetworkUtil.requestJsonObject(url);
 		String businessID = json.getString("businessName");
 		String expectedBusinessID = "Dr. Guros";
 
@@ -53,7 +53,7 @@ public class HttpRequestAndParsingTest extends AndroidTestCase {
 		CategoryJsonParser jsonParser = new CategoryJsonParser();
 		List<Category> expectedCategory = new ArrayList<Category>();
 
-		json = HttpRequest.requestJsonObject(url);
+		json = NetworkUtil.requestJsonObject(url);
 
 		category = jsonParser.parse(json);
 		expectedCategory.add(new Category(0, "food", "null"));

@@ -14,7 +14,7 @@ import qorder.clientprototype.jsonparsers.ProductJsonParser;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.model.Product;
 import qorder.clientprototype.util.AndroidUtil;
-import qorder.clientprototype.util.HttpRequest;
+import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -30,8 +30,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.clientalphaprototype.R;
+import qorder.clientprototype.R;
 
 public class ProductsActivity extends Activity {
 
@@ -176,7 +175,7 @@ public class ProductsActivity extends Activity {
 		if (AndroidUtil.isNetworkAvailable(this)) {
 			try {
 				ProductJsonParser jsonParser = new ProductJsonParser();
-				JSONObject json = HttpRequest.requestJsonObject(url);
+				JSONObject json = NetworkUtil.requestJsonObject(url);
 
 				products = jsonParser.parse(json);
 

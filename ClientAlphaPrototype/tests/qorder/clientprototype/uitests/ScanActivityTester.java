@@ -24,7 +24,7 @@ public class ScanActivityTester extends
 	}
 
 	public void testbuttonText() {
-		buttonId = com.example.clientalphaprototype.R.id.button_scan;
+		buttonId = qorder.clientprototype.R.id.button_scan;
 		assertNotNull(activity.findViewById(buttonId));
 		Button view = (Button) activity.findViewById(buttonId);
 		assertEquals("Incorrect label of the button", "I am ready to order",
@@ -32,7 +32,7 @@ public class ScanActivityTester extends
 	}
 
 	public void testIntentTriggerViaOnClick() {
-		buttonId = com.example.clientalphaprototype.R.id.button_scan;
+		buttonId = qorder.clientprototype.R.id.button_scan;
 		Button view = (Button) activity.findViewById(buttonId);
 		assertNotNull("Button not allowed to be null", view);
 

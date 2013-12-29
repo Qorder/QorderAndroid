@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import qorder.clientprototype.model.Category;
-import qorder.clientprototype.util.HttpRequest;
+import qorder.clientprototype.util.NetworkUtil;
 import android.test.AndroidTestCase;
 
 public class HttpRequestTest extends AndroidTestCase {
@@ -51,7 +51,7 @@ public class HttpRequestTest extends AndroidTestCase {
 		JSONObject event;
 		JSONObject expectedEvent = new JSONObject(
 				"{\"businessName\":\"Ta kala paidia\",\"categoryInfoList\":[{\"id\":0,\"name\":\"drinks\",\"uri\":\"null\"}]}");
-		event = HttpRequest.requestJsonObject(url);
+		event = NetworkUtil.requestJsonObject(url);
 		
 		assertEquals(event, expectedEvent);
 

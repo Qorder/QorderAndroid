@@ -15,7 +15,7 @@ import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.DetailedProduct;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.util.AndroidUtil;
-import qorder.clientprototype.util.HttpRequest;
+import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -33,7 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.clientalphaprototype.R;
+import qorder.clientprototype.R;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -92,7 +92,6 @@ public class DetailsActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.details, menu);
 		return true;
 	}
@@ -123,7 +122,7 @@ public class DetailsActivity extends Activity {
 		setActionbarTitle();
 	}
 
-	// TODO: encapsulate this in an image parsing class and share it with the
+	// TODO: encapsulate this in an image parsing and loading async class and share it with the
 	// gallery widget
 	void initializeImages() {
 		for (int i = 0; i < 3; i++) {
@@ -211,7 +210,7 @@ public class DetailsActivity extends Activity {
 		if (AndroidUtil.isNetworkAvailable(this)) {
 			try {
 				DetailedProductJsonParser jsonParser = new DetailedProductJsonParser();
-				JSONObject json = HttpRequest.requestJsonObject(url);
+				JSONObject json = NetworkUtil.requestJsonObject(url);
 
 				product = jsonParser.parse(json);
 

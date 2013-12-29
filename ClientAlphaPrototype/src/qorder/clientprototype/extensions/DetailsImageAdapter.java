@@ -3,8 +3,7 @@ package qorder.clientprototype.extensions;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.clientalphaprototype.R;
-
+import qorder.clientprototype.R;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;

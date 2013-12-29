@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.clientalphaprototype"
+    package="qorder.clientprototype"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     
-    <instrumentation android:targetPackage="com.example.clientalphaprototype" android:name="android.test.InstrumentationTestRunner"></instrumentation>
+    <instrumentation android:targetPackage="qorder.clientprototype" android:name="android.test.InstrumentationTestRunner"></instrumentation>
 
     
 

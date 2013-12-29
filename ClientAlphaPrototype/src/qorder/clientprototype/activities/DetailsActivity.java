@@ -141,7 +141,7 @@ public class DetailsActivity extends Activity {
 		if (notes != null)
 			mEdit.setText(notes);
 		else
-			mEdit.setText("your notes here");
+			mEdit.setText(getResources().getString(R.string.title_notes_activity_productdetails));
 
 		TextView title = (TextView) findViewById(R.id.textView_title);
 		title.setText(product.getName());

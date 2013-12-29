@@ -96,6 +96,8 @@ containing a value of this type.
         public static final int text_error_network=0x7f050016;
         public static final int text_guide_expandableTextView=0x7f05001b;
         public static final int text_guide_scan_activity=0x7f05001c;
+        public static final int text_menu_basket_menu=0x7f050021;
+        public static final int text_menu_basket_scanagain=0x7f050022;
         public static final int text_no_basketactivity=0x7f050020;
         public static final int text_ready_basketactivity=0x7f05001d;
         public static final int text_submit_basketactivity=0x7f05001e;

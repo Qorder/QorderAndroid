@@ -31,6 +31,8 @@
     <string name="text_submit_basketactivity">submit</string>
     <string name="text_yes_basketactivity">yes</string>
     <string name="text_no_basketactivity">no</string>
+    <string name="text_menu_basket_menu">Menu</string>
+    <string name="text_menu_basket_scanagain">Scan Again</string>
     
 
 </resources>

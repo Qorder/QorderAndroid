@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class ExpandableTextView extends TextView {
 	
-    private static final int DEFAULT_TRIM_LENGTH = 0;
+    private static final int DEFAULT_TRIM_LENGTH = -1;
     //Changed from static to non-static in order to apply getResources()
     private final String ELLIPSIS = getResources().getString(R.string.text_guide_expandableTextView);
 
@@ -37,7 +37,7 @@ public class ExpandableTextView extends TextView {
             public void onClick(View v) {
                 trim = !trim;
                 setText();
-                requestFocusFromTouch();
+             //   requestFocusFromTouch();
             }
         });
     }

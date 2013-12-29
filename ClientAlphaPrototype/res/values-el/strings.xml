@@ -32,5 +32,7 @@
     <string name="text_submit_basketactivity">Υποβολή</string>
     <string name="text_yes_basketactivity">Ναι</string>
     <string name="text_no_basketactivity">Όχι</string>
+    <string name="text_menu_basket_menu">Μενού</string>
+    <string name="text_menu_basket_scanagain">Σκανάρισε ξανά</string>
 
 </resources>

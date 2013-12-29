@@ -48,6 +48,7 @@ public class CategoriesActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 
 		try {
+			if(extras!=null)
 			CategoriesActivity.categoriesUrl = extras
 					.getString("categoriesUrl");
 			parseJson(categoriesUrl);

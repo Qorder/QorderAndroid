@@ -13,12 +13,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -99,7 +101,7 @@ public class BasketActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				if (order.size() > 0)
-					showDialog();
+					showSubmitDialog();
 			}
 		});
 		setActionbarTitle();
@@ -108,23 +110,77 @@ public class BasketActivity extends Activity {
 
 	}
 
-	void showDialog() {
+	void showEditDialog(final int position) {
+		LayoutInflater li = LayoutInflater.from(this);
+		View dialogview = li.inflate(R.layout.basket_dialog, null);
+
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setView(dialogview);
+
+		final EditText userInput = (EditText) dialogview
+				.findViewById(R.id.editTextDialogNotes);
+
+		userInput.setText(order.get(position).getNotes());
+
+		alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton(
+						getResources().getString(
+								R.string.text_view_basketdialog),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								Intent i = new Intent(getApplicationContext(),
+										DetailsActivity.class);
+								i.putExtra("product", order.get(position)
+										.getUri());
+								i.putExtra("notes", order.get(position)
+										.getNotes());
+								startActivity(i);
+							}
+						})
+				.setNegativeButton(
+						getResources().getString(
+								R.string.text_done_basketdialog),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+								order.get(position).setNotes(
+										userInput.getText().toString());
+								initializeArrayAdapter();
+							}
+						});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		alertDialog.show();
+	}
+
+	void showSubmitDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-		builder.setMessage(getResources().getString(R.string.text_ready_basketactivity)).setTitle(getResources().getString(R.string.text_submit_basketactivity));
+		builder.setMessage(
+				getResources().getString(R.string.text_ready_basketactivity))
+				.setTitle(
+						getResources().getString(
+								R.string.text_submit_basketactivity));
 
-		builder.setNegativeButton(getResources().getString(R.string.text_no_basketactivity), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-			}
-		});
-		builder.setPositiveButton(getResources().getString(R.string.text_yes_basketactivity), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				// send order async here
-				orderHolder.reset();
-				initializeBasket();
-			}
-		});
+		builder.setNegativeButton(
+				getResources().getString(R.string.text_no_basketactivity),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		builder.setPositiveButton(
+				getResources().getString(R.string.text_yes_basketactivity),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// send order async here
+						orderHolder.reset();
+						initializeBasket();
+					}
+				});
 
 		AlertDialog dialog = builder.create();
 		dialog.show();
@@ -142,11 +198,7 @@ public class BasketActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent i = new Intent(getApplicationContext(),
-						DetailsActivity.class);
-				i.putExtra("product", order.get(position).getUri());
-				i.putExtra("notes", order.get(position).getNotes());
-				startActivity(i);
+				showEditDialog(position);
 			}
 		});
 

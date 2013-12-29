@@ -2,7 +2,6 @@ package qorder.clientprototype.uitests;
 
 import qorder.clientprototype.activities.CategoriesActivity;
 import qorder.clientprototype.activities.ScanActivity;
-import qorder.clientprototype.model.Category;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;

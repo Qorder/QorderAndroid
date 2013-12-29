@@ -34,5 +34,8 @@
     <string name="text_no_basketactivity">Όχι</string>
     <string name="text_menu_basket_menu">Μενού</string>
     <string name="text_menu_basket_scanagain">Σκανάρισε ξανά</string>
+    <string name="title_basket_dialog">σημειώσεις</string>
+    <string name="text_done_basketdialog">είμαι έτοιμος</string>
+    <string name="text_view_basketdialog">πληροφορίες</string>
 
 </resources>

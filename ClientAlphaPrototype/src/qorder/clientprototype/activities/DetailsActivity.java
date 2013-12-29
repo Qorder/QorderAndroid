@@ -140,8 +140,8 @@ public class DetailsActivity extends Activity {
 
 		if (notes != null)
 			mEdit.setText(notes);
-		else
-			mEdit.setText(getResources().getString(R.string.title_notes_activity_productdetails));
+		//else
+			//mEdit.setText(getResources().getString(R.string.title_notes_activity_productdetails));
 
 		TextView title = (TextView) findViewById(R.id.textView_title);
 		title.setText(product.getName());
@@ -237,7 +237,7 @@ public class DetailsActivity extends Activity {
 
 	void createMockProduct() {
 		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
-				"your notes here", "test", "example uri");
+				"your notes here", "a description goes here", "example uri");
 	}
 
 }

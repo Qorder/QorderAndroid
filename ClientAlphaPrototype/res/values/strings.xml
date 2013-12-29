@@ -33,6 +33,9 @@
     <string name="text_no_basketactivity">no</string>
     <string name="text_menu_basket_menu">Menu</string>
     <string name="text_menu_basket_scanagain">Scan Again</string>
+    <string name="title_basket_dialog">notes</string>
+    <string name="text_done_basketdialog">im done</string>
+    <string name="text_view_basketdialog">view details</string>
     
 
 </resources>

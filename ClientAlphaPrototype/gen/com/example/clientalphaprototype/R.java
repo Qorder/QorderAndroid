@@ -36,25 +36,28 @@ containing a value of this type.
         public static final int image3=0x7f020004;
     }
     public static final class id {
-        public static final int Menu=0x7f080014;
-        public static final int ScanAgain=0x7f080015;
-        public static final int action_settings=0x7f080016;
+        public static final int Menu=0x7f080017;
+        public static final int ScanAgain=0x7f080018;
+        public static final int action_settings=0x7f080019;
         public static final int basket_button=0x7f080002;
         public static final int basket_list=0x7f080003;
+        public static final int basketdialogtextview=0x7f080012;
         public static final int button_addToBasket=0x7f08000d;
         public static final int button_scan=0x7f08000f;
         public static final int categories_listview=0x7f080004;
-        public static final int category_txt=0x7f080013;
+        public static final int category_txt=0x7f080016;
+        public static final int editTextDialogNotes=0x7f080013;
         public static final int editText_notes=0x7f08000a;
         public static final int expandable_scaninfo=0x7f080010;
-        public static final int large_txt=0x7f080012;
+        public static final int large_txt=0x7f080015;
+        public static final int layout_root=0x7f080011;
         public static final int pager=0x7f080005;
         public static final int price_txt=0x7f08000b;
         public static final int products_gallery=0x7f080006;
         public static final int products_imageview=0x7f080008;
         public static final int products_listview=0x7f08000e;
         public static final int scrollView1=0x7f080009;
-        public static final int small_txt=0x7f080011;
+        public static final int small_txt=0x7f080014;
         public static final int submit_button=0x7f080000;
         public static final int textView_description=0x7f08000c;
         public static final int textView_title=0x7f080007;
@@ -68,9 +71,10 @@ containing a value of this type.
         public static final int activity_productdetails=0x7f030004;
         public static final int activity_products=0x7f030005;
         public static final int activity_scan=0x7f030006;
-        public static final int basket_listview=0x7f030007;
-        public static final int categories_listview=0x7f030008;
-        public static final int product_listview=0x7f030009;
+        public static final int basket_dialog=0x7f030007;
+        public static final int basket_listview=0x7f030008;
+        public static final int categories_listview=0x7f030009;
+        public static final int product_listview=0x7f03000a;
     }
     public static final class menu {
         public static final int basket=0x7f070000;
@@ -90,6 +94,7 @@ containing a value of this type.
         public static final int hello_world=0x7f050002;
         public static final int text_basket_multiplier_productsactivity=0x7f050019;
         public static final int text_basket_productsactivity=0x7f05001a;
+        public static final int text_done_basketdialog=0x7f050024;
         public static final int text_error_camera=0x7f050015;
         public static final int text_error_fetch_menu_mock=0x7f050018;
         public static final int text_error_fetch_mock_products=0x7f050017;
@@ -101,6 +106,7 @@ containing a value of this type.
         public static final int text_no_basketactivity=0x7f050020;
         public static final int text_ready_basketactivity=0x7f05001d;
         public static final int text_submit_basketactivity=0x7f05001e;
+        public static final int text_view_basketdialog=0x7f050025;
         public static final int text_yes_basketactivity=0x7f05001f;
         public static final int title_actionbar=0x7f05000b;
         public static final int title_actionbar_submit=0x7f05000a;
@@ -111,6 +117,7 @@ containing a value of this type.
         public static final int title_activity_menu=0x7f050006;
         public static final int title_activity_products=0x7f050004;
         public static final int title_activity_tab_menu=0x7f050007;
+        public static final int title_basket_dialog=0x7f050023;
         public static final int title_image_activity_productdetails=0x7f050014;
         public static final int title_largetext_activity_productdetails=0x7f05000c;
         public static final int title_mediumtext_activity_productdetails=0x7f05000d;

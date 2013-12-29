@@ -34,7 +34,7 @@
 
         <LinearLayout
             android:layout_width="275dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
@@ -84,7 +84,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:maxLength="90"
-        android:text="@string/title_notes_activity_productdetails"
+        android:hint="@string/title_notes_activity_productdetails"
         android:textSize="14sp" />
 
 </RelativeLayout>

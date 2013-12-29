@@ -22,6 +22,8 @@ public class JsonOrderParser {
 			
 			JSONObject orderItem = new JSONObject();
 			orderItem.put("productId", order.getId());
+			orderItem.put("name", order.getName());
+			orderItem.put("price", order.getPrice());
 			orderItem.put("notes", order.getNotes());
 			arr.put(orderItem);
 		}

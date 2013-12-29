@@ -27,19 +27,21 @@
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:layout_above="@+id/editText_notes"
+        android:layout_alignLeft="@+id/line"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/price_txt" >
 
         <LinearLayout
-            android:layout_width="275dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/textView_description"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
                 android:text="@string/title_mediumtext_activity_productdetails"
@@ -50,7 +52,7 @@
     <ImageView
         android:id="@+id/products_imageview"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="110dp"
         android:layout_below="@+id/products_gallery"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/title_image_activity_productdetails"
@@ -67,24 +69,43 @@
 
     <Button
         android:id="@+id/button_addToBasket"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/price_txt"
+        android:layout_alignRight="@+id/scrollView1"
+        android:layout_marginBottom="25dp"
         android:text="@string/button_activityproductdetails"
         android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_alignBottom="@+id/price_txt"
+        android:layout_alignParentRight="true"
+        android:background="#000000" />
+    
+        <TextView
+        android:id="@+id/bottomline"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_alignBottom="@+id/scrollView1"
+        android:layout_alignParentRight="true"
+        android:background="#000000" />
 
     <EditText
         android:id="@+id/editText_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_addToBasket"
-        android:layout_alignLeft="@+id/scrollView1"
-        android:layout_alignRight="@+id/scrollView1"
+        android:layout_alignBottom="@+id/button_addToBasket"
+        android:layout_alignLeft="@+id/line"
+        android:layout_toLeftOf="@+id/button_addToBasket"
         android:ems="10"
-        android:inputType="textMultiLine"
-        android:maxLength="90"
         android:hint="@string/title_notes_activity_productdetails"
-        android:textSize="14sp" />
+        android:lines="3"
+        android:maxLength="90"
+        android:maxLines="3"
+        android:textSize="12sp" />
 
 </RelativeLayout>

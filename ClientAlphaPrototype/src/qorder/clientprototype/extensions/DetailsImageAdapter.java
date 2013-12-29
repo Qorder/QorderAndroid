@@ -44,7 +44,7 @@ public class DetailsImageAdapter extends BaseAdapter
         ImageView i = new ImageView(mContext);
 
         i.setImageResource(imgIds.get(index));
-        i.setLayoutParams(new Gallery.LayoutParams(100, 100));
+        i.setLayoutParams(new Gallery.LayoutParams(90, 90));
         i.setScaleType(ImageView.ScaleType.FIT_XY);
         
         return i;

@@ -20,6 +20,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,8 +34,8 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import qorder.clientprototype.R;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -122,7 +124,8 @@ public class DetailsActivity extends Activity {
 		setActionbarTitle();
 	}
 
-	// TODO: encapsulate this in an image parsing and loading async class and share it with the
+	// TODO: encapsulate this in an image parsing and loading async class and
+	// share it with the
 	// gallery widget
 	void initializeImages() {
 		for (int i = 0; i < 3; i++) {
@@ -132,15 +135,39 @@ public class DetailsActivity extends Activity {
 		}
 	}
 
+	void manipulateEditTextParsing(EditText mEdit) {
+		mEdit.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				for (int i = s.length(); i > 0; i--) {
+
+					if (s.subSequence(i - 1, i).toString().equals("\n"))
+						s.replace(i - 1, i, "");
+				}
+			}
+		});
+	}
+
 	void initializeView() {
 		EditText mEdit = (EditText) findViewById(R.id.editText_notes);
+		manipulateEditTextParsing(mEdit);
 
 		initializeImages();
 
 		if (notes != null)
 			mEdit.setText(notes);
-		//else
-			//mEdit.setText(getResources().getString(R.string.title_notes_activity_productdetails));
+		// else
+		// mEdit.setText(getResources().getString(R.string.title_notes_activity_productdetails));
 
 		TextView title = (TextView) findViewById(R.id.textView_title);
 		title.setText(product.getName());
@@ -178,9 +205,12 @@ public class DetailsActivity extends Activity {
 		Button testButton = (Button) findViewById(R.id.basket_button);
 		int basketSum = OrderHolder.count();
 		if (basketSum != 0) {
-			testButton.setText(getResources().getString(R.string.text_basket_multiplier_productsactivity) + basketSum);
+			testButton.setText(getResources().getString(
+					R.string.text_basket_multiplier_productsactivity)
+					+ basketSum);
 		} else {
-			testButton.setText(getResources().getString(R.string.text_basket_productsactivity));
+			testButton.setText(getResources().getString(
+					R.string.text_basket_productsactivity));
 		}
 
 	}
@@ -223,20 +253,28 @@ public class DetailsActivity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
-				Toast.makeText(this,
-						getResources().getString(R.string.text_error_fetch_menu_mock),
+				Toast.makeText(
+						this,
+						getResources().getString(
+								R.string.text_error_fetch_menu_mock),
 						Toast.LENGTH_SHORT).show();
 				createMockProduct();
 			}
 		} else {
-			Toast.makeText(this, getResources().getString(R.string.text_error_network),
+			Toast.makeText(this,
+					getResources().getString(R.string.text_error_network),
 					Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	void createMockProduct() {
-		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
-				"your notes here", "a description goes here", "example uri");
+		product = new DetailedProduct(
+				1,
+				"Product",
+				BigDecimal.valueOf(1.99),
+				"your notes here",
+				"a description goes here \nnow \ntesting  \nscrollview \n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\nif you are reading this then it works",
+				"example uri");
 	}
 
 }

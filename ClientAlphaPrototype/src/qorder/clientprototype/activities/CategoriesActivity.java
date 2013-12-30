@@ -119,6 +119,14 @@ public class CategoriesActivity extends Activity {
 						OrderHolder.setBusinessName(json
 								.getString("businessName"));
 						*/
+						
+						//Testing the animation
+						long start = System.currentTimeMillis();
+						long end = start + 5*1000;
+						while (System.currentTimeMillis() < end)
+						{
+						  ;
+						}
 						createMockCategories();
 
 					} catch (Exception e) {

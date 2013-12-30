@@ -81,7 +81,7 @@ public class ScanActivity extends Activity {
 							CategoriesActivity.class);
 					categories
 							.putExtra("initialInfo",
-									"1_http://exampleposturl.net_http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=0");
+									"1_http://posturl.net_http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=0");
 					startActivity(categories);
 				}
 

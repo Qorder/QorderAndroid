@@ -9,10 +9,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import qorder.clientprototype.extensions.DetailsCustomList;
 import qorder.clientprototype.extensions.DetailsImageAdapter;
 import qorder.clientprototype.jsonparsers.DetailedProductJsonParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.DetailedProduct;
+import qorder.clientprototype.model.DetailsHolder;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.util.AndroidUtil;
 import qorder.clientprototype.util.NetworkUtil;
@@ -32,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import qorder.clientprototype.R;
@@ -48,12 +51,15 @@ public class DetailsActivity extends Activity {
 	ImageView currentImage;
 	String notes;
 	List<Integer> imgIds;
+	ListView details_listview;
+	DetailsCustomList adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_productdetails);
 
+		details_listview = (ListView) findViewById(R.id.listview_details);
 		product = new DetailedProduct();
 		notes = null;
 		Bundle extras = getIntent().getExtras();
@@ -85,9 +91,9 @@ public class DetailsActivity extends Activity {
 			public void onClick(View v) {
 				EditText mEdit = (EditText) findViewById(R.id.editText_notes);
 				orderHolder.add(new BasketProduct(product.getId(), product
-						.getName(), product.getPrice(), mEdit.getText()
-						.toString(), product.getUri()));
+						.getName(), product.getPrice(), getSelectedDetails() + mEdit.getText().toString(), product.getUri()));
 				setBasketTitle();
+
 			}
 		});
 	}
@@ -122,6 +128,26 @@ public class DetailsActivity extends Activity {
 		super.onResume();
 		setBasketTitle();
 		setActionbarTitle();
+	}
+
+	String getSelectedDetails() {
+		StringBuffer responseText = new StringBuffer();
+
+		List<DetailsHolder> details = adapter.list;
+		for (int i = 0; i < details.size(); i++) {
+			DetailsHolder holder = details.get(i);
+			if (holder.isSelected()) {
+				responseText.append(holder.getName()+ "  ");
+			}
+		}
+		return responseText.toString();
+	}
+
+	void initializeDetailsArrayAdapter(List<DetailsHolder> details) {
+		adapter = new DetailsCustomList(this, details);
+
+		details_listview.setAdapter(adapter);
+
 	}
 
 	// TODO: encapsulate this in an image parsing and loading async class and
@@ -164,8 +190,8 @@ public class DetailsActivity extends Activity {
 
 		initializeImages();
 
-		if (notes != null)
-			mEdit.setText(notes);
+		// if (notes != null)
+		// mEdit.setText(notes);
 		// else
 		// mEdit.setText(getResources().getString(R.string.title_notes_activity_productdetails));
 
@@ -175,9 +201,18 @@ public class DetailsActivity extends Activity {
 		TextView price = (TextView) findViewById(R.id.price_txt);
 		price.setText(product.getPrice().toString() + currencySign);
 
-		TextView description = (TextView) findViewById(R.id.textView_description);
+		// TextView description = (TextView)
+		// findViewById(R.id.textView_description);
 		// TODO: review
-		description.setText(product.getDetails().replace("-", "\n"));
+		// description.setText(product.getDetails().replace("-", "\n"));
+
+		String[] details = product.getDetails().split("-");
+		List<DetailsHolder> detailsList = new ArrayList<DetailsHolder>();
+		for (String string : details) {
+			detailsList.add(new DetailsHolder(string));
+		}
+
+		initializeDetailsArrayAdapter(detailsList);
 
 		Gallery gallery = (Gallery) findViewById(R.id.products_gallery);
 		gallery.setSpacing(1);

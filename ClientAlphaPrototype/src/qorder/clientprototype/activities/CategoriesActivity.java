@@ -115,7 +115,7 @@ public class CategoriesActivity extends Activity {
 						JSONObject json = NetworkUtil.requestJsonObject(url);
 
 						categories = jsonParser.parse(json);
-
+						
 						OrderHolder.setBusinessName(json
 								.getString("businessName"));
 						

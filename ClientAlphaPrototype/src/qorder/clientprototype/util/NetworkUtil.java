@@ -43,7 +43,9 @@ public class NetworkUtil {
 					response.getEntity().getContent()));
 
 			String jsonText = readAll(rd);
-
+			
+			Log.i("json received:",jsonText);
+			
 			json = new JSONObject(jsonText);
 
 		} catch (Exception ex) {

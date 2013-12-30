@@ -48,8 +48,14 @@ public class CategoriesActivity extends Activity {
 
 		try {
 			if (extras != null)
-				CategoriesActivity.categoriesUrl = extras
-						.getString("categoriesUrl");
+			{
+				String info = extras
+						.getString("initialInfo");
+				String[] additionalInfo = info.split("_");
+				OrderHolder.setTableNumber(additionalInfo[0]);
+				OrderHolder.setWSPostUrI(additionalInfo[1]); 
+				CategoriesActivity.categoriesUrl = additionalInfo[2];
+			}
 			parseJson(categoriesUrl);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -63,7 +69,6 @@ public class CategoriesActivity extends Activity {
 
 		initializeActionBar();
 		initializeArrayAdapter();
-
 	}
 
 	@Override
@@ -99,22 +104,22 @@ public class CategoriesActivity extends Activity {
 	void parseJson(final String url) throws ClientProtocolException,
 			IOException, ClassNotFoundException, JSONException {
 
-		if (AndroidUtil.isNetworkAvailable(this) && url != null) {
+		if (AndroidUtil.isNetworkAvailable(this)) {
 			final ProgressDialog progress = ProgressDialog.show(this,
 					getResources().getString(R.string.title_fetch_menu_dialog),getResources().getString(R.string.text_fetch_menu_dialog), true);
 			new Thread(new Runnable() {
 				@Override
 				public void run() {		
 					try {
-						CategoryJsonParser jsonParser = new CategoryJsonParser();
+						/*CategoryJsonParser jsonParser = new CategoryJsonParser();
 						JSONObject json = NetworkUtil.requestJsonObject(url);
 
 						categories = jsonParser.parse(json);
 
 						OrderHolder.setBusinessName(json
 								.getString("businessName"));
-						//createMockCategories(getResources().getString(
-								//R.string.text_error_fetch_menu_mock));
+						*/
+						createMockCategories();
 
 					} catch (Exception e) {
 						errorFetchingMenu(getResources().getString(R.string.text_error_fetch_menu_mock));
@@ -123,6 +128,8 @@ public class CategoriesActivity extends Activity {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
+							initializeActionBar();
+							initializeArrayAdapter();
 							progress.dismiss();
 						}
 					});
@@ -143,6 +150,7 @@ public class CategoriesActivity extends Activity {
 	
 	// TODO: remove after debugging
 	void createMockCategories() {
+		OrderHolder.setBusinessName("business");
 		categories.add(new Category(1, "Food", "example uri"));
 		categories.add(new Category(2, "Drinks", "example uri"));
 	}

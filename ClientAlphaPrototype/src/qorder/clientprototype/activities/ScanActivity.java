@@ -19,12 +19,13 @@ import android.widget.Toast;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
+
 import qorder.clientprototype.R;
 
 public class ScanActivity extends Activity {
 
 	private static final int ZBAR_SCANNER_REQUEST = 0;
-	//String text = "press the scan button and place your phones camera on top of the bar code to proceed to the catalogue";//getResources().getString(R.string.text_guide_scan_activity);
+	
 	List<Category> categories;
 
 	// Set to true if you want to scan a qr code
@@ -32,7 +33,12 @@ public class ScanActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// Disable Strick mode
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			String errorFetching = extras.getString("error");
+			Toast.makeText(this, errorFetching, Toast.LENGTH_SHORT).show();
+		}
+
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
@@ -41,7 +47,8 @@ public class ScanActivity extends Activity {
 		setContentView(R.layout.activity_scan);
 
 		ExpandableTextView expandableTextView = (ExpandableTextView) findViewById(R.id.expandable_scaninfo);
-		expandableTextView.setText(getResources().getString(R.string.text_guide_scan_activity));
+		expandableTextView.setText(getResources().getString(
+				R.string.text_guide_scan_activity));
 
 		OrderHolder.reset();
 		initializeScanButton();
@@ -63,8 +70,10 @@ public class ScanActivity extends Activity {
 
 						startActivityForResult(intent, ZBAR_SCANNER_REQUEST);
 					} else {
-						Toast.makeText(ScanActivity.this,
-								getResources().getString(R.string.text_error_camera),
+						Toast.makeText(
+								ScanActivity.this,
+								getResources().getString(
+										R.string.text_error_camera),
 								Toast.LENGTH_SHORT).show();
 					}
 				} else {

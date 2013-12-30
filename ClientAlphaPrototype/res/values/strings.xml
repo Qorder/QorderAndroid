@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
- <resources>
+<resources>
 
     <string name="app_name">ClientPrototype</string>
     <string name="action_settings">Settings</string>
@@ -11,20 +11,23 @@
     <string name="title_activity_tab_menu">TabMenu</string>
     <string name="title_activity_basket">Cart</string>
     <string name="title_activity_main_menu">MainMenu</string>
-    <string name="title_actionbar_submit">Title</string><string name="title_actionbar">Title</string><string name="title_largetext_activity_productdetails">Large Text</string><string name="title_mediumtext_activity_productdetails">Medium Text</string><string name="button_activity_scan">scan</string>
+    <string name="title_actionbar_submit">Title</string>
+    <string name="title_actionbar">Title</string>
+    <string name="title_largetext_activity_productdetails">Large Text</string>
+    <string name="title_mediumtext_activity_productdetails">Medium Text</string>
+    <string name="button_activity_scan">scan</string>
     <string name="button_actionbar_submit">Submit</string>
     <string name="button_actionbar">Cart</string>
-    
-    
-    <string name="button_activityproductdetails">+cart</string>  
+    <string name="button_activityproductdetails">+cart</string>
     <string name="title_price_activity_productdetails">Price Here</string>
     <string name="title_notes_activity_productdetails">your notes here</string>
     <string name="title_image_activity_productdetails">d</string>
     <string name="text_error_camera">Rear Facing Camera Unavailable</string>
     <string name="text_error_network">Network Connectivity failure</string>
     <string name="text_error_fetch_mock_products">Failed to find products. Creating mock products</string>
-    <string name="text_error_fetch_menu_mock">Failed to find menu. Creating mock categories</string><string name="text_basket_multiplier_productsactivity">Basket x</string>
-    <string name="text_basket_productsactivity">Basket</string>
+    <string name="text_error_fetch_menu_mock">we couldnt get the menu, sorry :(</string>
+    <string name="text_basket_multiplier_productsactivity">cart x</string>
+    <string name="text_basket_productsactivity">cart</string>
     <string name="text_guide_expandableTextView"> how does this work?</string>
     <string name="text_guide_scan_activity"> press the scan button and place your phone\s camera on top of the bar code to proceed to the catalogue</string>
     <string name="text_ready_basketactivity">i am ready</string>
@@ -37,8 +40,9 @@
     <string name="text_done_basketdialog">im done</string>
     <string name="text_view_basketdialog">view details</string>
     <string name="title_postdialog">submitting</string>
+    <string name="title_fetch_menu_dialog">please wait</string>
+    <string name="text_fetch_menu_dialog">fetching the menu</string>
     <string name="text_postsuccess">your order has been sent :)</string>
     <string name="text_postfail">we couldnt send your order, sorry :(</string>
-    
 
 </resources>

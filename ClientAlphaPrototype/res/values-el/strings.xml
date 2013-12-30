@@ -40,4 +40,6 @@
     <string name="title_postdialog">περιμένετε</string>
     <string name="text_postsuccess">η παραγγελία σας στάλθηκε επιτυχώς :)</string>
     <string name="text_postfail">δεν μπορέσαμε να στείλουμε την παραγγελία σας :(</string>
+        <string name="title_fetch_menu_dialog">παρακαλώ περιμένετε</string>
+    <string name="text_fetch_menu_dialog">γίνεται λήψη του μενού</string>
 </resources>

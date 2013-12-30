@@ -8,6 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import qorder.clientprototype.R;
 import qorder.clientprototype.extensions.CategoriesCustomList;
 import qorder.clientprototype.jsonparsers.CategoryJsonParser;
 import qorder.clientprototype.model.Category;
@@ -16,6 +17,7 @@ import qorder.clientprototype.util.AndroidUtil;
 import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,8 +30,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import qorder.clientprototype.R;
 
 public class CategoriesActivity extends Activity {
 
@@ -47,9 +47,9 @@ public class CategoriesActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 
 		try {
-			if(extras!=null)
-			CategoriesActivity.categoriesUrl = extras
-					.getString("categoriesUrl");
+			if (extras != null)
+				CategoriesActivity.categoriesUrl = extras
+						.getString("categoriesUrl");
 			parseJson(categoriesUrl);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -96,32 +96,51 @@ public class CategoriesActivity extends Activity {
 		return true;
 	}
 
-	void parseJson(String url) throws ClientProtocolException, IOException,
-			ClassNotFoundException, JSONException {
+	void parseJson(final String url) throws ClientProtocolException,
+			IOException, ClassNotFoundException, JSONException {
+
 		if (AndroidUtil.isNetworkAvailable(this) && url != null) {
-			try {
-				/*
-				CategoryJsonParser jsonParser = new CategoryJsonParser();
-				JSONObject json = NetworkUtil.requestJsonObject(url);
+			final ProgressDialog progress = ProgressDialog.show(this,
+					getResources().getString(R.string.title_fetch_menu_dialog),getResources().getString(R.string.text_fetch_menu_dialog), true);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {		
+					try {
+						CategoryJsonParser jsonParser = new CategoryJsonParser();
+						JSONObject json = NetworkUtil.requestJsonObject(url);
 
-				categories = jsonParser.parse(json);
+						categories = jsonParser.parse(json);
 
-				OrderHolder.setBusinessName(json.getString("businessName"));
-				*/
-				createMockCategories();
-			} catch (Exception e) {
-				Toast.makeText(this,
-						getResources().getString(R.string.text_error_fetch_menu_mock),
-						Toast.LENGTH_SHORT).show();
-				createMockCategories();
-			}
+						OrderHolder.setBusinessName(json
+								.getString("businessName"));
+						//createMockCategories(getResources().getString(
+								//R.string.text_error_fetch_menu_mock));
+
+					} catch (Exception e) {
+						errorFetchingMenu(getResources().getString(R.string.text_error_fetch_menu_mock));
+					}
+
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							progress.dismiss();
+						}
+					});
+				}
+			}).start();
 		} else {
-			Toast.makeText(this, getResources().getString(R.string.text_error_network),
-					Toast.LENGTH_SHORT).show();
-			createMockCategories();
+			errorFetchingMenu(getResources().getString(R.string.text_error_network));
 		}
 	}
 
+	void errorFetchingMenu(String message)
+	{
+		Intent i = new Intent(getApplicationContext(),
+				ScanActivity.class);
+		i.putExtra("error", message);
+		startActivity(i);
+	}
+	
 	// TODO: remove after debugging
 	void createMockCategories() {
 		categories.add(new Category(1, "Food", "example uri"));
@@ -161,10 +180,13 @@ public class CategoriesActivity extends Activity {
 
 		int basketSum = OrderHolder.count();
 		if (basketSum != 0) {
-			testButton.setText(getResources().getString(R.string.text_basket_multiplier_productsactivity) + basketSum);
+			testButton.setText(getResources().getString(
+					R.string.text_basket_multiplier_productsactivity)
+					+ basketSum);
 		} else {
 
-			testButton.setText(getResources().getString(R.string.text_basket_productsactivity));
+			testButton.setText(getResources().getString(
+					R.string.text_basket_productsactivity));
 		}
 
 	}

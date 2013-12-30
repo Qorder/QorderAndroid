@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
@@ -62,14 +61,14 @@ public class NetworkUtil {
 		try {
 
 			DefaultHttpClient httpclient = new DefaultHttpClient();
-			HttpPost httpPost = new HttpPost(url);
+			HttpPut httpPut = new HttpPut(url);
 			StringEntity stringEnt = new StringEntity(jsonString);
 
-			httpPost.setEntity(stringEnt);
-			httpPost.setHeader("Accept", "application/json");
-			httpPost.setHeader("Content-type", "application/json");
+			httpPut.setEntity(stringEnt);
+			httpPut.setHeader("Accept", "application/json");
+			httpPut.setHeader("Content-type", "application/json");
 
-			HttpResponse response = httpclient.execute(httpPost);
+			HttpResponse response = httpclient.execute(httpPut);
 			if (response != null) {
 				Log.e("the response", GetResponseMessage(response));
 				return true;
@@ -89,7 +88,7 @@ public class NetworkUtil {
 
 		BufferedReader buf = new BufferedReader(new InputStreamReader(ips,
 				"UTF-8"));
-		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_ACCEPTED) {
 			throw new Exception(response.getStatusLine().getReasonPhrase());
 		}
 		

@@ -111,23 +111,23 @@ public class CategoriesActivity extends Activity {
 				@Override
 				public void run() {		
 					try {
-						/*CategoryJsonParser jsonParser = new CategoryJsonParser();
+						CategoryJsonParser jsonParser = new CategoryJsonParser();
 						JSONObject json = NetworkUtil.requestJsonObject(url);
 
 						categories = jsonParser.parse(json);
 
 						OrderHolder.setBusinessName(json
 								.getString("businessName"));
-						*/
+						
 						
 						//Testing the animation
-						long start = System.currentTimeMillis();
+						/*long start = System.currentTimeMillis();
 						long end = start + 5*1000;
 						while (System.currentTimeMillis() < end)
 						{
 						  ;
 						}
-						createMockCategories();
+						createMockCategories();*/
 
 					} catch (Exception e) {
 						errorFetchingMenu(getResources().getString(R.string.text_error_fetch_menu_mock));

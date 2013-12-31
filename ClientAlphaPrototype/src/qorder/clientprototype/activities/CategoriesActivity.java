@@ -18,6 +18,7 @@ import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,7 +37,8 @@ public class CategoriesActivity extends Activity {
 	ListView categories_listView;
 	List<Category> categories;
 	static String categoriesUrl = null;
-
+	final boolean useMocks = false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +58,9 @@ public class CategoriesActivity extends Activity {
 				OrderHolder.setWSPostUrI(additionalInfo[1]); 
 				CategoriesActivity.categoriesUrl = additionalInfo[2];
 			}
+			if(useMocks)
+				createMockCategories();
+			else
 			parseJson(categoriesUrl);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -105,8 +110,18 @@ public class CategoriesActivity extends Activity {
 			IOException, ClassNotFoundException, JSONException {
 
 		if (AndroidUtil.isNetworkAvailable(this) && url!=null) {
-			final ProgressDialog progress = ProgressDialog.show(this,
-					getResources().getString(R.string.title_fetch_menu_dialog),getResources().getString(R.string.text_fetch_menu_dialog), true);
+			final ProgressDialog progress = new ProgressDialog(this);
+			progress.setButton(DialogInterface.BUTTON_NEGATIVE, "nevermind", new DialogInterface.OnClickListener() {
+			    @Override
+			    public void onClick(DialogInterface dialog, int which) {
+			        dialog.dismiss();
+			        errorFetchingMenu(null);
+			    }
+			});
+			progress.setTitle(getResources().getString(R.string.title_fetch_menu_dialog));
+			progress.setMessage(getResources().getString(R.string.text_fetch_menu_dialog));
+			progress.show();
+			
 			new Thread(new Runnable() {
 				@Override
 				public void run() {		
@@ -126,8 +141,8 @@ public class CategoriesActivity extends Activity {
 						while (System.currentTimeMillis() < end)
 						{
 						  ;
-						}
-						createMockCategories();*/
+						}*/
+						//createMockCategories();
 
 					} catch (Exception e) {
 						errorFetchingMenu(getResources().getString(R.string.text_error_fetch_menu_mock));

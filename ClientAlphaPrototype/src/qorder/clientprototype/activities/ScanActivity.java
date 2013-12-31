@@ -25,7 +25,7 @@ import qorder.clientprototype.R;
 public class ScanActivity extends Activity {
 
 	private static final int ZBAR_SCANNER_REQUEST = 0;
-	
+
 	List<Category> categories;
 
 	// Set to true if you want to scan a qr code
@@ -36,7 +36,8 @@ public class ScanActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			String errorFetching = extras.getString("error");
-			Toast.makeText(this, errorFetching, Toast.LENGTH_SHORT).show();
+			if (errorFetching != null)
+				Toast.makeText(this, errorFetching, Toast.LENGTH_SHORT).show();
 		}
 
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -80,7 +81,8 @@ public class ScanActivity extends Activity {
 					Intent categories = new Intent(ScanActivity.this,
 							CategoriesActivity.class);
 					categories
-							.putExtra("initialInfo",
+							.putExtra(
+									"initialInfo",
 									"1_http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/business?id=1_http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/menus/business?id=1");
 					startActivity(categories);
 				}
@@ -102,7 +104,7 @@ public class ScanActivity extends Activity {
 
 				String url = (data.getStringExtra(ZBarConstants.SCAN_RESULT));
 
-				//Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
 
 				Intent categories = new Intent(ScanActivity.this,
 						CategoriesActivity.class);

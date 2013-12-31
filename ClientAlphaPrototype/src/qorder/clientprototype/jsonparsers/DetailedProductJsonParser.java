@@ -24,7 +24,7 @@ public class DetailedProductJsonParser {
 			product.setName(json.getString("name"));
 			product.setPrice(BigDecimal.valueOf(json.getLong("price")));
 			product.setDetails(json.getString("details"));
-
+			product.setQuantity(1);
 			return product;
 
 		} catch (Exception e) {

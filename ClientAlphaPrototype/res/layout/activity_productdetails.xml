@@ -8,13 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DetailsActivity" >
 
-    <Gallery
-        android:id="@+id/products_gallery"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-
     <TextView
         android:id="@+id/textView_title"
         android:layout_width="wrap_content"
@@ -29,7 +22,6 @@
         android:id="@+id/products_imageview"
         android:layout_width="200dp"
         android:layout_height="110dp"
-        android:layout_below="@+id/products_gallery"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/title_image_activity_productdetails"
         android:src="@drawable/image1" />
@@ -43,28 +35,10 @@
         android:text="@string/title_price_activity_productdetails"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <EditText
-        android:id="@+id/editText_notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button_addToBasket"
-        android:layout_alignLeft="@+id/line"
-        android:layout_alignRight="@+id/products_imageview"
-        android:ems="10"
-        android:hint="@string/title_notes_activity_productdetails"
-        android:lines="2"
-        android:maxLength="55"
-        android:maxLines="2"
-        android:textSize="12sp" >
-
-        <requestFocus />
-    </EditText>
-
     <TextView
         android:id="@+id/bottomline"
         android:layout_width="fill_parent"
         android:layout_height="2dip"
-        android:layout_alignLeft="@+id/editText_notes"
         android:layout_below="@+id/price_txt"
         android:background="#000000" />
 
@@ -73,27 +47,76 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/line"
-        android:layout_below="@+id/line" 
-        android:listSelector="@android:color/transparent">
+        android:layout_below="@+id/textview_notes"
+        android:listSelector="@android:color/transparent" >
     </ListView>
-
-    <Button
-        android:id="@+id/button_addToBasket"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/bottomline"
-        android:layout_alignTop="@+id/bottomline"
-        android:text="@string/button_activityproductdetails"
-        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/line"
         android:layout_width="fill_parent"
         android:layout_height="2dip"
-        android:layout_alignLeft="@+id/products_gallery"
-        android:layout_alignBottom="@+id/editText_notes"
         android:layout_centerVertical="true"
         android:background="#000000" />
+
+    <View
+        android:layout_width="1dip"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/line"
+        android:layout_below="@+id/bottomline"
+        android:layout_toRightOf="@+id/button_edit_notes"
+        android:background="#000000" />
+    
+        <View
+        android:layout_width="1dip"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/line"
+        android:layout_below="@+id/bottomline"
+        android:layout_toLeftOf="@+id/button_addToBasket"
+        android:background="#000000" />
+
+    <Button
+        android:id="@+id/button_edit_notes"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listview_details"
+        android:layout_alignBottom="@+id/line"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bottomline"
+        android:layout_toLeftOf="@+id/textView_title"
+        android:text="your notes"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/button_quantity"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/line"
+        android:layout_below="@+id/bottomline"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/button_addToBasket"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listview_details"
+        android:layout_alignBottom="@+id/line"
+        android:layout_alignRight="@+id/line"
+        android:layout_below="@+id/bottomline"
+        android:layout_toRightOf="@+id/price_txt"
+        android:text="@string/button_activityproductdetails"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textview_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/line"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

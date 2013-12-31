@@ -24,8 +24,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
-
 import qorder.clientprototype.R;
 
 public class BasketActivity extends Activity {
@@ -124,6 +124,20 @@ public class BasketActivity extends Activity {
 
 		userInput.setText(order.get(position).getNotes());
 
+		final NumberPicker numberPicker = (NumberPicker) dialogview.findViewById(R.id.numberPicker_basketquantity);
+		numberPicker.setMaxValue(20);
+		numberPicker.setMinValue(1);
+		numberPicker.setValue(order.get(position).getQuantity());
+		numberPicker.setWrapSelectorWheel(true);
+		numberPicker
+				.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+					@Override
+					public void onValueChange(NumberPicker picker, int oldVal,
+							int newVal) {
+						order.get(position).setQuantity(newVal);
+					}
+				});
+		
 		alertDialogBuilder
 				.setCancelable(false)
 				.setPositiveButton(
@@ -148,6 +162,7 @@ public class BasketActivity extends Activity {
 								dialog.cancel();
 								order.get(position).setNotes(
 										userInput.getText().toString());
+								order.get(position).setQuantity(numberPicker.getValue());
 								initializeArrayAdapter();
 							}
 						});
@@ -233,7 +248,7 @@ public class BasketActivity extends Activity {
 
 		List<String> productNames = new ArrayList<String>();
 		for (BasketProduct product : order) {
-			productNames.add(product.getName());
+			productNames.add(product.getProductTitle());
 		}
 
 		return productNames;

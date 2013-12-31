@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import qorder.clientprototype.extensions.DetailsCustomList;
-import qorder.clientprototype.extensions.DetailsImageAdapter;
 import qorder.clientprototype.jsonparsers.DetailedProductJsonParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.DetailedProduct;
@@ -20,21 +19,22 @@ import qorder.clientprototype.util.AndroidUtil;
 import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 import qorder.clientprototype.R;
@@ -42,7 +42,6 @@ import qorder.clientprototype.R;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-@SuppressWarnings("deprecation")
 public class DetailsActivity extends Activity {
 
 	OrderHolder orderHolder = new OrderHolder();
@@ -61,13 +60,13 @@ public class DetailsActivity extends Activity {
 
 		details_listview = (ListView) findViewById(R.id.listview_details);
 		product = new DetailedProduct();
-		notes = null;
+		notes = " ";
 		Bundle extras = getIntent().getExtras();
 
 		imgIds = new ArrayList<Integer>();
 
 		try {
-			notes = extras.getString("notes");
+			// notes = extras.getString("notes");
 			parseJson(extras.getString("product"));
 			product.setUri(extras.getString("product"));
 
@@ -84,18 +83,49 @@ public class DetailsActivity extends Activity {
 		initializeActionBar();
 
 		initializeView();
+		initializeButtons();
 
+	}
+
+	private void initializeButtons() {
 		Button button_addToBasket = (Button) findViewById(R.id.button_addToBasket);
 
 		button_addToBasket.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				EditText mEdit = (EditText) findViewById(R.id.editText_notes);
+				// EditText mEdit = (EditText)
+				// findViewById(R.id.editText_notes);
 				orderHolder.add(new BasketProduct(product.getId(), product
-						.getName(), product.getPrice(), getSelectedDetails() + mEdit.getText().toString(), product.getUri()));
+						.getName(), product.getPrice(), getSelectedDetails()
+						+ notes, product.getUri(),product.getQuantity()));
 				setBasketTitle();
-
+			/*	Toast.makeText(
+						DetailsActivity.this,
+						"added to cart",
+						Toast.LENGTH_SHORT).show();*/
 			}
 		});
+
+		Button button_edit_notes = (Button) findViewById(R.id.button_edit_notes);
+
+		button_edit_notes.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				showEditDialog();
+			}
+		});
+
+		Button button_quantity = (Button) findViewById(R.id.button_quantity);
+
+		button_quantity.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				showQuantityDialog();
+			}
+		});
+		setQuantityButtonTitle();
+	}
+
+	void setQuantityButtonTitle() {
+		Button button_quantity = (Button) findViewById(R.id.button_quantity);
+		button_quantity.setText("x " + product.getQuantity());
 	}
 
 	@Override
@@ -137,7 +167,7 @@ public class DetailsActivity extends Activity {
 		for (int i = 0; i < details.size(); i++) {
 			DetailsHolder holder = details.get(i);
 			if (holder.isSelected()) {
-				responseText.append(holder.getName()+ "  ");
+				responseText.append(holder.getName() + "  ");
 			}
 		}
 		return responseText.toString();
@@ -148,17 +178,6 @@ public class DetailsActivity extends Activity {
 
 		details_listview.setAdapter(adapter);
 
-	}
-
-	// TODO: encapsulate this in an image parsing and loading async class and
-	// share it with the
-	// gallery widget
-	void initializeImages() {
-		for (int i = 0; i < 3; i++) {
-			imgIds.add(R.drawable.image1);
-			imgIds.add(R.drawable.image2);
-			imgIds.add(R.drawable.image3);
-		}
 	}
 
 	void manipulateEditTextParsing(EditText mEdit) {
@@ -185,10 +204,7 @@ public class DetailsActivity extends Activity {
 	}
 
 	void initializeView() {
-		EditText mEdit = (EditText) findViewById(R.id.editText_notes);
-		manipulateEditTextParsing(mEdit);
-
-		initializeImages();
+		// EditText mEdit = (EditText) findViewById(R.id.editText_notes);
 
 		// if (notes != null)
 		// mEdit.setText(notes);
@@ -201,11 +217,6 @@ public class DetailsActivity extends Activity {
 		TextView price = (TextView) findViewById(R.id.price_txt);
 		price.setText(product.getPrice().toString() + currencySign);
 
-		// TextView description = (TextView)
-		// findViewById(R.id.textView_description);
-		// TODO: review
-		// description.setText(product.getDetails().replace("-", "\n"));
-
 		String[] details = product.getDetails().split("-");
 		List<DetailsHolder> detailsList = new ArrayList<DetailsHolder>();
 		for (String string : details) {
@@ -213,21 +224,6 @@ public class DetailsActivity extends Activity {
 		}
 
 		initializeDetailsArrayAdapter(detailsList);
-
-		Gallery gallery = (Gallery) findViewById(R.id.products_gallery);
-		gallery.setSpacing(1);
-		gallery.setAdapter(new DetailsImageAdapter(this));
-		currentImage = (ImageView) findViewById(R.id.products_imageview);
-		gallery.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View v,
-					int position, long id) {
-				currentImage.setImageResource(imgIds.get(position));
-			}
-		});
-
-		// TODO: review
-		// ImageView img = (ImageView) findViewById(R.id.product_Img);
-		// img.setImageResource("uri");
 
 	}
 
@@ -302,14 +298,74 @@ public class DetailsActivity extends Activity {
 		}
 	}
 
+	void showEditDialog() {
+
+		LayoutInflater li = LayoutInflater.from(this);
+		View dialogview = li.inflate(R.layout.editnotes_dialog, null);
+
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setView(dialogview);
+
+		final EditText userInput = (EditText) dialogview
+				.findViewById(R.id.editTextDialogNotes);
+		manipulateEditTextParsing(userInput);
+		userInput.setText(notes);
+
+		alertDialogBuilder.setCancelable(false).setPositiveButton(
+				getResources().getString(R.string.text_done_basketdialog),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						notes = userInput.getText().toString();
+						TextView description = (TextView) findViewById(R.id.textview_notes);
+						description.setText(notes);
+					}
+				});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		alertDialog.show();
+	}
+
+	void showQuantityDialog() {
+
+		LayoutInflater li = LayoutInflater.from(this);
+		View dialogview = li.inflate(R.layout.numberpicker_dialog, null);
+
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setView(dialogview);
+
+		final NumberPicker numberPicker = (NumberPicker) dialogview.findViewById(R.id.numberPicker_quantity);
+		numberPicker.setMaxValue(20);
+		numberPicker.setMinValue(1);
+		numberPicker.setValue(product.getQuantity());
+		numberPicker.setWrapSelectorWheel(true);
+		numberPicker
+				.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+					@Override
+					public void onValueChange(NumberPicker picker, int oldVal,
+							int newVal) {
+						product.setQuantity(newVal);
+					}
+				});
+
+		alertDialogBuilder.setCancelable(false).setPositiveButton(
+				getResources().getString(R.string.text_done_basketdialog),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						setQuantityButtonTitle();
+					}
+				});
+		
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		alertDialog.show();
+	}
+
 	void createMockProduct() {
-		product = new DetailedProduct(
-				1,
-				"Product",
-				BigDecimal.valueOf(1.99),
-				"your notes here",
-				"a description goes here \nnow \ntesting  \nscrollview \n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\nif you are reading this then it works",
-				"example uri");
+		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
+				null, "attribute", "example uri");
 	}
 
 }

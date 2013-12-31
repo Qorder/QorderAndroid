@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class DetailedProduct extends BasketProduct {
 
 	@JsonProperty("attributes") private String details;
-
+	
 	public DetailedProduct(long id, String name, BigDecimal price,
 			String notes, String details,String uri) {
-		super(id, name, price, notes,uri);
+		super(id, name, price, notes,uri,1);
 		this.details = details;
 	}
 

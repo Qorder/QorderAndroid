@@ -93,7 +93,7 @@ public class JsonUtilTest extends AndroidTestCase  {
 	public void testJsonToPojoBasketProductParser() throws JsonParseException, JsonMappingException, ClassNotFoundException, IOException {
 		String url = ("http://83.212.118.113/mockJsons/mockBasketProductJson.json");
 		List<BasketProduct> event = JsonUtil.<List<BasketProduct>>JsonToPojoParser(url, BasketProduct.class);
-		BasketProduct basketProduct = new BasketProduct(1, "mockName",BigDecimal.valueOf(5.5),"mockNote","mockUri");
+		BasketProduct basketProduct = new BasketProduct(1, "mockName",BigDecimal.valueOf(5.5),"mockNote","mockUri",1);
 		List<BasketProduct> expectedEvent = new ArrayList<BasketProduct>();
 		expectedEvent.add(basketProduct);
 		
@@ -131,7 +131,7 @@ public class JsonUtilTest extends AndroidTestCase  {
 	}
 	
 	public void testPojoBasketProductToJsonParser() throws JsonProcessingException{
-		BasketProduct basketProduct = new BasketProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote","mockUri");
+		BasketProduct basketProduct = new BasketProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote","mockUri",1);
 		List<BasketProduct> event = new ArrayList<BasketProduct>();
 		event.add(basketProduct);
 		String excpectedEvent;

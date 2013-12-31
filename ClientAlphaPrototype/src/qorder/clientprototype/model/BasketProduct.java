@@ -9,10 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BasketProduct extends Product {
 	
 	@JsonProperty("notes") private String notes;
-
-	public BasketProduct(long id, String name, BigDecimal price, String notes,String uri) {
+	private int quantity;
+	public BasketProduct(long id, String name, BigDecimal price, String notes,String uri,int quantity) {
 		super(id, name, price,uri);
 		this.notes = notes;
+		this.setQuantity(quantity);
 	}
 
 	public BasketProduct() {
@@ -25,6 +26,22 @@ public class BasketProduct extends Product {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	public String getProductTitle()
+	{
+		if(quantity>1)
+			return (this.getName()+"   x" +quantity);
+		else 
+			return(this.getName());
 	}
 	
 }

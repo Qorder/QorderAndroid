@@ -104,7 +104,7 @@ public class CategoriesActivity extends Activity {
 	void parseJson(final String url) throws ClientProtocolException,
 			IOException, ClassNotFoundException, JSONException {
 
-		if (AndroidUtil.isNetworkAvailable(this)) {
+		if (AndroidUtil.isNetworkAvailable(this) && url!=null) {
 			final ProgressDialog progress = ProgressDialog.show(this,
 					getResources().getString(R.string.title_fetch_menu_dialog),getResources().getString(R.string.text_fetch_menu_dialog), true);
 			new Thread(new Runnable() {

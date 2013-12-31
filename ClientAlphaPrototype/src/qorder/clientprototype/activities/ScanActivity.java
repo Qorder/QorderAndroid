@@ -102,11 +102,11 @@ public class ScanActivity extends Activity {
 
 				String url = (data.getStringExtra(ZBarConstants.SCAN_RESULT));
 
-				Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
 
 				Intent categories = new Intent(ScanActivity.this,
 						CategoriesActivity.class);
-				categories.putExtra("categoriesUrl", url);
+				categories.putExtra("initialInfo", url);
 				startActivity(categories);
 
 			} else if (resultCode == RESULT_CANCELED && data != null) {

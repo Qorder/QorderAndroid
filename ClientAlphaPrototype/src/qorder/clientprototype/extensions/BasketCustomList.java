@@ -30,7 +30,7 @@ public class BasketCustomList extends ArrayAdapter<String> {
 	}
 
 	@Override
-	public View getView(int position, View view, ViewGroup parent) {
+	public View getView(int position, View view, ViewGroup parent){
 
 		LayoutInflater inflater = context.getLayoutInflater();
 		View rowView = inflater.inflate(R.layout.basket_listview, null, true);

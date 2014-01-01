@@ -46,7 +46,7 @@ public class DetailsCustomList extends ArrayAdapter<DetailsHolder> {
 	            	DetailsHolder element = (DetailsHolder) viewHolder.checkbox
 	                  .getTag();
 	              element.setSelected(buttonView.isChecked());
-
+	              
 	            }
 	          });
 	      view.setTag(viewHolder);

@@ -175,9 +175,7 @@ public class DetailsActivity extends Activity {
 
 	void initializeDetailsArrayAdapter(List<DetailsHolder> details) {
 		adapter = new DetailsCustomList(this, details);
-
 		details_listview.setAdapter(adapter);
-
 	}
 
 	void manipulateEditTextParsing(EditText mEdit) {

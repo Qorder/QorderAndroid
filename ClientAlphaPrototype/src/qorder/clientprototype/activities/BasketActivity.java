@@ -1,5 +1,6 @@
 package qorder.clientprototype.activities;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,7 +180,7 @@ public class BasketActivity extends Activity {
 				getResources().getString(R.string.text_ready_basketactivity))
 				.setTitle(
 						getResources().getString(
-								R.string.text_submit_basketactivity));
+								R.string.text_submit_basketactivity) + " " + getTotalPrice() + currencySign);
 
 		builder.setNegativeButton(
 				getResources().getString(R.string.text_no_basketactivity),
@@ -267,9 +268,22 @@ public class BasketActivity extends Activity {
 	List<String> getProductPrices() {
 		List<String> productValues = new ArrayList<String>();
 		for (BasketProduct product : order) {
-			productValues.add(product.getPrice().toString() + currencySign);
+			BigDecimal totalPrice = product.getPrice().multiply(BigDecimal.valueOf((double)product.getQuantity()));
+			productValues.add(totalPrice + currencySign);
 		}
 
 		return productValues;
 	}
+	
+	String getTotalPrice()
+	{
+		BigDecimal totalPrice = BigDecimal.ZERO;
+			for (BasketProduct product : order) {
+				BigDecimal price = product.getPrice().multiply(BigDecimal.valueOf((double)product.getQuantity()));
+				totalPrice = totalPrice.add(price);
+			}
+		
+			return totalPrice.toString();
+	}
+	
 }

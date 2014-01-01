@@ -15,9 +15,9 @@
         android:layout_height="82dp"
         android:ems="10"
         android:hint="@string/title_notes_activity_productdetails"
-        android:lines="2"
+        android:lines="4"
         android:maxLength="60"
-        android:maxLines="2"
+        android:maxLines="4"
         android:textSize="13sp" >
 
         <requestFocus />

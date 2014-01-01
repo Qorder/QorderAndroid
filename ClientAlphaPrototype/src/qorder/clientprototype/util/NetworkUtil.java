@@ -90,7 +90,7 @@ public class NetworkUtil {
 
 		BufferedReader buf = new BufferedReader(new InputStreamReader(ips,
 				"UTF-8"));
-		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_ACCEPTED) {
+		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_CREATED) {
 			throw new Exception(response.getStatusLine().getReasonPhrase());
 		}
 		

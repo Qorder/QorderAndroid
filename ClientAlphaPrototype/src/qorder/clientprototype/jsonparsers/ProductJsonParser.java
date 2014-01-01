@@ -34,7 +34,7 @@ public class ProductJsonParser {
 				Product parsingProd = new Product();
 				
 				parsingProd.setId(cat.getLong("id"));
-				parsingProd.setPrice(BigDecimal.valueOf(cat.getLong("price")));
+				parsingProd.setPrice(BigDecimal.valueOf(cat.getDouble("price")));
 				parsingProd.setName(cat.getString("name"));
 				parsingProd.setUri(cat.getString("uri"));
 				

@@ -4,42 +4,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
-
-
-
-
-
-
-
-
-
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.Category;
-import qorder.clientprototype.model.DetailedProduct;
 import qorder.clientprototype.model.Product;
 import qorder.clientprototype.util.JsonUtil;
 import android.test.AndroidTestCase;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -80,20 +49,11 @@ public class JsonUtilTest extends AndroidTestCase  {
 		assertEquals(event, expectedEvent);
 	}
 	
-	public void testJsonToPojoDetailedProductParser() throws JsonParseException, JsonMappingException, ClassNotFoundException, IOException {
-		String url = ("http://83.212.118.113/mockJsons/mockDetailedProductJson.json");
-		List<DetailedProduct> event = JsonUtil.<List<DetailedProduct>>JsonToPojoParser(url, DetailedProduct.class);
-		DetailedProduct detailedProduct = new DetailedProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote",null,"mockUri");
-		List<DetailedProduct> expectedEvent = new ArrayList<DetailedProduct>();
-		expectedEvent.add(detailedProduct);
-		
-		assertEquals(event, expectedEvent);
-	}
 	
 	public void testJsonToPojoBasketProductParser() throws JsonParseException, JsonMappingException, ClassNotFoundException, IOException {
 		String url = ("http://83.212.118.113/mockJsons/mockBasketProductJson.json");
 		List<BasketProduct> event = JsonUtil.<List<BasketProduct>>JsonToPojoParser(url, BasketProduct.class);
-		BasketProduct basketProduct = new BasketProduct(1, "mockName",BigDecimal.valueOf(5.5),"mockNote","mockUri",1);
+		BasketProduct basketProduct = new BasketProduct(1, "mockName",BigDecimal.valueOf(5.5),"mockNote","mockUri",null, 1);
 		List<BasketProduct> expectedEvent = new ArrayList<BasketProduct>();
 		expectedEvent.add(basketProduct);
 		
@@ -119,19 +79,9 @@ public class JsonUtilTest extends AndroidTestCase  {
 
 		assertNotNull(excpectedEvent);
 	}
-	
-	public void testPojoDetailedProductToJsonParser() throws JsonProcessingException{
-		DetailedProduct detailedProduct = new DetailedProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote","mockUri","mockattr");
-		List<DetailedProduct> event = new ArrayList<DetailedProduct>();
-		event.add(detailedProduct);
-		String excpectedEvent;
-		excpectedEvent=JsonUtil.PojoToJsonParser(event);
-
-		assertNotNull(excpectedEvent);
-	}
-	
+		
 	public void testPojoBasketProductToJsonParser() throws JsonProcessingException{
-		BasketProduct basketProduct = new BasketProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote","mockUri",1);
+		BasketProduct basketProduct = new BasketProduct(1, "mockName", BigDecimal.valueOf(5.5),"mockNote","mockUri",null, 1);
 		List<BasketProduct> event = new ArrayList<BasketProduct>();
 		event.add(basketProduct);
 		String excpectedEvent;

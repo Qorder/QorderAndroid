@@ -10,7 +10,6 @@ import org.json.JSONException;
 
 import qorder.clientprototype.jsonparsers.JsonOrderParser;
 import qorder.clientprototype.model.BasketProduct;
-import qorder.clientprototype.util.NetworkUtil;
 import qorder.clientprototype.util.JsonUtil;
 import android.test.AndroidTestCase;
 import android.util.Log;
@@ -27,7 +26,7 @@ public class HttpPostTest extends AndroidTestCase {
 
 		for (int i = 0; i < 1; i++) {
 			basketProducts.add(new BasketProduct(1, "test", BigDecimal
-					.valueOf(1.99), "some notes", "some uri",1));
+					.valueOf(1.99),"some atr" ,"some notes ","some uri",1));
 		}
 
 		String jsonToSend = JsonUtil.PojoToJsonParser(basketProducts);
@@ -47,7 +46,7 @@ public class HttpPostTest extends AndroidTestCase {
 
 		for (int i = 0; i < 4; i++) {
 			basketProducts.add(new BasketProduct(1, "test", BigDecimal
-					.valueOf(1.99), "some notes", "some uri",1));
+					.valueOf(1.99), "some notes", "some uri",null, 1));
 		}
 		JsonOrderParser orderParser = new JsonOrderParser();
 

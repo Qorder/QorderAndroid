@@ -10,11 +10,23 @@ public class BasketProduct extends Product {
 	
 	@JsonProperty("notes") private String notes;
 	private int quantity;
-	public BasketProduct(long id, String name, BigDecimal price, String notes,String uri,int quantity) {
+	private String attributes;
+	
+	public BasketProduct(long id, String name, BigDecimal price,String attributes, String notes,String uri,int quantity) {
 		super(id, name, price,uri);
 		this.notes = notes;
+		this.attributes = attributes;
 		this.setQuantity(quantity);
 	}
+	
+	public String getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(String attributes) {
+		this.attributes = attributes;
+	}
+
 
 	public BasketProduct() {
 		super();
@@ -39,9 +51,9 @@ public class BasketProduct extends Product {
 	public String getProductTitle()
 	{
 		if(quantity>1)
-			return (this.getName()+"   x" +quantity);
+			return (this.getName()+ " " + this.getAttributes() + " x" +quantity);
 		else 
-			return(this.getName());
+			return(this.getName()+ " " + this.getAttributes());
 	}
 	
 }

@@ -2,6 +2,7 @@ package qorder.clientprototype.activities;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import org.json.JSONObject;
 import qorder.clientprototype.extensions.DetailsCustomList;
 import qorder.clientprototype.jsonparsers.DetailedProductJsonParser;
 import qorder.clientprototype.model.BasketProduct;
-import qorder.clientprototype.model.DetailedProduct;
 import qorder.clientprototype.model.DetailsHolder;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.util.AndroidUtil;
@@ -45,21 +45,22 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class DetailsActivity extends Activity {
 
 	OrderHolder orderHolder = new OrderHolder();
-	DetailedProduct product;
+	BasketProduct product;
 	final String currencySign = "€";
 	ImageView currentImage;
 	String notes;
 	List<Integer> imgIds;
 	ListView details_listview;
 	DetailsCustomList adapter;
-
+	final DecimalFormat priceFormat = new DecimalFormat("###.00");
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_productdetails);
 
 		details_listview = (ListView) findViewById(R.id.listview_details);
-		product = new DetailedProduct();
+		product = new BasketProduct();
 		notes = " ";
 		Bundle extras = getIntent().getExtras();
 
@@ -95,13 +96,13 @@ public class DetailsActivity extends Activity {
 				// EditText mEdit = (EditText)
 				// findViewById(R.id.editText_notes);
 				orderHolder.add(new BasketProduct(product.getId(), product
-						.getName(), product.getPrice(), getSelectedDetails()
-						+ notes, product.getUri(),product.getQuantity()));
+						.getName(), product.getPrice(), getSelectedDetails(),
+						notes, product.getUri(), product.getQuantity()));
 				setBasketTitle();
-			/*	Toast.makeText(
-						DetailsActivity.this,
-						"added to cart",
-						Toast.LENGTH_SHORT).show();*/
+				/*
+				 * Toast.makeText( DetailsActivity.this, "added to cart",
+				 * Toast.LENGTH_SHORT).show();
+				 */
 			}
 		});
 
@@ -213,16 +214,18 @@ public class DetailsActivity extends Activity {
 		title.setText(product.getName());
 
 		TextView price = (TextView) findViewById(R.id.price_txt);
-		price.setText(product.getPrice().toString() + currencySign);
+		price.setText(priceFormat.format(product.getPrice()) + currencySign);
 
-		String[] details = product.getDetails().split("-");
 		List<DetailsHolder> detailsList = new ArrayList<DetailsHolder>();
-		for (String string : details) {
-			detailsList.add(new DetailsHolder(string));
+		if (product.getAttributes() != null) {
+			String[] details = product.getAttributes().split("-");
+
+			for (String string : details) {
+				detailsList.add(new DetailsHolder(string));
+			}
+
 		}
-
 		initializeDetailsArrayAdapter(detailsList);
-
 	}
 
 	void setActionbarTitle() {
@@ -334,7 +337,8 @@ public class DetailsActivity extends Activity {
 
 		alertDialogBuilder.setView(dialogview);
 
-		final NumberPicker numberPicker = (NumberPicker) dialogview.findViewById(R.id.numberPicker_quantity);
+		final NumberPicker numberPicker = (NumberPicker) dialogview
+				.findViewById(R.id.numberPicker_quantity);
 		numberPicker.setMaxValue(20);
 		numberPicker.setMinValue(1);
 		numberPicker.setValue(product.getQuantity());
@@ -355,15 +359,15 @@ public class DetailsActivity extends Activity {
 						setQuantityButtonTitle();
 					}
 				});
-		
+
 		AlertDialog alertDialog = alertDialogBuilder.create();
 
 		alertDialog.show();
 	}
 
 	void createMockProduct() {
-		product = new DetailedProduct(1, "Product", BigDecimal.valueOf(1.99),
-				null, "attribute", "example uri");
+		product = new BasketProduct(1, "Product", BigDecimal.valueOf(1.99),
+				"attribute", "note", "example uri", 1);
 	}
 
 }

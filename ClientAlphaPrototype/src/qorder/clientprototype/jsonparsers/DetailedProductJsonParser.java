@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import qorder.clientprototype.model.DetailedProduct;
+import qorder.clientprototype.model.BasketProduct;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -14,16 +14,16 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class DetailedProductJsonParser {
 
-	public DetailedProduct parse(JSONObject json) throws JSONException,
+	public BasketProduct parse(JSONObject json) throws JSONException,
 			JsonParseException, JsonMappingException, ClassNotFoundException,
 			IOException {
-		DetailedProduct product = new DetailedProduct();
+		BasketProduct product = new BasketProduct();
 
 		try {
 			product.setId(json.getLong("id"));
 			product.setName(json.getString("name"));
-			product.setPrice(BigDecimal.valueOf(json.getLong("price")));
-			product.setDetails(json.getString("details"));
+			product.setPrice(BigDecimal.valueOf(json.getDouble("price")));
+			product.setAttributes(json.getString("details"));
 			product.setQuantity(1);
 			return product;
 

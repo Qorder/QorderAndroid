@@ -1,6 +1,7 @@
 package qorder.clientprototype.activities;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class BasketActivity extends Activity {
 	List<BasketProduct> order;
 	BasketCustomList adapter;
 	final String currencySign = "€";
-
+	final DecimalFormat priceFormat = new DecimalFormat("###.00");
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -269,7 +271,7 @@ public class BasketActivity extends Activity {
 		List<String> productValues = new ArrayList<String>();
 		for (BasketProduct product : order) {
 			BigDecimal totalPrice = product.getPrice().multiply(BigDecimal.valueOf((double)product.getQuantity()));
-			productValues.add(totalPrice + currencySign);
+			productValues.add(priceFormat.format(totalPrice) + currencySign);
 		}
 
 		return productValues;
@@ -282,8 +284,7 @@ public class BasketActivity extends Activity {
 				BigDecimal price = product.getPrice().multiply(BigDecimal.valueOf((double)product.getQuantity()));
 				totalPrice = totalPrice.add(price);
 			}
-		
-			return totalPrice.toString();
+			return priceFormat.format(totalPrice);
 	}
 	
 }

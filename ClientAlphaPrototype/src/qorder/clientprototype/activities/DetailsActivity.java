@@ -46,9 +46,7 @@ public class DetailsActivity extends Activity {
 	OrderHolder orderHolder = new OrderHolder();
 	BasketProduct product;
 	final String currencySign = "€";
-	ImageView currentImage;
 	String notes;
-	List<Integer> imgIds;
 	ListView details_listview;
 	DetailsCustomList adapter;
 	ImageLoader imageLoader;
@@ -64,8 +62,6 @@ public class DetailsActivity extends Activity {
 		product = new BasketProduct();
 		notes = " ";
 		Bundle extras = getIntent().getExtras();
-
-		imgIds = new ArrayList<Integer>();
 
 		try {
 			parseJson(extras.getString("product"));
@@ -283,7 +279,7 @@ public class DetailsActivity extends Activity {
 				try {
 					//Large image
 					// loadImageFrom("http://www.pleiade.org/images/hubble-m45_large.jpg");
-					loadImageFrom(json.getString("imageUrl"));
+					loadImageFrom(json.getString("imageRequestURI"));
 				} catch (Exception e) {
 					Log.e("Error parsing image in details activity:",
 							e.getMessage());

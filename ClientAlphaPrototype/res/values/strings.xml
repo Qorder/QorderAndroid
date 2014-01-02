@@ -44,5 +44,6 @@
     <string name="text_fetch_menu_dialog">fetching the menu</string>
     <string name="text_postsuccess">your order has been sent :)</string>
     <string name="text_postfail">we couldnt send your order, sorry :(</string>
+    <string name="text_yournotes">your notes</string>
 
 </resources>

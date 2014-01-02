@@ -84,7 +84,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/bottomline"
         android:layout_toLeftOf="@+id/textView_title"
-        android:text="your notes"
+        android:text="@string/text_yournotes"
         android:textSize="12sp" />
 
     <Button

@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import qorder.clientprototype.extensions.DetailsCustomList;
+import qorder.clientprototype.images.ImageLoader;
 import qorder.clientprototype.jsonparsers.DetailedProductJsonParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.DetailsHolder;
@@ -25,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,9 +41,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import qorder.clientprototype.R;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 public class DetailsActivity extends Activity {
 
 	OrderHolder orderHolder = new OrderHolder();
@@ -52,13 +51,15 @@ public class DetailsActivity extends Activity {
 	List<Integer> imgIds;
 	ListView details_listview;
 	DetailsCustomList adapter;
+	ImageLoader imageLoader;
 	final DecimalFormat priceFormat = new DecimalFormat("###.00");
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_productdetails);
 
+		imageLoader = new ImageLoader(this.getApplicationContext());
 		details_listview = (ListView) findViewById(R.id.listview_details);
 		product = new BasketProduct();
 		notes = " ";
@@ -67,7 +68,6 @@ public class DetailsActivity extends Activity {
 		imgIds = new ArrayList<Integer>();
 
 		try {
-			// notes = extras.getString("notes");
 			parseJson(extras.getString("product"));
 			product.setUri(extras.getString("product"));
 
@@ -226,6 +226,13 @@ public class DetailsActivity extends Activity {
 
 		}
 		initializeDetailsArrayAdapter(detailsList);
+
+	}
+
+	void loadImageFrom(String url) {
+		imageLoader.clearCache();
+		ImageView image = (ImageView) findViewById(R.id.products_imageview);
+		imageLoader.DisplayImage(url, image);
 	}
 
 	void setActionbarTitle() {
@@ -273,18 +280,18 @@ public class DetailsActivity extends Activity {
 			try {
 				DetailedProductJsonParser jsonParser = new DetailedProductJsonParser();
 				JSONObject json = NetworkUtil.requestJsonObject(url);
+				try {
+					//Large image
+					// loadImageFrom("http://www.pleiade.org/images/hubble-m45_large.jpg");
+					loadImageFrom(json.getString("imageUrl"));
+				} catch (Exception e) {
+					Log.e("Error parsing image in details activity:",
+							e.getMessage());
+				}
 
 				product = jsonParser.parse(json);
-
-			} catch (JsonParseException e) {
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
 			} catch (Exception e) {
+				Log.e("Error parsing json in details activity:", e.getMessage());
 				Toast.makeText(
 						this,
 						getResources().getString(
@@ -292,6 +299,7 @@ public class DetailsActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				createMockProduct();
 			}
+
 		} else {
 			Toast.makeText(this,
 					getResources().getString(R.string.text_error_network),

@@ -152,8 +152,6 @@ public class BasketActivity extends Activity {
 										DetailsActivity.class);
 								i.putExtra("product", order.get(position)
 										.getUri());
-								i.putExtra("notes", order.get(position)
-										.getNotes());
 								startActivity(i);
 							}
 						})

@@ -65,7 +65,6 @@ public class NetworkUtil {
 			DefaultHttpClient httpclient = new DefaultHttpClient();
 			HttpPut httpPut = new HttpPut(url);
 			StringEntity stringEnt = new StringEntity(jsonString);
-
 			httpPut.setEntity(stringEnt);
 			httpPut.setHeader("Accept", "application/json");
 			httpPut.setHeader("Content-type", "application/json");

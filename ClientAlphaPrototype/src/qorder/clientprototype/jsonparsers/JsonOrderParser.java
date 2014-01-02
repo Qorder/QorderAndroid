@@ -22,9 +22,10 @@ public class JsonOrderParser {
 			
 			JSONObject orderItem = new JSONObject();
 			orderItem.put("productId", order.getId());
-			//orderItem.put("name", order.getName());
-			//orderItem.put("price", order.getPrice());
-			orderItem.put("notes", order.getAttributes() + " " + order.getNotes());
+			orderItem.put("name", order.getName());
+			orderItem.put("price", order.getPrice());
+			orderItem.put("notes",  order.getNotes());
+			orderItem.put("attributes",order.getAttributes());
 			orderItem.put("quantity", order.getQuantity());
 			arr.put(orderItem);
 		}

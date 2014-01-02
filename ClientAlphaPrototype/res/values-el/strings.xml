@@ -20,7 +20,7 @@
     <string name="title_price_activity_productdetails">τιμή εδώ</string>
     <string name="title_notes_activity_productdetails">σημειώστε εδώ</string>
     <string name="title_image_activity_productdetails">d</string>
-    <string name="text_guide_scan_activity">πιέστε το κουμπί &quot;σκανάρισμα&quot; και τοποθετήστε το κινητό σας πάνω από το bar-code για να συνεχίσετε στον κατάλογο</string>
+    <string name="text_guide_scan_activity">πιέστε το κουμπί &quot;σκανάρισμα&quot; και τοποθετήστε το κινητό σας πάνω από το qr-code για να συνεχίσετε στον κατάλογο</string>
     <string name="text_guide_expandableTextView">πώς λειτουργεί;</string><string name="text_error_camera">Μπροστινή Κάμερα μη-διαθέσιμη</string>
     <string name="text_error_network">Αδυναμία σύνδεσης δικτύου</string>
     <string name="text_error_fetch_mock_products">Αποτυχία εύρεσης Προϊόντων. Δημιουργία εικονικών προϊόντων</string>

@@ -29,7 +29,7 @@
     <string name="text_basket_multiplier_productsactivity">cart x</string>
     <string name="text_basket_productsactivity">cart</string>
     <string name="text_guide_expandableTextView"> how does this work?</string>
-    <string name="text_guide_scan_activity"> press the scan button and place your phone\s camera on top of the bar code to proceed to the catalogue</string>
+    <string name="text_guide_scan_activity"> press the scan button and place your phone\s camera on top of the qr code to proceed to the catalogue</string>
     <string name="text_ready_basketactivity">i am ready</string>
     <string name="text_submit_basketactivity">submit</string>
     <string name="text_yes_basketactivity">yes</string>

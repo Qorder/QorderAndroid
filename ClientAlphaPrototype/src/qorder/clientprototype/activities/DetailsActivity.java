@@ -10,8 +10,10 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import qorder.clientprototype.R;
 import qorder.clientprototype.extensions.DetailsCustomList;
 import qorder.clientprototype.images.ImageLoader;
+import qorder.clientprototype.images.Utils;
 import qorder.clientprototype.jsonparsers.DetailedProductJsonParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.DetailsHolder;
@@ -23,6 +25,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,7 +43,6 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-import qorder.clientprototype.R;
 
 public class DetailsActivity extends Activity {
 
@@ -231,6 +234,15 @@ public class DetailsActivity extends Activity {
 		imageLoader.DisplayImage(url, image);
 	}
 
+	void tempLoadImageFrom(String url) {
+		BitmapFactory.Options bmOptions;
+		bmOptions = new BitmapFactory.Options();
+		bmOptions.inSampleSize = 1;
+		Bitmap bm = Utils.loadBitmap(url, bmOptions);
+		ImageView image = (ImageView) findViewById(R.id.products_imageview);
+		image.setImageBitmap(bm);
+	}
+
 	void setActionbarTitle() {
 		TextView activityTitle = (TextView) findViewById(R.id.title);
 		activityTitle.setText(OrderHolder.getBusinessName());
@@ -277,9 +289,10 @@ public class DetailsActivity extends Activity {
 				DetailedProductJsonParser jsonParser = new DetailedProductJsonParser();
 				JSONObject json = NetworkUtil.requestJsonObject(url);
 				try {
-					//Large image
+					// Large image
 					// loadImageFrom("http://www.pleiade.org/images/hubble-m45_large.jpg");
-					loadImageFrom(json.getString("imageRequestURI"));
+					// loadImageFrom(json.getString("imageRequestURI"));
+					tempLoadImageFrom(json.getString("imageRequestURI"));
 				} catch (Exception e) {
 					Log.e("Error parsing image in details activity:",
 							e.getMessage());

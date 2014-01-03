@@ -41,13 +41,13 @@ public class ScanActivityUITest extends UiAutomatorTestCase {
 
 		UiObject settingsApp = appViews.getChildByText(new UiSelector()
 		.className(android.widget.TextView.class.getName()), 
-				"ClientAlphaPrototype");
+				"ClientPrototype");
 		settingsApp.clickAndWaitForNewWindow();
 
 		// Validate that the package name is the expected one
 		UiObject clientalphaprototypeValidation = new UiObject(new UiSelector()
-		.packageName("com.example.clientalphaprototype"));
-		assertTrue("Unable to detect ClientAlphaPrototype", 
+		.packageName("qorder.clientprototype"));
+		assertTrue("Unable to detect Qorder", 
 				clientalphaprototypeValidation.exists()); 
 
 		//Press Help Text
@@ -92,85 +92,51 @@ public class ScanActivityUITest extends UiAutomatorTestCase {
 		.className("android.widget.RelativeLayout").index(0));
 
 		productitemlist.click();
-		UiScrollable textScroll = new UiScrollable(new UiSelector()
-		.className("android.widget.ScrollView"));
-		
-		textScroll.scrollToEnd(2);
 
 		//Write down some notes for the product
-		UiObject noteField = new UiObject(new UiSelector().className("android.widget.EditText").index(5));
+		UiObject noteButton= new UiObject(new UiSelector().className("android.widget.Button").index(4));
+		noteButton.click();
+		UiObject noteField = new UiObject(new UiSelector().className("android.widget.EditText").index(1));
 		noteField.clearTextField();
-		noteField.setText("Pita guro apo'la xwris kremmudi ");
+		noteField.setText("I am writing some text here ;) ");
+		UiObject readyButton = new UiObject(new UiSelector().resourceId("android:id/button1"));
+		readyButton.click();
+		
+		UiObject quantityButton = new UiObject(new UiSelector().resourceId("qorder.clientprototype:id/button_quantity"));
+		quantityButton.click();
+		
+		UiObject quantitySelection = new UiObject(new UiSelector().className("android.widget.Button").index(2));
+		quantitySelection.click();
+		
+		readyButton.click();
+		
+		UiObject itemSpecialSelection = new UiObject(new UiSelector().resourceId("qorder.clientprototype:id/checkbox_details").index(0));
+		itemSpecialSelection.click();
+		
+		
+		UiObject basketaddButton = new UiObject(new UiSelector().resourceId("qorder.clientprototype:id/button_addToBasket"));
+		basketaddButton.click();
 
-		UiObject basketaddButton = new UiObject(new UiSelector().textStartsWith("Add to Basket"));
-
-		if(basketaddButton.exists() && basketaddButton.isEnabled()) 
-		{
-			//Add it twice
-			basketaddButton.click();
-			basketaddButton.click();
-
-		}
-
-		//Go back 
-		UiDevice.getInstance().pressBack();
-
-		//Select the 2nd Product in the list
-		UiObject productItem2 =productItem.getChild(new UiSelector()
-		.className("android.widget.RelativeLayout").index(1));
-		productItem2.click();
-
-		//Leave some notes
-		noteField.clearTextField();
-		noteField.setText("Pita guro apo'la :P kai svelta giati peinaw! ");
-
-		//Change Images
-		UiScrollable imagesTabsheet = new UiScrollable(new UiSelector()
-		.className("android.widget.Gallery"));
-		UiObject imagetab1 = imagesTabsheet.getChild(new UiSelector()
-		.className("android.widget.ImageView").index(0));
-
-		UiObject imagetab2 = imagesTabsheet.getChild(new UiSelector()
-		.className("android.widget.ImageView").index(1));
-
-		UiObject imagetab3 = imagesTabsheet.getChild(new UiSelector()
-		.className("android.widget.ImageView").index(2));
-
-		imagetab2.click();
-		imagetab3.click();
-		imagetab1.click();
-
-		if(basketaddButton.exists() && basketaddButton.isEnabled()) 
-		{
-			basketaddButton.click();
-
-		}
-		UiScrollable topbar = new UiScrollable(new UiSelector()
-		.className("android.widget.FrameLayout"));
-
-		UiObject basketButton = topbar.getChild(new UiSelector()
-		.className("android.widget.Button").index(1));
-
-		if(basketButton.exists() && basketButton.isEnabled()) 
-		{
-			//Go to basket
-			basketButton.click();
-		}
-
-		//Delete the 1st product
-		UiObject productinBasket = new UiObject(new UiSelector().className("android.widget.RelativeLayout").index(0));
-		productinBasket.swipeRight(0);
-
-		if(basketButton.exists() && basketButton.isEnabled()) 
-		{
-			basketButton.click();
-		}
-
-		//Press Submit Button
+		UiObject basketButton = new UiObject(new UiSelector().resourceId("qorder.clientprototype:id/basket_button"));
 		basketButton.click();
 		
-		UiObject menuButton = new UiObject(new UiSelector().className("android.widget.LinearLayout").index(2));
+		UiObject submitButton = new UiObject(new UiSelector().resourceId("qorder.clientprototype:id/submit_button"));
+		submitButton.click();
+		
+		UiObject yesButton = new UiObject(new UiSelector().resourceId("android:id/button1"));
+		yesButton.click();
+
+		
+		
+
+		UiObject menuButton = new UiObject(new UiSelector()
+		.className("android.widget.ImageButton"));
+		
 		menuButton.click();
+		
+		
+		UiObject menuButton1 = new UiObject(new UiSelector().className("android.widget.LinearLayout").index(1));
+		menuButton1.click();
 		
 		UiObject menuList = new UiObject(new UiSelector().className("android.widget.ListView").index(0));
 		

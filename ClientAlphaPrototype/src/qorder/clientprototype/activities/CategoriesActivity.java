@@ -99,6 +99,10 @@ public class CategoriesActivity extends Activity {
 			Intent scanIntent = new Intent(this, ScanActivity.class);
 			this.startActivity(scanIntent);
 			break;
+		case R.id.YourOrders:
+			Intent ordersIntent = new Intent(this, OrdersActivity.class);
+			this.startActivity(ordersIntent);
+			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

@@ -6,5 +6,8 @@
     <item android:id="@+id/ScanAgain"
           android:title="@string/text_menu_basket_scanagain"/>
 
+        
+            <item android:id="@+id/YourOrders"
+          android:title="@string/text_yourorders"/>
 </menu>
 

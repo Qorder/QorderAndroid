@@ -2,7 +2,6 @@ package qorder.clientprototype.activities;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import qorder.clientprototype.extensions.BasketCustomList;
@@ -72,6 +71,10 @@ public class BasketActivity extends Activity {
 		case R.id.ScanAgain:
 			Intent scanIntent = new Intent(this, ScanActivity.class);
 			this.startActivity(scanIntent);
+			break;
+		case R.id.YourOrders:
+			Intent ordersIntent = new Intent(this, OrdersActivity.class);
+			this.startActivity(ordersIntent);
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -216,9 +219,8 @@ public class BasketActivity extends Activity {
 
 	void initializeArrayAdapter() {
 
-		adapter = new BasketCustomList(this, getProductNames(),
-				getProductNotes(), getProductPrices());
-
+		adapter = new BasketCustomList(this,orderHolder.getProductNames(order),
+				orderHolder.getProductNotes(order), orderHolder.getProductPrices(order,priceFormat,currencySign));
 		listView.setAdapter(adapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -244,45 +246,14 @@ public class BasketActivity extends Activity {
 						for (int position : reverseSortedPositions) {
 							adapter.remove(adapter.getItem(position));
 							order.remove(position);
-							adapter.setItems(getProductNames(),
-									getProductNotes(), getProductPrices());
+							adapter.setItems(orderHolder.getProductNames(order),
+									orderHolder.getProductNotes(order), orderHolder.getProductPrices(order,priceFormat,currencySign));
 						}
 						adapter.notifyDataSetChanged();
 					}
 				});
 		listView.setOnTouchListener(touchListener);
 		listView.setOnScrollListener(touchListener.makeScrollListener());
-	}
-
-	List<String> getProductNames() {
-
-		List<String> productNames = new ArrayList<String>();
-		for (BasketProduct product : order) {
-			productNames.add(product.getProductTitle());
-		}
-
-		return productNames;
-	}
-
-	List<String> getProductNotes() {
-
-		List<String> productNotes = new ArrayList<String>();
-		for (BasketProduct product : order) {
-			productNotes.add(product.getNotes());
-		}
-
-		return productNotes;
-	}
-
-	List<String> getProductPrices() {
-		List<String> productValues = new ArrayList<String>();
-		for (BasketProduct product : order) {
-			BigDecimal totalPrice = product.getPrice().multiply(
-					BigDecimal.valueOf((double) product.getQuantity()));
-			productValues.add(priceFormat.format(totalPrice) + currencySign);
-		}
-
-		return productValues;
 	}
 
 	String getTotalPrice() {

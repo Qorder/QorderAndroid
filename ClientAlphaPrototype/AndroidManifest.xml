@@ -7,15 +7,19 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    
-    <instrumentation android:targetPackage="qorder.clientprototype" android:name="android.test.InstrumentationTestRunner"></instrumentation>
 
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="qorder.clientprototype" >
+    </instrumentation>
 
     <application
         android:allowBackup="true"
@@ -47,11 +51,18 @@
             android:name="qorder.clientprototype.activities.BasketActivity"
             android:label="@string/title_activity_basket" >
         </activity>
-        <activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"
-            android:screenOrientation="landscape"
-                android:label="@string/app_name" >
+        <activity
+            android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
         </activity>
+
         <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="qorder.clientprototype.activities.OrdersActivity"
+            android:label="@string/title_activity_orders" >
+        </activity>
     </application>
 
 </manifest>

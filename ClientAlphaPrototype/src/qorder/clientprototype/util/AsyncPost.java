@@ -10,15 +10,18 @@ import qorder.clientprototype.activities.BasketActivity;
 import qorder.clientprototype.jsonparsers.JsonOrderParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.OrderHolder;
+import qorder.clientprototype.model.OrderInfo;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class AsyncPost extends AsyncTask<BasketProduct, Boolean, Boolean> {
+public class AsyncPost extends AsyncTask<BasketProduct, OrderInfo, OrderInfo> {
 
 	private BasketActivity basketActivity;
 	private ProgressDialog dialog;
+	private final boolean mockSend = false;
 
 	public AsyncPost(BasketActivity basketActivity) {
 		this.basketActivity = basketActivity;
@@ -28,42 +31,58 @@ public class AsyncPost extends AsyncTask<BasketProduct, Boolean, Boolean> {
 		this.dialog = new ProgressDialog(basketActivity);
 		this.dialog.setMessage(basketActivity.getResources().getString(
 				R.string.title_postdialog));
+		dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "nevermind", new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int which) {
+		        dialog.dismiss();
+		        cancel(true);
+		    }
+		});
 		this.dialog.show();
 	}
 
 	@Override
-	protected Boolean doInBackground(BasketProduct... products) {
+	protected OrderInfo doInBackground(BasketProduct... products) {
 		List<BasketProduct> order = new ArrayList<BasketProduct>();
+		OrderInfo orderInfo = new OrderInfo(null,null,false);
+		
+		if (mockSend) {
+			OrderHolder.sendOrder("1", "pending");
+			return orderInfo;
+		}
 
 		for (int i = 0; i < products.length; i++)
 			order.add(products[i]);
 
 		JsonOrderParser jsonOrderParser = new JsonOrderParser();
-		boolean isPostSuccessful = false;
+
 		try {
 			JSONObject orderJson = jsonOrderParser.parse(order);
 
-			isPostSuccessful = NetworkUtil.sendJson(orderJson.toString(),
+			orderInfo = NetworkUtil.sendJson(orderJson.toString(),
 					OrderHolder.getWSPostUrI());
 		} catch (Exception e) {
 			Log.e("Json post AsyncTask failed", e.getMessage());
-			return isPostSuccessful;
+			return (new OrderInfo(null,null,false));
 		}
-		return isPostSuccessful;
+		return orderInfo;
 
 	}
 
-	protected void onPostExecute(final Boolean result) {
+	protected void onPostExecute(final OrderInfo result) {
 		if (this.dialog.isShowing()) {
 			this.dialog.dismiss();
 		}
-		if (result) {
+		if (result.getResult()) {
 			Toast.makeText(
 					basketActivity,
 					basketActivity.getResources().getString(
 							R.string.text_postsuccess), Toast.LENGTH_LONG)
 					.show();
-			OrderHolder.reset();
+			if (!mockSend)
+			{
+				OrderHolder.sendOrder(result.getId(),result.getStatus());
+			}
 			basketActivity.initializeBasket();
 		} else {
 			Toast.makeText(
@@ -72,5 +91,6 @@ public class AsyncPost extends AsyncTask<BasketProduct, Boolean, Boolean> {
 							R.string.text_postfail), Toast.LENGTH_LONG).show();
 		}
 	}
+	
 
 }

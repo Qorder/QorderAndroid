@@ -18,5 +18,8 @@ How does this work
 * **Browse**<br>
   You can view products and add them in your basket.
   
-* **Submit order**<br>
-  When you've finished ordering, you can submit your order and view its progress.
+* **Submit orders**<br>
+  When you've finished ordering, you can submit your order.
+
+* **View your orders' status**<br>
+  Pending / Accepted / Serviced

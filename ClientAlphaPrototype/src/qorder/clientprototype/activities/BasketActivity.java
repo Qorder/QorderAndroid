@@ -38,7 +38,7 @@ public class BasketActivity extends Activity {
 	BasketCustomList adapter;
 	final String currencySign = "€";
 	final DecimalFormat priceFormat = new DecimalFormat("###.00");
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -127,7 +127,8 @@ public class BasketActivity extends Activity {
 
 		userInput.setText(order.get(position).getNotes());
 
-		final NumberPicker numberPicker = (NumberPicker) dialogview.findViewById(R.id.numberPicker_basketquantity);
+		final NumberPicker numberPicker = (NumberPicker) dialogview
+				.findViewById(R.id.numberPicker_basketquantity);
 		numberPicker.setMaxValue(20);
 		numberPicker.setMinValue(1);
 		numberPicker.setValue(order.get(position).getQuantity());
@@ -140,9 +141,9 @@ public class BasketActivity extends Activity {
 						order.get(position).setQuantity(newVal);
 					}
 				});
-		
+
 		alertDialogBuilder
-				.setCancelable(false)
+				.setCancelable(true)
 				.setPositiveButton(
 						getResources().getString(
 								R.string.text_view_basketdialog),
@@ -161,12 +162,18 @@ public class BasketActivity extends Activity {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								dialog.cancel();
-								order.get(position).setNotes(
-										userInput.getText().toString());
-								order.get(position).setQuantity(numberPicker.getValue());
-								initializeArrayAdapter();
 							}
 						});
+		alertDialogBuilder
+				.setOnCancelListener(new DialogInterface.OnCancelListener() {
+					public void onCancel(DialogInterface dialog) {
+						order.get(position).setNotes(
+								userInput.getText().toString());
+						order.get(position)
+								.setQuantity(numberPicker.getValue());
+						initializeArrayAdapter();
+					}
+				});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -180,9 +187,10 @@ public class BasketActivity extends Activity {
 				getResources().getString(R.string.text_ready_basketactivity))
 				.setTitle(
 						getResources().getString(
-								R.string.text_submit_basketactivity) + " " + getTotalPrice() + currencySign);
+								R.string.text_submit_basketactivity)
+								+ " " + getTotalPrice() + currencySign);
 
-		builder.setNegativeButton(
+		builder.setCancelable(true).setNegativeButton(
 				getResources().getString(R.string.text_no_basketactivity),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
@@ -194,10 +202,11 @@ public class BasketActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						AsyncPost post = new AsyncPost(BasketActivity.this);
-						BasketProduct[] basketProducts = order.toArray(new BasketProduct[order.size()]);
+						BasketProduct[] basketProducts = order
+								.toArray(new BasketProduct[order.size()]);
 						post.execute(basketProducts);
-						//OrderHolder.reset();
-						//initializeBasket();
+						// OrderHolder.reset();
+						// initializeBasket();
 					}
 				});
 
@@ -268,21 +277,22 @@ public class BasketActivity extends Activity {
 	List<String> getProductPrices() {
 		List<String> productValues = new ArrayList<String>();
 		for (BasketProduct product : order) {
-			BigDecimal totalPrice = product.getPrice().multiply(BigDecimal.valueOf((double)product.getQuantity()));
+			BigDecimal totalPrice = product.getPrice().multiply(
+					BigDecimal.valueOf((double) product.getQuantity()));
 			productValues.add(priceFormat.format(totalPrice) + currencySign);
 		}
 
 		return productValues;
 	}
-	
-	String getTotalPrice()
-	{
+
+	String getTotalPrice() {
 		BigDecimal totalPrice = BigDecimal.ZERO;
-			for (BasketProduct product : order) {
-				BigDecimal price = product.getPrice().multiply(BigDecimal.valueOf((double)product.getQuantity()));
-				totalPrice = totalPrice.add(price);
-			}
-			return priceFormat.format(totalPrice);
+		for (BasketProduct product : order) {
+			BigDecimal price = product.getPrice().multiply(
+					BigDecimal.valueOf((double) product.getQuantity()));
+			totalPrice = totalPrice.add(price);
+		}
+		return priceFormat.format(totalPrice);
 	}
-	
+
 }

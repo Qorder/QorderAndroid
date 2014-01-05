@@ -12,8 +12,8 @@ import org.json.JSONObject;
 
 import qorder.clientprototype.R;
 import qorder.clientprototype.extensions.DetailsCustomList;
+import qorder.clientprototype.images.AsyncImageLoader;
 import qorder.clientprototype.images.ImageLoader;
-import qorder.clientprototype.images.Utils;
 import qorder.clientprototype.jsonparsers.DetailedProductJsonParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.DetailsHolder;
@@ -25,8 +25,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -53,6 +51,7 @@ public class DetailsActivity extends Activity {
 	ListView details_listview;
 	DetailsCustomList adapter;
 	ImageLoader imageLoader;
+
 	final DecimalFormat priceFormat = new DecimalFormat("###.00");
 
 	@Override
@@ -235,12 +234,8 @@ public class DetailsActivity extends Activity {
 	}
 
 	void tempLoadImageFrom(String url) {
-		BitmapFactory.Options bmOptions;
-		bmOptions = new BitmapFactory.Options();
-		bmOptions.inSampleSize = 1;
-		Bitmap bm = Utils.loadBitmap(url, bmOptions);
-		ImageView image = (ImageView) findViewById(R.id.products_imageview);
-		image.setImageBitmap(bm);
+		runOnUiThread(new Thread(new AsyncImageLoader((ImageView) findViewById(R.id.products_imageview), url)));
+
 	}
 
 	void setActionbarTitle() {
@@ -290,9 +285,9 @@ public class DetailsActivity extends Activity {
 				JSONObject json = NetworkUtil.requestJsonObject(url);
 				try {
 					// Large image
-					// loadImageFrom("http://www.pleiade.org/images/hubble-m45_large.jpg");
-					// loadImageFrom(json.getString("imageRequestURI"));
-					tempLoadImageFrom(json.getString("imageRequestURI"));
+					//tempLoadImageFrom("http://www.pleiade.org/images/hubble-m45_large.jpg");
+					 loadImageFrom(json.getString("imageRequestURI"));
+					//tempLoadImageFrom(json.getString("imageRequestURI"));
 				} catch (Exception e) {
 					Log.e("Error parsing image in details activity:",
 							e.getMessage());
@@ -330,15 +325,21 @@ public class DetailsActivity extends Activity {
 		manipulateEditTextParsing(userInput);
 		userInput.setText(notes);
 
-		alertDialogBuilder.setCancelable(false).setPositiveButton(
+		alertDialogBuilder.setCancelable(true).setPositiveButton(
 				getResources().getString(R.string.text_done_basketdialog),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						notes = userInput.getText().toString();
-						TextView description = (TextView) findViewById(R.id.textview_notes);
-						description.setText(notes);
+						dialog.cancel();
 					}
 				});
+		
+		alertDialogBuilder.setOnCancelListener(new  DialogInterface.OnCancelListener() { 
+            public  void  onCancel(DialogInterface dialog) {      	
+				notes = userInput.getText().toString();
+				TextView description = (TextView) findViewById(R.id.textview_notes);
+				description.setText(notes);
+            } 
+        }); 
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -369,13 +370,19 @@ public class DetailsActivity extends Activity {
 					}
 				});
 
-		alertDialogBuilder.setCancelable(false).setPositiveButton(
+		alertDialogBuilder.setCancelable(true).setPositiveButton(
 				getResources().getString(R.string.text_done_basketdialog),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						setQuantityButtonTitle();
 					}
 				});
+		
+		alertDialogBuilder.setOnCancelListener(new  DialogInterface.OnCancelListener() { 
+	            public  void  onCancel(DialogInterface dialog) { 
+	            	setQuantityButtonTitle();
+	            } 
+	        }); 
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 

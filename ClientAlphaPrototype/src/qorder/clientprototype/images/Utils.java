@@ -9,6 +9,7 @@ import java.net.URLConnection;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 public class Utils {
     public static void CopyStream(InputStream is, OutputStream os)
@@ -35,7 +36,8 @@ public class Utils {
             in = OpenHttpConnection(URL);
             bitmap = BitmapFactory.decodeStream(in, null, options);
             in.close();
-        } catch (IOException e1) {
+        } catch (IOException e) {
+        	Log.e("Error downloading image",e.getMessage());
         }
         return bitmap;
     }
@@ -45,7 +47,9 @@ public class Utils {
         InputStream inputStream = null;
         URL url = new URL(strURL);
         URLConnection conn = url.openConnection();
-
+        conn.setConnectTimeout(30000);
+        conn.setReadTimeout(30000);
+        
         try {
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             httpConn.setRequestMethod("GET");

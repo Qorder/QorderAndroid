@@ -343,13 +343,6 @@ public class DetailsActivity extends Activity {
 				getResources().getString(R.string.text_done_basketdialog),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-
-		alertDialogBuilder
-				.setOnCancelListener(new DialogInterface.OnCancelListener() {
-					public void onCancel(DialogInterface dialog) {
 						notes = userInput.getText().toString();
 						TextView description = (TextView) findViewById(R.id.textview_notes);
 						description.setText(notes);
@@ -376,29 +369,18 @@ public class DetailsActivity extends Activity {
 		numberPicker.setMinValue(1);
 		numberPicker.setValue(product.getQuantity());
 		numberPicker.setWrapSelectorWheel(true);
-		numberPicker
-				.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-					@Override
-					public void onValueChange(NumberPicker picker, int oldVal,
-							int newVal) {
-						product.setQuantity(newVal);
-					}
-				});
+
 
 		alertDialogBuilder.setCancelable(true).setPositiveButton(
 				getResources().getString(R.string.text_done_basketdialog),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
+						product.setQuantity(numberPicker.getValue());					
 						setQuantityButtonTitle();
 					}
 				});
 
-		alertDialogBuilder
-				.setOnCancelListener(new DialogInterface.OnCancelListener() {
-					public void onCancel(DialogInterface dialog) {
-						setQuantityButtonTitle();
-					}
-				});
+
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 

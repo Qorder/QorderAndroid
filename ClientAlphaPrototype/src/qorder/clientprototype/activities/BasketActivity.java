@@ -162,14 +162,7 @@ public class BasketActivity extends Activity {
 		numberPicker.setMinValue(1);
 		numberPicker.setValue(order.get(position).getQuantity());
 		numberPicker.setWrapSelectorWheel(true);
-		numberPicker
-				.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-					@Override
-					public void onValueChange(NumberPicker picker, int oldVal,
-							int newVal) {
-						order.get(position).setQuantity(newVal);
-					}
-				});
+	
 
 		alertDialogBuilder
 				.setCancelable(true)
@@ -190,19 +183,14 @@ public class BasketActivity extends Activity {
 								R.string.text_done_basketdialog),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
+								order.get(position).setQuantity(numberPicker.getValue());
+								order.get(position).setNotes(
+										userInput.getText().toString());
+								order.get(position)
+										.setQuantity(numberPicker.getValue());
+								initializeArrayAdapter();
 							}
 						});
-		alertDialogBuilder
-				.setOnCancelListener(new DialogInterface.OnCancelListener() {
-					public void onCancel(DialogInterface dialog) {
-						order.get(position).setNotes(
-								userInput.getText().toString());
-						order.get(position)
-								.setQuantity(numberPicker.getValue());
-						initializeArrayAdapter();
-					}
-				});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 

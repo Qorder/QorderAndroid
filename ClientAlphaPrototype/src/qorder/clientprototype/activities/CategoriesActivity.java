@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,42 +35,33 @@ import android.widget.TextView;
 public class CategoriesActivity extends Activity {
 
 	ListView categories_listView;
-	List<Category> categories;
-	static String categoriesUrl = null;
+	static List<Category> categories = new ArrayList<Category>();
 	final boolean useMocks = false;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_categories);
 
 		categories_listView = (ListView) findViewById(R.id.categories_listview);
-		categories = new ArrayList<Category>();
 		Bundle extras = getIntent().getExtras();
 
 		try {
-			if (extras != null)
-			{
-				String info = extras
-						.getString("initialInfo");
+			if (extras != null) {
+				String info = extras.getString("initialInfo");
 				String[] additionalInfo = info.split("_");
 				OrderHolder.setTableNumber(additionalInfo[0]);
-				OrderHolder.setWSPostUrI(additionalInfo[1]); 
-				CategoriesActivity.categoriesUrl = additionalInfo[2];
+				OrderHolder.setWSPostUrI(additionalInfo[1]);
+				parseJson(additionalInfo[2]);
 			}
-			if(useMocks)
-				createMockCategories();
-			else
-			parseJson(categoriesUrl);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("exception thrown while parsing categories", e.getMessage());
 		}
+
+		if (useMocks)
+			createMockCategories();
+		// else
+		// parseJson(categoriesUrl);
 
 		initializeActionBar();
 		initializeArrayAdapter();
@@ -112,37 +104,38 @@ public class CategoriesActivity extends Activity {
 	void parseJson(final String url) throws ClientProtocolException,
 			IOException, ClassNotFoundException, JSONException {
 
-		if (AndroidUtil.isNetworkAvailable(this) && url!=null) {
+		if (AndroidUtil.isNetworkAvailable(this) && url != null) {
 			final ProgressDialog progress = new ProgressDialog(this);
 			progress.setCancelable(false);
-			progress.setTitle(getResources().getString(R.string.title_fetch_menu_dialog));
-			progress.setMessage(getResources().getString(R.string.text_fetch_menu_dialog));
+			progress.setTitle(getResources().getString(
+					R.string.title_fetch_menu_dialog));
+			progress.setMessage(getResources().getString(
+					R.string.text_fetch_menu_dialog));
 			progress.show();
-			
+
 			new Thread(new Runnable() {
 				@Override
-				public void run() {		
+				public void run() {
 					try {
 						CategoryJsonParser jsonParser = new CategoryJsonParser();
 						JSONObject json = NetworkUtil.requestJsonObject(url);
 
 						categories = jsonParser.parse(json);
-						
+
 						OrderHolder.setBusinessName(json
 								.getString("businessName"));
-						
-						
-						//Testing the animation
-						/*long start = System.currentTimeMillis();
-						long end = start + 5*1000;
-						while (System.currentTimeMillis() < end)
-						{
-						  ;
-						}*/
-						//createMockCategories();
+
+						// Testing the animation
+						/*
+						 * long start = System.currentTimeMillis(); long end =
+						 * start + 5*1000; while (System.currentTimeMillis() <
+						 * end) { ; }
+						 */
+						// createMockCategories();
 
 					} catch (Exception e) {
-						errorFetchingMenu(getResources().getString(R.string.text_error_fetch_menu_mock));
+						errorFetchingMenu(getResources().getString(
+								R.string.text_error_fetch_menu_mock));
 					}
 
 					runOnUiThread(new Runnable() {
@@ -156,18 +149,17 @@ public class CategoriesActivity extends Activity {
 				}
 			}).start();
 		} else {
-			errorFetchingMenu(getResources().getString(R.string.text_error_network));
+			errorFetchingMenu(getResources().getString(
+					R.string.text_error_network));
 		}
 	}
 
-	void errorFetchingMenu(String message)
-	{
-		Intent i = new Intent(getApplicationContext(),
-				ScanActivity.class);
+	void errorFetchingMenu(String message) {
+		Intent i = new Intent(getApplicationContext(), ScanActivity.class);
 		i.putExtra("error", message);
 		startActivity(i);
 	}
-	
+
 	// TODO: remove after debugging
 	void createMockCategories() {
 		OrderHolder.setBusinessName("business");

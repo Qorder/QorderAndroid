@@ -12,7 +12,7 @@ public class OrderHolder {
 	
 	//TODO: set these from QR
 	static String tableNumber = "1";
-	static String WSPostUrI = "www.something.troll";
+	static String WSPostUrI = null;
 	static String orderStatusURI = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/order?id=";
 	static List<BasketProduct> order = new ArrayList<BasketProduct>();
 	static List<Order> submittedOrders = new ArrayList<Order>();

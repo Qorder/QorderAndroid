@@ -11,13 +11,14 @@ import qorder.clientprototype.R;
 import qorder.clientprototype.extensions.BasketCustomList;
 import qorder.clientprototype.extensions.OrdersCustomList;
 import qorder.clientprototype.model.OrderHolder;
-import qorder.clientprototype.util.AsyncOrderStatusCheck;
+import qorder.clientprototype.threads.AsyncOrderStatusCheck;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +56,8 @@ public class OrdersActivity extends Activity {
 	public void onPause() {
 		super.onPause();
 		((ExecutorService) executor).shutdown()	;
+		//statusCheck.cancel(true);
+		//Log.e("statusCheck status",statusCheck.getStatus().toString());
 	}
 
 	@Override
@@ -92,7 +95,7 @@ public class OrdersActivity extends Activity {
 	}
 
 	void checkForStatusChange(Activity activity) {
-		executor =Executors.newSingleThreadExecutor();
+		executor =Executors.newFixedThreadPool(1);
 		statusCheck = new AsyncOrderStatusCheck(this);
 		List<String> statusCheckURIs = new ArrayList<String>();
 		statusCheckURIs = OrderHolder.getOrderStatusURIs();

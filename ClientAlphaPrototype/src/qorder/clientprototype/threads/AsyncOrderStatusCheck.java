@@ -1,7 +1,8 @@
-package qorder.clientprototype.util;
+package qorder.clientprototype.threads;
 
 import qorder.clientprototype.activities.OrdersActivity;
 import qorder.clientprototype.model.OrderHolder;
+import qorder.clientprototype.util.NetworkUtil;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -22,9 +23,12 @@ public class AsyncOrderStatusCheck extends AsyncTask<String, Void, Void> {
 			} catch (InterruptedException e) {
 				Log.e("Error in thread while checking order status",
 						e.getMessage());
+				return null;
 			}
 			for (int i = 0; i < uris.length; i++) {
 				try {
+					if (isCancelled())
+						return null;
 					Log.e("Checking uri:", uris[i]);
 					String status = NetworkUtil.checkOrderStatus(uris[i]);
 					if (status != null) {
@@ -41,6 +45,7 @@ public class AsyncOrderStatusCheck extends AsyncTask<String, Void, Void> {
 				}
 			}
 		}
+
 	}
 
 	@Override

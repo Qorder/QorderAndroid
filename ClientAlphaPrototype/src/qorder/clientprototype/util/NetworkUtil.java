@@ -12,6 +12,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import qorder.clientprototype.model.OrderInfo;
@@ -30,8 +33,9 @@ public class NetworkUtil {
 
 	public static JSONObject requestJsonObject(String url)
 			throws ClientProtocolException, IOException {
-
-		DefaultHttpClient httpclient = new DefaultHttpClient();
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+		DefaultHttpClient httpclient = new DefaultHttpClient(httpParams);
 		HttpGet httpGet = new HttpGet(url);
 
 		try {
@@ -85,8 +89,11 @@ public class NetworkUtil {
 	public static OrderInfo sendJson(String jsonString, String url)
 			throws Exception {
 		try {
+			final HttpParams httpParams = new BasicHttpParams();
+		    HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+		    
+			DefaultHttpClient httpclient = new DefaultHttpClient(httpParams);
 
-			DefaultHttpClient httpclient = new DefaultHttpClient();
 			HttpPut httpPut = new HttpPut(url);
 			StringEntity stringEnt = new StringEntity(jsonString);
 			httpPut.setEntity(stringEnt);

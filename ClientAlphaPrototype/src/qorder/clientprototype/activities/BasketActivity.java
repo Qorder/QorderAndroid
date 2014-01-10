@@ -8,13 +8,15 @@ import qorder.clientprototype.extensions.BasketCustomList;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.swipe.SwipeDismissListViewTouchListener;
-import qorder.clientprototype.util.AsyncPost;
+import qorder.clientprototype.threads.AsyncPost;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -117,6 +119,29 @@ public class BasketActivity extends Activity {
 
 	}
 
+	void manipulateEditTextParsing(EditText mEdit) {
+		mEdit.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				for (int i = s.length(); i > 0; i--) {
+
+					if (s.subSequence(i - 1, i).toString().equals("\n"))
+						s.replace(i - 1, i, "");
+				}
+			}
+		});
+	}
+	
 	void showEditDialog(final int position) {
 		LayoutInflater li = LayoutInflater.from(this);
 		View dialogview = li.inflate(R.layout.basket_dialog, null);
@@ -129,7 +154,8 @@ public class BasketActivity extends Activity {
 				.findViewById(R.id.editTextDialogNotes);
 
 		userInput.setText(order.get(position).getNotes());
-
+		manipulateEditTextParsing(userInput);
+		
 		final NumberPicker numberPicker = (NumberPicker) dialogview
 				.findViewById(R.id.numberPicker_basketquantity);
 		numberPicker.setMaxValue(20);

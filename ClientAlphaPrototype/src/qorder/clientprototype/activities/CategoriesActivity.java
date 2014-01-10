@@ -18,7 +18,6 @@ import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -115,13 +114,7 @@ public class CategoriesActivity extends Activity {
 
 		if (AndroidUtil.isNetworkAvailable(this) && url!=null) {
 			final ProgressDialog progress = new ProgressDialog(this);
-			progress.setButton(DialogInterface.BUTTON_NEGATIVE, "nevermind", new DialogInterface.OnClickListener() {
-			    @Override
-			    public void onClick(DialogInterface dialog, int which) {
-			        dialog.dismiss();
-			        errorFetchingMenu(null);
-			    }
-			});
+			progress.setCancelable(false);
 			progress.setTitle(getResources().getString(R.string.title_fetch_menu_dialog));
 			progress.setMessage(getResources().getString(R.string.text_fetch_menu_dialog));
 			progress.show();

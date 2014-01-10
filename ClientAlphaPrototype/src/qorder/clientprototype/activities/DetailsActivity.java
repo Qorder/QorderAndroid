@@ -12,12 +12,12 @@ import org.json.JSONObject;
 
 import qorder.clientprototype.R;
 import qorder.clientprototype.extensions.DetailsCustomList;
-import qorder.clientprototype.images.AsyncImageLoader;
 import qorder.clientprototype.images.ImageLoader;
 import qorder.clientprototype.jsonparsers.DetailedProductJsonParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.DetailsHolder;
 import qorder.clientprototype.model.OrderHolder;
+import qorder.clientprototype.threads.AsyncImageLoader;
 import qorder.clientprototype.util.AndroidUtil;
 import qorder.clientprototype.util.NetworkUtil;
 import android.app.ActionBar;
@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,6 +52,7 @@ public class DetailsActivity extends Activity {
 	ListView details_listview;
 	DetailsCustomList adapter;
 	ImageLoader imageLoader;
+	AsyncImageLoader asyncImageLoader;
 
 	final DecimalFormat priceFormat = new DecimalFormat("###.00");
 
@@ -134,6 +136,12 @@ public class DetailsActivity extends Activity {
 	}
 
 	@Override
+	public void onPause() {
+		super.onPause();
+		asyncImageLoader.cancel(true);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
@@ -205,13 +213,6 @@ public class DetailsActivity extends Activity {
 	}
 
 	void initializeView() {
-		// EditText mEdit = (EditText) findViewById(R.id.editText_notes);
-
-		// if (notes != null)
-		// mEdit.setText(notes);
-		// else
-		// mEdit.setText(getResources().getString(R.string.title_notes_activity_productdetails));
-
 		TextView title = (TextView) findViewById(R.id.textView_title);
 		title.setText(product.getName());
 
@@ -231,15 +232,21 @@ public class DetailsActivity extends Activity {
 
 	}
 
+	// optimised soultion
 	void loadImageFrom(String url) {
 		imageLoader.clearCache();
 		ImageView image = (ImageView) findViewById(R.id.products_imageview);
 		imageLoader.DisplayImage(url, image);
 	}
 
-	void tempLoadImageFrom(String url) {
-		runOnUiThread(new Thread(new AsyncImageLoader((ImageView) findViewById(R.id.products_imageview), url)));
+	void loadImageFromAlternative(String url) {
+		asyncImageLoader = new AsyncImageLoader(this);
+		asyncImageLoader.execute(url);
+	}
 
+	public void setImage(Bitmap bm) {
+		ImageView image = (ImageView) findViewById(R.id.products_imageview);
+		image.setImageBitmap(bm);
 	}
 
 	void setActionbarTitle() {
@@ -289,14 +296,17 @@ public class DetailsActivity extends Activity {
 				JSONObject json = NetworkUtil.requestJsonObject(url);
 				try {
 					// Large image
-					//tempLoadImageFrom("http://www.pleiade.org/images/hubble-m45_large.jpg");
-					 loadImageFrom(json.getString("imageRequestURI"));
-					//tempLoadImageFrom(json.getString("imageRequestURI"));
+					// loadImageFromAlternative("http://www.pleiade.org/images/hubble-m45_large.jpg");
+					// loadImageFrom(json.getString("imageRequestURI"));
+					loadImageFromAlternative(json.getString("imageRequestURI"));
 				} catch (Exception e) {
 					Log.e("Error parsing image in details activity:",
 							e.getMessage());
 				}
-
+				TextView details = (TextView) findViewById(R.id.textview_description);
+				String description = json.getString("description");
+				if (!description.equals("null"))
+					details.setText(json.getString("description"));
 				product = jsonParser.parse(json);
 			} catch (Exception e) {
 				Log.e("Error parsing json in details activity:", e.getMessage());
@@ -336,14 +346,15 @@ public class DetailsActivity extends Activity {
 						dialog.cancel();
 					}
 				});
-		
-		alertDialogBuilder.setOnCancelListener(new  DialogInterface.OnCancelListener() { 
-            public  void  onCancel(DialogInterface dialog) {      	
-				notes = userInput.getText().toString();
-				TextView description = (TextView) findViewById(R.id.textview_notes);
-				description.setText(notes);
-            } 
-        }); 
+
+		alertDialogBuilder
+				.setOnCancelListener(new DialogInterface.OnCancelListener() {
+					public void onCancel(DialogInterface dialog) {
+						notes = userInput.getText().toString();
+						TextView description = (TextView) findViewById(R.id.textview_notes);
+						description.setText(notes);
+					}
+				});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -381,12 +392,13 @@ public class DetailsActivity extends Activity {
 						setQuantityButtonTitle();
 					}
 				});
-		
-		alertDialogBuilder.setOnCancelListener(new  DialogInterface.OnCancelListener() { 
-	            public  void  onCancel(DialogInterface dialog) { 
-	            	setQuantityButtonTitle();
-	            } 
-	        }); 
+
+		alertDialogBuilder
+				.setOnCancelListener(new DialogInterface.OnCancelListener() {
+					public void onCancel(DialogInterface dialog) {
+						setQuantityButtonTitle();
+					}
+				});
 
 		AlertDialog alertDialog = alertDialogBuilder.create();
 

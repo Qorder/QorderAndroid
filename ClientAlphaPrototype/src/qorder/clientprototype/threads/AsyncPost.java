@@ -1,4 +1,4 @@
-package qorder.clientprototype.util;
+package qorder.clientprototype.threads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import qorder.clientprototype.jsonparsers.JsonOrderParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.model.OrderInfo;
+import qorder.clientprototype.util.NetworkUtil;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,13 +31,7 @@ public class AsyncPost extends AsyncTask<BasketProduct, OrderInfo, OrderInfo> {
 		this.dialog = new ProgressDialog(basketActivity);
 		this.dialog.setMessage(basketActivity.getResources().getString(
 				R.string.title_postdialog));
-		dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "nevermind", new DialogInterface.OnClickListener() {
-		    @Override
-		    public void onClick(DialogInterface dialog, int which) {
-		        dialog.dismiss();
-		        cancel(true);
-		    }
-		});
+		dialog.setCancelable(false);
 		this.dialog.show();
 	}
 
@@ -58,7 +52,7 @@ public class AsyncPost extends AsyncTask<BasketProduct, OrderInfo, OrderInfo> {
 
 		try {
 			JSONObject orderJson = jsonOrderParser.parse(order);
-
+			Log.i("order json:",orderJson.toString());
 			orderInfo = NetworkUtil.sendJson(orderJson.toString(),
 					OrderHolder.getWSPostUrI());
 		} catch (Exception e) {

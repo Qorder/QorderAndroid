@@ -7,12 +7,14 @@ import org.json.JSONObject;
 
 import qorder.clientprototype.R;
 import qorder.clientprototype.activities.BasketActivity;
+import qorder.clientprototype.activities.OrdersActivity;
 import qorder.clientprototype.jsonparsers.JsonOrderParser;
 import qorder.clientprototype.model.BasketProduct;
 import qorder.clientprototype.model.OrderHolder;
 import qorder.clientprototype.model.OrderInfo;
 import qorder.clientprototype.util.NetworkUtil;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -73,6 +75,9 @@ public class AsyncPost extends AsyncTask<BasketProduct, OrderInfo, OrderInfo> {
 					basketActivity.getResources().getString(
 							R.string.text_postsuccess), Toast.LENGTH_LONG)
 					.show();
+			Intent ordersIntent = new Intent(basketActivity, OrdersActivity.class);
+			basketActivity.startActivity(ordersIntent);
+			
 			if (!mockSend)
 			{
 				OrderHolder.sendOrder(result.getId(),result.getStatus());
